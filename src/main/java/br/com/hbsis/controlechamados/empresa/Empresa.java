@@ -8,7 +8,7 @@ public class Empresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "razao_social", unique = true, nullable = false, length = 50)
     private String razaoSocial;
@@ -29,11 +29,11 @@ public class Empresa {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getRazaoSocial() {
@@ -79,7 +79,7 @@ public class Empresa {
     @Override
     public String toString() {
         return "Empresa{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", razaoSocial='" + razaoSocial + '\'' +
                 ", nomeFantasia='" + nomeFantasia + '\'' +
                 ", cnpj='" + cnpj + '\'' +
