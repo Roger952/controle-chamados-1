@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.usuario.admin;
+package br.com.hbsis.controlechamados.admin;
 
 public class AdminDTO {
     private Long id;

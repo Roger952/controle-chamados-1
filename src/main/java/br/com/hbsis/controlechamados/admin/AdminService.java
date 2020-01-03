@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.usuario.admin;
+package br.com.hbsis.controlechamados.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

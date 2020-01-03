@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.usuario.admin;
+package br.com.hbsis.controlechamados.admin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
