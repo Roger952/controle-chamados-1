@@ -13,16 +13,16 @@ public class Empresa {
     @Column(name = "razao_social", unique = true, nullable = false, length = 50)
     private String razaoSocial;
 
-    @Column(name = "nome_fantasia", unique = true, nullable = false)
+    @Column(name = "nome_fantasia", unique = true, nullable = false, length = 50)
     private String nomeFantasia;
 
-    @Column(name = "cnpj",  unique = true, nullable = false)
+    @Column(name = "cnpj",  unique = true, nullable = false, length = 14)
     private String cnpj;
 
-    @Column(name = "ie",  unique = true, nullable = false)
-    private Long ie;
+    @Column(name = "ie",  unique = true, nullable = false, length = 10)
+    private String ie;
 
-    @Column(name = "email",  unique = true, nullable = false)
+    @Column(name = "email",  unique = true, nullable = false, length = 50)
     private String email;
 
     public Empresa() {
@@ -60,11 +60,11 @@ public class Empresa {
         this.cnpj = cnpj;
     }
 
-    public Long getIe() {
+    public String getIe() {
         return ie;
     }
 
-    public void setIe(Long ie) {
+    public void setIe(String ie) {
         this.ie = ie;
     }
 

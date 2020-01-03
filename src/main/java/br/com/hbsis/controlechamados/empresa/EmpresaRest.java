@@ -28,6 +28,7 @@ public class EmpresaRest {
     public List<Empresa> findAll() {
         return this.iEmpresaRepository.findAll();
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         this.empresaService.delete(id);

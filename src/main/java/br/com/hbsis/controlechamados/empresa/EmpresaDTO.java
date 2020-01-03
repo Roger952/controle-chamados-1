@@ -1,5 +1,7 @@
 package br.com.hbsis.controlechamados.empresa;
 
+import br.com.hbsis.controlechamados.utils.ValidationCNPJ;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,12 +19,12 @@ public class EmpresaDTO {
     private String nomeFantasia;
 
     @NotNull
-    @Size(min = 14, max = 14)
+    @ValidationCNPJ(length = 14, message = "CNPJ inválido")
     private String cnpj;
 
     @NotNull
     @Size(min = 1, max = 10)
-    private Long ie;
+    private String ie;
 
     @NotNull
     @Email(message = "E-mail deve ser válido")
@@ -32,7 +34,7 @@ public class EmpresaDTO {
     public EmpresaDTO() {
     }
 
-    public EmpresaDTO(Long id, String razaoSocial, String nomeFantasia, String cnpj, Long ie, String email) {
+    public EmpresaDTO(Long id, String razaoSocial, String nomeFantasia, String cnpj, String ie, String email) {
         Id = id;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
@@ -84,11 +86,11 @@ public class EmpresaDTO {
         this.cnpj = cnpj;
     }
 
-    public Long getIe() {
+    public String getIe() {
         return ie;
     }
 
-    public void setIe(Long ie) {
+    public void setIe(String ie) {
         this.ie = ie;
     }
 
