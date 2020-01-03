@@ -1,0 +1,21 @@
+.a{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.coluna{
+    margin-top: 20%;
+    border: 1px solid #6c757d;
+    border-radius: 4px;
+}
+
+.login{
+    margin-top: 5px;
+}
+
+.entrar{
+    margin-top: 5%;
+    width: 100%;
+    margin-bottom: 10px;
+}
