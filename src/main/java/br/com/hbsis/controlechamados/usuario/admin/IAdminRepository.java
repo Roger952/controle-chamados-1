@@ -1,4 +1,10 @@
 package br.com.hbsis.controlechamados.usuario.admin;
 
-public interface IAdminRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
+
+@Repository
+interface IAdminRepository extends JpaRepository<Admin, Long> {
+
 }
