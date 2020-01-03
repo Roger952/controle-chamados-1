@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ControleChamadosApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ControleChamadosApplication.class, args);
-	}
+        public static void main(String[] args) {
+            SpringApplication.run(ControleChamadosApplication.class, args);
 
+        }
 }
