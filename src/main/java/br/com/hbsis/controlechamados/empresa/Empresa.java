@@ -10,7 +10,7 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "razao_social", unique = true, nullable = false)
+    @Column(name = "razao_social", unique = true, nullable = false, length = 50)
     private String razaoSocial;
 
     @Column(name = "nome_fantasia", unique = true, nullable = false)
