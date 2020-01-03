@@ -26,7 +26,7 @@ import java.util.Optional;
             return admin;
         }
 
-        private void validate(AdminDTO adminDTO) {
+        private Admin validate(AdminDTO adminDTO) {
             LOGGER.info("Validando o Admin");
 
             if (StringUtils.isEmpty(adminDTO.getLogin())) {
@@ -36,9 +36,24 @@ import java.util.Optional;
             if (StringUtils.isEmpty(adminDTO.getSenha())) {
                 throw new IllegalArgumentException("A senha do admin não pode ser vazia/nulo");
             }
+            Optional<Admin> adminOptional = existsUser(adminDTO.getLogin(), adminDTO.getSenha());
 
+            if (adminOptional.isPresent()) {
+                return adminOptional.get();
+            }
+
+            throw new IllegalArgumentException("Login ou Senha do Usuario errado");
         }
 
+    public Optional<Admin> existsUser(String login, String senha){
+        Optional<Admin> adminOptional = iAdminRepository.findByLoginAndSenha(login, senha);
+
+        if (adminOptional.isPresent()){
+            return adminOptional;
+        }
+
+        throw new IllegalArgumentException("Login ou Senha do Usuario errado");
+    }
 
     public List<Admin> listar() {
 
@@ -47,7 +62,6 @@ import java.util.Optional;
 
         return admin;
     }
-
 
     public AdminDTO findById(Long id) {
         Optional<Admin> adminOptional = this.iAdminRepository.findById(id);

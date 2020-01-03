@@ -32,7 +32,7 @@ public class Admin extends AbstractEntity {
     @Override
     public String toString() {
         return "Admin{" +
-                "login='" + login + '\'' +
+                "login='"   + login + '\'' +
                 ", senha='" + senha + '\'' +
                 '}';
     }
