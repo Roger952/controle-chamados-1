@@ -1,9 +1,24 @@
+body{
+    text-align: center;
+}
+
 .container{
-    margin-top: 7%;
+    margin-top: 70px;
+    margin-bottom: 15px;
 }
 
 .coluna{
     border: 1px solid #6c757d;
-    border-radius: 4px;
-    
+    border-radius: 4px; 
+}
+.coluna .btn{
+    width: 60%; 
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.row{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    min-height: 80vh;
 }
