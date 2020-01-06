@@ -24,24 +24,17 @@ public class AtendenteService {
     }
 
     /** MÉTODOS DE CRUD */
-    public AtendenteDTO save(MultipartFile file, AtendenteDTO atendenteDTO) {
+    public AtendenteDTO save(MultipartFile file, String foto) {
 
         LOGGER.info("Salvando atendente");
-        LOGGER.debug("Atendente: {}", atendenteDTO);
+        LOGGER.debug("Atendente: {}", foto);
 
         Atendente atendente = new Atendente();
-        atendente.setNome(atendenteDTO.getNome());
-        atendente.setEmail(atendenteDTO.getEmail());
-        atendente.setSenha(atendenteDTO.getSenha());
-
-        try {
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(atendenteDTO.getFoto() + ".png"));
-            atendente.setFoto(atendenteDTO.getFoto());
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Erro no upload de imagem");
-        }
+        atendente.setNome("Teste");
+        atendente.setEmail("teste@gmail.com");
+        atendente.setSenha("teste");
 
         atendente = this.iAtendenteRepository.save(atendente);
-        return atendenteDTO.of(atendente);
+        return AtendenteDTO.of(atendente);
     }
 }
