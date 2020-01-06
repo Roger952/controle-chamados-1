@@ -18,7 +18,7 @@ public class ProdutoService {
         this.iProdutoRepository = iProdutoRepository;
     }
 
-    ProdutoDTO save(ProdutoDTO produtoDTO) {
+    public ProdutoDTO save(ProdutoDTO produtoDTO) {
 
         Produto produto = new Produto();
 
@@ -44,7 +44,7 @@ public class ProdutoService {
         }
     }
 
-    List<Produto> findAll() {
+    public List<Produto> findAll() {
         LOGGER.info("Listando os Produtos");
 
         return iProdutoRepository.findAll();
@@ -56,7 +56,7 @@ public class ProdutoService {
         iProdutoRepository.deleteById(id);
     }
 
-    ProdutoDTO update(ProdutoDTO produtoDTO, Long id) {
+    public ProdutoDTO update(ProdutoDTO produtoDTO, Long id) {
         LOGGER.info("Atualizando os dados do produto ..." + id);
 
         Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
