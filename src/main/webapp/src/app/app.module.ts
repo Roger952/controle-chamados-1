@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { AtendenteComponent } from './atendente/atendente.component';
+import { EmpresaComponent } from './empresa/empresa.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,8 @@ import { AtendenteComponent } from './atendente/atendente.component';
     LoginAdminComponent,
     DashboardComponent,
     PageNotFoundComponent,
+    ProdutosComponent,
+    EmpresaComponent
     ProdutosComponent,
     AtendenteComponent
   ],
