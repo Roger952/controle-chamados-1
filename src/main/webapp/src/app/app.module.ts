@@ -17,8 +17,7 @@ import { EmpresaComponent } from './empresa/empresa.component';
     DashboardComponent,
     PageNotFoundComponent,
     ProdutosComponent,
-    EmpresaComponent
-    ProdutosComponent,
+    EmpresaComponent,
     AtendenteComponent
   ],
   imports: [
