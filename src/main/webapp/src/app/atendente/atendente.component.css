@@ -1,0 +1,40 @@
+.container{
+    margin-top: 00%;
+}
+
+.coluna{
+    display: block;
+    margin-top: 3%;
+    border: 1px solid #6c757d;
+    border-radius: 4px;
+    background-color: rgba(228, 225, 225, 0.404);  
+}
+
+h4{
+     text-align: center;
+}
+
+.imagem{
+    margin-top: 3%;
+    background-image: url("../../assets/hbsisback.jpg");
+    height: 100vh;
+    
+}
+
+.from-group{
+    margin-top: 100%;
+       
+}
+
+label{
+    font-weight: bold;
+}
+p{
+    font-weight: bold;
+}
+
+.cadastrar{
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}

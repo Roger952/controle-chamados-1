@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.exceptionHadler;
+package br.com.hbsis.controlechamados.utils.exceptionHadler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

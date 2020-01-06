@@ -1,6 +1,6 @@
 package br.com.hbsis.controlechamados.admin;
 
-import br.com.hbsis.controlechamados.entity.AbstractEntity;
+import br.com.hbsis.controlechamados.utils.entity.AbstractEntity;
 
 import javax.persistence.*;
 
