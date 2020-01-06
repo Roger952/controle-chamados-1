@@ -4,13 +4,12 @@ public class ProdutoDTO {
     private Long id;
     private String nomeProduto;
 
-    public ProdutoDTO(Long id, String nomeProduto) {
-        this.id = id;
+    public ProdutoDTO(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
 
     public static ProdutoDTO of(Produto produto){
-        return new ProdutoDTO(produto.getId(), produto.getNomeProduto());
+        return new ProdutoDTO(produto.getNomeProduto());
     }
 
     public Long getId() {
