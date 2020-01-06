@@ -87,4 +87,11 @@ public class ProdutoService {
 
         throw new IllegalArgumentException("Não existe um produto com este id");
     }
+
+    public Produto converterObjeto(ProdutoDTO produtoDTO) {
+
+        Produto produto = new Produto();
+        produto.setId(produtoDTO.getId());
+        return produto;
+    }
 }

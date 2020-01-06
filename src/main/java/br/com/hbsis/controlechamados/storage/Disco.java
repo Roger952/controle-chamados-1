@@ -56,8 +56,40 @@ public class Disco {
     }
 
     public void validate(MultipartFile file){
+
+        /** OBTER AS  */
+        String nomeArquivo = file.getOriginalFilename();
+
+        /** VALIDAR TIPO DE IMAGEM */
+        boolean validacao = isImageInCorrectType(nomeArquivo);
+
+        if(validacao){
+            LOGGER.info("Arquivo do tipo correto");
+        }else {
+            throw new IllegalArgumentException("Tipo de imagem incorreta, selecione tipo png - jpeg - jpg");
+        }
+
         if (file.getSize() > MAX_SIZE_IMAGE){
             throw new IllegalArgumentException("Tamanho de imagem deve ser menor do que 2MB");
         }
+    }
+
+    private boolean isImageInCorrectType(String nomeArquivo) {
+
+        boolean validacao = false;
+        String lastLetters = nomeArquivo.substring(nomeArquivo.length() -4);
+
+        if(lastLetters.equalsIgnoreCase(".jpg")){
+            validacao = true;
+        }
+
+        if(nomeArquivo.substring(nomeArquivo.length() -5).equalsIgnoreCase(".jpeg")){
+            validacao = true;
+        }
+
+        if(lastLetters.equalsIgnoreCase(".png")){
+            validacao = true;
+        }
+        return validacao;
     }
 }

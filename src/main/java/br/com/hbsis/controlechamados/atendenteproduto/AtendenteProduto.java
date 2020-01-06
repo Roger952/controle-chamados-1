@@ -1,6 +1,7 @@
 package br.com.hbsis.controlechamados.atendenteproduto;
 
 import br.com.hbsis.controlechamados.produtos.Produto;
+import br.com.hbsis.controlechamados.produtos.ProdutoDTO;
 import br.com.hbsis.controlechamados.usuario.atendente.Atendente;
 
 import javax.persistence.*;
@@ -20,6 +21,12 @@ public class AtendenteProduto {
     @ManyToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
+
+    /** CONSTRUTOR */
+    public AtendenteProduto(Atendente atendente, Produto produto) {
+        this.atendente = atendente;
+        this.produto = produto;
+    }
 
     public Long getId() {
         return id;
