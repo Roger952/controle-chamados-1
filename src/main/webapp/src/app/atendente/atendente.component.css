@@ -4,14 +4,16 @@
 
 .coluna{
     display: block;
-    margin-top: 3%;
+    margin-top: 10%;
     border: 1px solid #6c757d;
     border-radius: 4px;
     background-color: rgba(228, 225, 225, 0.404);  
 }
 
-h4{
+h1{
+    color: white;
      text-align: center;
+     margin-top: 3px;
 }
 
 .imagem{

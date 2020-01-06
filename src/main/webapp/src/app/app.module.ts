@@ -18,8 +18,7 @@ import { NgxMaskModule } from 'ngx-mask';
     DashboardComponent,
     PageNotFoundComponent,
     ProdutosComponent,
-    EmpresaComponent
-    ProdutosComponent,
+    EmpresaComponent,
     AtendenteComponent
   ],
   imports: [
