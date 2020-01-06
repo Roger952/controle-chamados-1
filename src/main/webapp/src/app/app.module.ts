@@ -7,6 +7,7 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProdutosComponent } from './produtos/produtos.component';
+import { AtendenteComponent } from './atendente/atendente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -18,6 +19,8 @@ import { NgxMaskModule } from 'ngx-mask';
     PageNotFoundComponent,
     ProdutosComponent,
     EmpresaComponent
+    ProdutosComponent,
+    AtendenteComponent
   ],
   imports: [
     BrowserModule,

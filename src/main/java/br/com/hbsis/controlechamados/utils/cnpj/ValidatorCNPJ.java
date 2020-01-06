@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.utils;
+package br.com.hbsis.controlechamados.utils.cnpj;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

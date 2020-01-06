@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.entity;
+package br.com.hbsis.controlechamados.utils.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
