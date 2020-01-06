@@ -8,13 +8,17 @@
           <label for="login">Login</label>
           <input class="form-control" type="email" placeholder="Digite seu nome de usuário" id="login" required>
         </div>
+       
+      
         <div class= "checkbox" class="form-group">
           <label for="senha">Senha</label>
-          <input class="form-control" type="password" placeholder="Digite sua senha" id="senha" required>
-          
+          <input name="password" minlength="25" required class="form-control" type="password" placeholder="Digite sua senha" id="senha" required>
           </div>
+          
         <button  class="entrar btn btn-secondary" type="submit" routerLink="/dashboard" routerLinkActive="active">Entrar</button>
       </form>
+
+     
     </div>
   </div>
 </div>

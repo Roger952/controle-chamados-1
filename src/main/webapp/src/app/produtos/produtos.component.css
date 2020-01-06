@@ -5,13 +5,15 @@
     background-color: rgba(228, 225, 225, 0.404);
 }
 
-h5{
+h1{
     text-align: center;
+    color: white;
 }
 
 .imagem{
     background-image: url("../../assets/hbsisback.jpg");
     height: 100vh;
+    margin-top: auto;
      
 }
 

@@ -1,6 +1,7 @@
 .imagem{
     background-image: url("../../assets/hbsisback.jpg");
     height: 100vh;
+    margin-top: auto;
  }
 
 .a{
@@ -32,4 +33,23 @@
 
 label{
    font-weight: bold;
+}
+
+
+input[type='submit'],
+label {
+    margin-top: 1rem;
+}
+
+.button
+{
+  background: #eee;
+  border: 1px solid #999;
+  cursor: pointer;
+  padding: 6px !important;
+}
+
+.button:hover
+{
+  background: #ddd;
 }
