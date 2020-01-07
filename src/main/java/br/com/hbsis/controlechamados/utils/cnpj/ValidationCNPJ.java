@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.utils;
+package br.com.hbsis.controlechamados.utils.cnpj;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

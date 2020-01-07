@@ -1,13 +1,21 @@
+.imagem{
+    background-image: url("../../assets/hbsisback.jpg");
+    height: 100vh;
+    margin-top: auto;
+ }
+
 .a{
     align-items: center;
     display: flex;
     justify-content: center;
+    
 }
 
 .coluna{
-    margin-top: 20%;
+    margin-top: 18%;
     border: 1px solid #6c757d;
     border-radius: 4px;
+    background-color: rgba(228, 225, 225, 0.404);
 }
 
 .login{
@@ -18,4 +26,30 @@
     margin-top: 5%;
     width: 100%;
     margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+}
+
+label{
+   font-weight: bold;
+}
+
+
+input[type='submit'],
+label {
+    margin-top: 1rem;
+}
+
+.button
+{
+  background: #eee;
+  border: 1px solid #999;
+  cursor: pointer;
+  padding: 6px !important;
+}
+
+.button:hover
+{
+  background: #ddd;
 }

@@ -1,6 +1,6 @@
 package br.com.hbsis.controlechamados.empresa;
 
-import br.com.hbsis.controlechamados.utils.ValidationCNPJ;
+import br.com.hbsis.controlechamados.utils.cnpj.ValidationCNPJ;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

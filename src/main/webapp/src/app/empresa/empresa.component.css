@@ -1,28 +1,41 @@
+
 .coluna{
+    display: block;
     margin-top: 18%;
     border: 1px solid #6c757d;
     border-radius: 4px;
-    background-color: rgba(228, 225, 225, 0.404);
+    background-color: rgba(228, 225, 225, 0.404);  
+
 }
 
 h1{
-    text-align: center;
     color: white;
+     text-align: center;
+     margin-top: 3px;
 }
 
 .imagem{
+   
     background-image: url("../../assets/hbsisback.jpg");
     height: 100vh;
-    margin-top: auto;
-     
+    
+}
+
+.from-group{
+    margin-top: 100%;
+       
 }
 
 label{
     font-weight: bold;
+    
+}
+p{
+    font-weight: bold;
 }
 
 .cadastrar{
-    font-weight: bold;
     color: white;
     background-color: black;
+    font-weight: bold;
 }
