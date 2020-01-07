@@ -26,7 +26,7 @@ public class ProdutoService {
 
         this.validate(produtoDTO);
 
-        produto.setNomeProduto(produtoDTO.getNomeProduto());
+        produto.setNome(produtoDTO.getNome());
 
         produto = iProdutoRepository.save(produto);
 
@@ -36,10 +36,10 @@ public class ProdutoService {
     private void validate(ProdutoDTO produtoDTO) {
         LOGGER.info("Validando os Produtos");
 
-        if (StringUtils.isEmpty(produtoDTO.getNomeProduto())) {
+        if (StringUtils.isEmpty(produtoDTO.getNome())) {
             throw new IllegalArgumentException("O nome do produto não pode ser vazio");
         }
-        if (iProdutoRepository.existsByNomeProduto(produtoDTO.getNomeProduto())) {
+        if (iProdutoRepository.existsByNome(produtoDTO.getNome())) {
             throw new IllegalArgumentException("Já existe um produto com este mesmo nome");
         }
     }
@@ -67,7 +67,7 @@ public class ProdutoService {
 
             Produto produto = optionalProduto.get();
 
-            produto.setNomeProduto(produtoDTO.getNomeProduto());
+            produto.setNome(produtoDTO.getNome());
 
             produto = iProdutoRepository.save(produto);
 

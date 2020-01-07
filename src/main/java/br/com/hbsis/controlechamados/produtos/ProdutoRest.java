@@ -18,24 +18,24 @@ public class ProdutoRest {
         this.produtoService = produtoService;
     }
 
-    @GetMapping("/lista-produto")
+    @GetMapping("/lista")
 
     public ResponseEntity<?> listAll() {
         return new ResponseEntity<>(produtoService.findAll(), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/save-produto")
-    public ResponseEntity<?> save(@RequestBody ProdutoDTO produtoDTO) {
-        return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.OK);
+    @PostMapping("/save")
+    public ProdutoDTO save(@RequestBody ProdutoDTO produtoDTO) {
+        return produtoService.save(produtoDTO);
     }
 
-    @DeleteMapping("/delete-produto/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         produtoService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/update-produto/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody ProdutoDTO produtoDTO, @PathVariable Long id) {
         produtoService.update(produtoDTO, id);
         return new ResponseEntity<>(HttpStatus.OK);
