@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/empresa")
 public class EmpresaRest {
 
@@ -19,7 +20,7 @@ public class EmpresaRest {
         this.iEmpresaRepository = iEmpresaRepository;
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public EmpresaDTO save(@Valid @RequestBody EmpresaDTO empresaDTO) {
         return this.empresaService.save(empresaDTO);
     }
