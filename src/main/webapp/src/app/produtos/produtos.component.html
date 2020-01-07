@@ -13,13 +13,13 @@
 
         <div class="row">
           <div class="col-12">
-            <form action=""><!-- FORMULÁRIO -->
+            <form action="" (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
 
               <div class="row">
                 <div class="col-12">
 
                   <div class="col-12">
-                    <input autocomplete="off" id="nome" class="input" type="text" pattern=".+" required />
+                    <input autocomplete="off" id="nome" name="nome" #nome="ngModel" [(ngModel)]="produto.nome" class="input" type="text" pattern=".+" required />
                     <label class="label" for="nome">Nome</label>
 
                     <div class="underDiv">
