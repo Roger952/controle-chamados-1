@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @Entity(name = "seg_produto")
 public class Produto extends AbstractEntity {
 
-    @Column(name = "nome_produto", unique = true, nullable = false, length = 50)
+    @Column(name = "nome", unique = true, nullable = false, length = 50)
     private String nomeProduto;
 
     public String getNomeProduto() {
