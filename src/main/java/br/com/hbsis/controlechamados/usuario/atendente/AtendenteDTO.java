@@ -1,5 +1,11 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
+import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
+import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AtendenteDTO {
 
     /** ATRIBUTOS */
@@ -7,41 +13,36 @@ public class AtendenteDTO {
     private String nome;
     private String foto;
     private String email;
-//    private List<ITEM> itemList;
+    private List<AtendenteProdutoDTO> atendenteProdutoDTOList;
     private String senha;
 
     /** CONSTRUTORES */
     public AtendenteDTO() {
     }
 
-    public AtendenteDTO(Long id, String nome, String foto, String email, String senha) {
+    public AtendenteDTO(Long id, String nome, String foto, String email, List<AtendenteProdutoDTO> atendenteProdutoDTOList, String senha) {
         this.id = id;
         this.nome = nome;
         this.foto = foto;
         this.email = email;
+        this.atendenteProdutoDTOList = atendenteProdutoDTOList;
         this.senha = senha;
     }
 
     public static AtendenteDTO of(Atendente atendente) {
-        return new AtendenteDTO(
 
+        List<AtendenteProdutoDTO> atendenteProdutoDTOList = new ArrayList<>();
+        atendente.getAtendenteProdutoList().forEach(atendenteProduto -> atendenteProdutoDTOList.add(AtendenteProdutoDTO.of(atendenteProduto)));
+
+        return new AtendenteDTO(
                 atendente.getId(),
                 atendente.getNome(),
                 atendente.getFoto(),
                 atendente.getEmail(),
-
+                atendenteProdutoDTOList,
                 atendente.getSenha()
         );
     }
-
-//    public AtendenteDTO(Long id, String nome, String foto, String email, List<ITEM> itemList, String senha) {
-//        this.id = id;
-//        this.nome = nome;
-//        this.foto = foto;
-//        this.email = email;
-//        this.itemList = itemList;
-//        this.senha = senha;
-//    }
 
     /** GETTER & SETTER */
     public Long getId() {
@@ -76,13 +77,13 @@ public class AtendenteDTO {
         this.email = email;
     }
 
-    /*public List<ITEM> getItemList() {
-        return itemList;
+    public List<AtendenteProdutoDTO> getAtendenteProdutoDTOList() {
+        return atendenteProdutoDTOList;
     }
 
-    public void setItemList(List<ITEM> itemList) {
-        this.itemList = itemList;
-    }*/
+    public void setAtendenteProdutoDTOList(List<AtendenteProdutoDTO> atendenteProdutoDTOList) {
+        this.atendenteProdutoDTOList = atendenteProdutoDTOList;
+    }
 
     public String getSenha() {
         return senha;
@@ -99,8 +100,8 @@ public class AtendenteDTO {
                 ", nome='" + nome + '\'' +
                 ", foto='" + foto + '\'' +
                 ", email='" + email + '\'' +
+                ", atendenteProdutoDTOList=" + atendenteProdutoDTOList +
                 ", senha='" + senha + '\'' +
                 '}';
     }
-
 }

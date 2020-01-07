@@ -1,6 +1,9 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
+import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "seg_atendentes")
@@ -13,18 +16,18 @@ public class Atendente {
     @Column(name = "nome", unique = false, nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "foto", unique = false, nullable = false, length = 100)
+    @Column(name = "foto", unique = false, nullable = false, length = 50)
     private String foto;
 
     @Column(name = "email", unique = true, nullable = false, length = 50)
     private String email;
 
-    @Column(name = "senha", unique = false, nullable = false, length = 20)
+    @Column(name = "senha", unique = false, nullable = false, length = 30)
     private String senha;
 
-//    @OneToMany
-//    @JoinColumn(name = "id_atendente", referencedColumnName = "id")
-//    private List<ITEM> itemList;
+    @OneToMany
+    @JoinColumn(name = "id_atendente", referencedColumnName = "id")
+    private List<AtendenteProduto> atendenteProdutoList;
 
     /** GETTER & SETTER */
     public Long getId() {
@@ -67,6 +70,14 @@ public class Atendente {
         this.senha = senha;
     }
 
+    public List<AtendenteProduto> getAtendenteProdutoList() {
+        return atendenteProdutoList;
+    }
+
+    public void setAtendenteProdutoList(List<AtendenteProduto> atendenteProdutoList) {
+        this.atendenteProdutoList = atendenteProdutoList;
+    }
+
     @Override
     public String toString() {
         return "Atendente{" +
@@ -75,6 +86,7 @@ public class Atendente {
                 ", foto='" + foto + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
+                ", atendenteProdutoList=" + atendenteProdutoList +
                 '}';
     }
 }
