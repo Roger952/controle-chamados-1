@@ -1,23 +1,38 @@
-<div class= "imagem">
-    <div class="container">
-  <div class="row justify-content-md-center">
-    <div class="coluna col-4 justify-content-md-center">
-      <form>
-            
-        <div class="form-group login">
-          <label for="login">Login</label>
-          <input class="form-control" type="text" placeholder="Digite seu nome de usuário" id="login" required>
-        </div>
-       
-      
-        <div class= "checkbox" class="form-group">
-          <label for="senha">Senha</label>
-          <input name="password" maxlength="25"  minlength="4" required class="form-control" type="password" placeholder="Digite sua senha" id="senha" required>
+<div class= "background">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <form action="">
+
+          <div class="col-12">
+            <input autocomplete="off" id="login" class="input" type="email" pattern=".+" required />
+            <label class="label" for="login">Login</label>
+
+            <div class="underDiv">
+              <div class="underDivLeft"></div>
+              <div class="underDivRight"></div>
+            </div>
           </div>
-          
-        <button  class="entrar btn btn-secondary" type="submit" routerLink="/dashboard" routerLinkActive="active">Entrar</button>
-      </form>
+
+          <div class="col-12">
+            <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required />
+            <label class="label" for="senha">Senha</label>
+
+            <div class="underDiv">
+              <div class="underDivLeft"></div>
+              <div class="underDivRight"></div>
+            </div>
+          </div>
+
+          <div id="row-btn" class="row">
+            <div id="col-btn" class="col-12">
+              <button  class="btn btn-dark" type="submit" routerLink="/dashboard" routerLinkActive="active">Entrar</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </div>

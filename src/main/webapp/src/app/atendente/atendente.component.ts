@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-atendente',
@@ -12,4 +13,6 @@ export class AtendenteComponent implements OnInit {
   ngOnInit() {
   }
 
+  toppings = new FormControl();
+  toppingList: string[] = ['Gustavo', 'Guga', 'Guganaro', 'Guguero', 'Bacon', 'Tomate'];
 }
