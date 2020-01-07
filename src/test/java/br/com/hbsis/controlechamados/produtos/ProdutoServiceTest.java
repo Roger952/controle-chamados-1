@@ -27,7 +27,7 @@ public class ProdutoServiceTest {
 
         Produto produtomock = Mockito.mock(Produto.class);
 
-        when(produtomock.getNomeProduto()).thenReturn(produtoDTO.getNomeProduto());
+        when(produtomock.getNome()).thenReturn(produtoDTO.getNome());
 
         when(this.iProdutoRepository.save(any())).thenReturn(produtomock);
 
@@ -36,6 +36,6 @@ public class ProdutoServiceTest {
         verify(this.iProdutoRepository, times(1)).save(this.argumentCaptor.capture());
         Produto createdUsuario = argumentCaptor.getValue();
 
-        assertTrue("O nome do produto não deve ser nulo", !createdUsuario.getNomeProduto().isEmpty());
+        assertTrue("O nome do produto não deve ser nulo", !createdUsuario.getNome().isEmpty());
     }
 }

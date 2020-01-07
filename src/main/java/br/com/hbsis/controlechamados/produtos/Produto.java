@@ -9,20 +9,20 @@ import javax.persistence.Entity;
 public class Produto extends AbstractEntity {
 
     @Column(name = "nome", unique = true, nullable = false, length = 50)
-    private String nomeProduto;
+    private String nome;
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
     public String toString() {
         return "Produto{" +
-                "nomeProduto='" + nomeProduto + '\'' +
+                "nome='" + nome + '\'' +
                 '}';
     }
 }
