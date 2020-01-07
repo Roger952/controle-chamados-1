@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 public class EmpresaDTO {
 
-    private Long Id;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -35,7 +35,7 @@ public class EmpresaDTO {
     }
 
     public EmpresaDTO(Long id, String razaoSocial, String nomeFantasia, String cnpj, String ie, String email) {
-        Id = id;
+        this.id = id;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
@@ -55,11 +55,11 @@ public class EmpresaDTO {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getRazaoSocial() {
