@@ -1,3 +1,5 @@
+import { EmpresaService } from '../empresa.service';
+import { Empresa } from '../empresa';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmpresaComponent implements OnInit {
 
-  constructor() { }
+  empresa: Empresa = new Empresa();
+  submitted = false;
+
+  constructor(private empresaService: EmpresaService) { }
 
   ngOnInit() {
   }
 
+  newEmpresa(): void{
+    this.submitted = false;
+    this.empresa = new Empresa();
+  }
+  save(){
+    this.empresaService.createEmpresa(this.empresa).subscribe(data => alert("Aplicação deu certo."), error => alert("Erro ao cadastrar."));
+  this.empresa = new Empresa();
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();    
+  }
 }
