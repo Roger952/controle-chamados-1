@@ -29,15 +29,20 @@ public class ProdutoRest {
         return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/delete-produto/{id}")
+    @DeleteMapping("/delete-produto/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         produtoService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping(path = "/update-produto/{id}")
+    @PutMapping("/update-produto/{id}")
     public ResponseEntity<?> update(@RequestBody ProdutoDTO produtoDTO, @PathVariable Long id) {
         produtoService.update(produtoDTO, id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        return new ResponseEntity<>(produtoService.findById(id), HttpStatus.OK);
     }
 }

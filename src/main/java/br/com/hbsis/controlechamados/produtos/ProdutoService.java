@@ -18,7 +18,7 @@ public class ProdutoService {
         this.iProdutoRepository = iProdutoRepository;
     }
 
-    ProdutoDTO save(ProdutoDTO produtoDTO) {
+    public ProdutoDTO save(ProdutoDTO produtoDTO) {
 
         Produto produto = new Produto();
 
@@ -44,19 +44,19 @@ public class ProdutoService {
         }
     }
 
-    List<Produto> findAll() {
+    public List<Produto> findAll() {
         LOGGER.info("Listando os Produtos");
 
         return iProdutoRepository.findAll();
     }
 
-    void deleteById(Long id) {
+    public void deleteById(Long id) {
         LOGGER.info("Deletando o produto ... " + id);
 
         iProdutoRepository.deleteById(id);
     }
 
-    ProdutoDTO update(ProdutoDTO produtoDTO, Long id) {
+    public ProdutoDTO update(ProdutoDTO produtoDTO, Long id) {
         LOGGER.info("Atualizando os dados do produto ..." + id);
 
         Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
@@ -74,5 +74,24 @@ public class ProdutoService {
             return ProdutoDTO.of(produto);
         }
         throw new IllegalArgumentException("O id deste Produto não existe");
+    }
+
+    public ProdutoDTO findById (Long id){
+        LOGGER.info("Procurando o Produto..." +  id);
+
+        Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
+
+        if (optionalProduto.isPresent()){
+            return ProdutoDTO.of(optionalProduto.get());
+        }
+
+        throw new IllegalArgumentException("Não existe um produto com este id");
+    }
+
+    public Produto converterObjeto(ProdutoDTO produtoDTO) {
+
+        Produto produto = new Produto();
+        produto.setId(produtoDTO.getId());
+        return produto;
     }
 }
