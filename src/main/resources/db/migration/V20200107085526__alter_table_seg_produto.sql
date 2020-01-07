@@ -1,0 +1,1 @@
+exec sp_rename 'seg_produto.[nome_produto]', 'nome', 'column';
