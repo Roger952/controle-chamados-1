@@ -13,11 +13,11 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <form action=""><!-- FORMULÁRIO -->
+                        <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
 
                             <div class="row" id="rowLados">
                                 <div class="col-12">
-                                    <input autocomplete="off" id="nome" class="input" type="text" pattern=".+" required />
+                                    <input autocomplete="off" id="nome" class="input" type="text" pattern=".+" required [(ngModel)]="atendente.nome" name="nome"/>
                                     <label class="label" for="nome">Nome</label>
 
                                     <div class="underDiv">
@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <input autocomplete="off" id="email" class="input" type="text" pattern=".+" required />
+                                    <input autocomplete="off" id="email" class="input" type="text" pattern=".+" required [(ngModel)]="atendente.email" name="email"/>
                                     <label class="label" for="email">Email</label>
 
                                     <div class="underDiv">
@@ -37,7 +37,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <input autocomplete="off" id="senha" class="input" type="text" pattern=".+" required />
+                                    <input autocomplete="off" id="senha" class="input" type="text" pattern=".+" required [(ngModel)]="atendente.senha" name="senha"/>
                                     <label class="label" for="senha">Senha</label>
 
                                     <div class="underDiv">
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                        <input type="file" class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto" name="foto">
                                         <label class="custom-file-label" for="validatedCustomFile">Escolher arquivo...</label>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                     <mat-form-field id="checkEscolha">
-                                        <mat-label id="labelEscolha">Selecione</mat-label>
+                                        <mat-label id="labelEscolha">Selecione produtos</mat-label>
                                         <mat-select [formControl]="toppings" multiple>
                                           <mat-option id="optionEscolha" *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
                                         </mat-select>

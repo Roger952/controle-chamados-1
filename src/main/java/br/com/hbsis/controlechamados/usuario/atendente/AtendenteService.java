@@ -44,6 +44,7 @@ public class AtendenteService {
         atendente.setNome(atendenteDTO.getNome());
         atendente.setEmail(atendenteDTO.getEmail());
         atendente.setSenha(atendenteDTO.getSenha());
+        atendente.setFoto(file.getOriginalFilename());
 
         /** LISTA DE ITENS */
         atendente.setAtendenteProdutoList(saveAtendenteProduto(atendenteDTO.getAtendenteProdutoDTOList(), atendente));
