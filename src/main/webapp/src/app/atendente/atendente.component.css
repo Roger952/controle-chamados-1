@@ -6,6 +6,8 @@
     display: flex;
     background: url("../../assets/hbsisback.jpg");
     margin: 0px;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .container{
