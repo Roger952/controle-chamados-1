@@ -1,49 +1,80 @@
 <app-dashboard></app-dashboard>
 
-<div class= "imagem">
-    <div class="container">
-     
-      <div class="row justify-content-md-center">
-            <div class="coluna col-10 justify-content-md">
-                <form style="margin: 1px;">
-                  <h1>Cadastro de Empresa </h1>
+<div class="background">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-
-                    <label for="razaoSocial">Razão Social</label>
-                    <input class="form-control" placeholder="Digite sua Razão Social" type="text" id="razaoSocial">
-                  </div>
-
-            
-                <div class="form-group col-md-6">
-                    <label for="nomeFantasia">Nome Fantasia</label>
-                    <input class="form-control" placeholder="Digite seu Nome Fantasia" type="text" id="nomeFantasia">
-                </div>
-                
-                <div class="form-group mr-auto">
-                    <label for="ie">Inscrição Estadual</label>
-                    <input class="form-control" placeholder="Digite sua IE" type="text" id="ie">
-                </div>
-              
-                <div class="form-group col-md-6 mx-auto">
-                    <label for="email">E-mail</label>
-                    <input class="form-control" placeholder="Digite seu e-mail" type="text" id="email">
-                </div> 
-                
-
-                <div class="form-group ml-auto">
-                    <label for="cnpj">CNPJ</label>
-                    <input class="form-control" placeholder="Digite seu CNPJ" type="text" mask="00.000.000/0000-00" id="cnpj" >                    
-                </div>
-            
-                 
-                <button class="cadastrar btn btn-secondary mx-auto mb-2" type="submit" style="width: 35%; margin-left: 20%; margin-right: 20%;">Cadastrar</button>
-            </div>
-            </form>
-        
+        <div class="row titulo"><!--LINHA DO TÍTULO-->
+          <div class="col-12">
+            <h1>Cadastro de Empresa</h1>
+          </div>
         </div>
+
+        <div class="row">
+          <div id="col-12" class="col-12">
+            <form action=""><!-- FORMULÁRIO -->
+
+              <!-- CAMPOS DE TEXTO -->
+              <div class="col-12">
+                <input autocomplete="off" id="razaoSocial" class="input" type="text" pattern=".+" required />
+                <label class="label" for="razaoSocial">Razão Social</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <input autocomplete="off" id="nomeFantasia" class="input" type="text" pattern=".+" required />
+                <label class="label" for="nomeFantasia">Nome Fantasia</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <input mask="00.000.000/0000-00" autocomplete="off" id="cnpj" class="input" type="text" pattern=".+" required />
+                <label class="label" for="cnpj">CNPJ</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <input autocomplete="off" id="ie" class="input" type="text" pattern=".+" required />
+                <label class="label" for="ie">Incrição Estadual</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <input autocomplete="off" id="email" class="input" type="text" pattern=".+" required />
+                <label class="label" for="email">E-mail</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+
+              <div id="row-btn" class="row">
+                <div id="col-btn" class="col-12">
+                  <button id="btn-dark" class="btn btn-dark" type="submit">Cadastrar Empresa</button>
+                </div>
+              </div>
+              <!-- CAMPOS DE TEXTO -->
+
+            </form><!-- FORMULÁRIO -->
+          </div>
+        </div>
+
+      </div>
     </div>
-</div>
+  </div>
 </div>
 

@@ -1,17 +1,48 @@
 <app-dashboard></app-dashboard>
-<div class= "imagem">
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="coluna col-5 justify-content-md">
-            <form style="margin: 10px;">
-                <h1>Cadastro de produto</h1>
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input class="form-control"  placeholder="Digite o nome do produto" type="text" id="nome" required>
-                </div>
-                <button class="cadastrar btn btn-secondary" type="submit" style="width: 45%; margin-left: 28%; margin-right: 25%; margin-bottom: 10px;">Cadastrar</button>
-            </form>
+
+<div class="background">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="row titulo"><!--LINHA DO TÍTULO-->
+          <div class="col-12">
+            <h1>Cadastro de Produto</h1>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col-12">
+            <form action=""><!-- FORMULÁRIO -->
+
+              <div class="row">
+                <div class="col-12">
+
+                  <div class="col-12">
+                    <input autocomplete="off" id="nome" class="input" type="text" pattern=".+" required />
+                    <label class="label" for="nome">Nome</label>
+
+                    <div class="underDiv">
+                      <div class="underDivLeft"></div>
+                      <div class="underDivRight"></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <button class="btn btn-dark" type="submit">Cadastrar Produto</button>
+                </div>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+
+      </div>
     </div>
-</div>
+  </div>
 </div>
