@@ -4,9 +4,12 @@
       <div class="col-12">
 
         <form action="">
+          <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+          <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
 
           <div class="col-12">
-            <input autocomplete="off" id="login" class="input" type="email" pattern=".+" required />
+            <input autocomplete="off" id="login" class="input" type="text" pattern=".+" required [(ngModel)]="login"
+            name="login"/>
             <label class="label" for="login">Login</label>
 
             <div class="underDiv">
@@ -16,7 +19,8 @@
           </div>
 
           <div class="col-12">
-            <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required />
+            <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required  [(ngModel)]="senha" id="senha" 
+            name="senha">
             <label class="label" for="senha">Senha</label>
 
             <div class="underDiv">
@@ -27,7 +31,7 @@
 
           <div id="row-btn" class="row">
             <div id="col-btn" class="col-12">
-              <button  class="btn btn-dark" type="submit" routerLink="/dashboard" routerLinkActive="active">Entrar</button>
+              <button  (click)=handleLogin()  class="entrar btn btn-secondary"  >Entrar</button>
             </div>
           </div>
 
