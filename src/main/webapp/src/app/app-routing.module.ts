@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'atendente', component: AtendenteComponent},
   { path: 'empresa', component: EmpresaComponent },
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
+  {path: 'logout', component: LoginAdminComponent},
 ];
 
 @NgModule({

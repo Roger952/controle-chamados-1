@@ -27,7 +27,7 @@
 
       <ul class="nav navbar-nav ml-auto mr-5">
         <li class="nav-item">
-          <a class="nav-link" href="/login-admin">Sair</a>
+          <a *ngIf="isLoggedIn" class="nav-link" href="/login-admin" (click)=handleLogout()>Sair</a>
         </li>
       </ul>
     </div>

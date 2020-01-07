@@ -5,11 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 import { ProdutosComponent } from './produtos/produtos.component';
 import { AtendenteComponent } from './atendente/atendente.component';
+
 import { EmpresaComponent } from './empresa/empresa.component';
 import { NgxMaskModule } from 'ngx-mask';
+
+import { FormsModule } from '@angular/forms';
+//import { LogoutComponent } from './login-admin/logout.component';
+
+import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,14 +28,24 @@ import { NgxMaskModule } from 'ngx-mask';
     PageNotFoundComponent,
     ProdutosComponent,
     EmpresaComponent,
-    AtendenteComponent
+    AtendenteComponent,
+    //LogoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
