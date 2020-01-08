@@ -19,6 +19,7 @@ public class ValidatorCNPJ implements ConstraintValidator<ValidationCNPJ, String
 
     public boolean isValid(String cnpj, ConstraintValidatorContext context) {
         LOGGER.info(" :D Validando CNPJ {} :D", cnpj);
+        cnpj.replaceAll("\\D", "");
         if (StringUtils.isEmpty(cnpj)) {
             LOGGER.info(" :D CNPJ inválido {} :D", cnpj);
             return false;
