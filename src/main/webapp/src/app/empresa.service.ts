@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Empresa } from './empresa';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,9 @@ export class EmpresaService {
     return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
   }
 
-  getEmpresaList(): Observable<any> {
-    return this.http.get(`${this.baseUrl+'/findAll'}`);
+  
+  getEmpresaList(): Observable<Empresa[]> {
+    return this.http.get<Empresa[]>(`${this.baseUrl+'/findAll'}`);
   }
 
 }

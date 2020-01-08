@@ -16,6 +16,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { EmpresaListComponent } from './empresa-list/empresa-list.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
+    EmpresaListComponent,
+    InicioComponent
     //LogoutComponent
   ],
   imports: [

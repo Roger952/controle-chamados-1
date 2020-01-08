@@ -31,7 +31,7 @@ export class LoginAdminComponent implements OnInit {
       this.invalidLogin = false;
       this.loginSuccess = true;
       this.successMessage = 'Login Successful.';
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/inicio']);
     }, () => {
       this.invalidLogin = true;
       this.loginSuccess = false;

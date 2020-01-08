@@ -28,7 +28,7 @@ export class ProdutosService {
         return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
     }
 
-    getProdutosList(): Observable<any>{
-        return this.http.get<Produtos>(`${this.baseUrl+'/lista'}`);
+    getProdutosList(): Observable<Produtos[]>{
+        return this.http.get<Produtos[]>(`${this.baseUrl+'/lista'}`);
     }
 }

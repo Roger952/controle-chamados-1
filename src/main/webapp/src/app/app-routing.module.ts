@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProdutosComponent } from './produtos/produtos.component';
 import { AtendenteComponent } from './atendente/atendente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
-
+import { InicioComponent } from './inicio/inicio.component';
 
 const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent, },
@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'produtos', component: ProdutosComponent },
   { path: 'atendente', component: AtendenteComponent},
   { path: 'empresa', component: EmpresaComponent },
+  { path: 'inicio', component: InicioComponent },
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
