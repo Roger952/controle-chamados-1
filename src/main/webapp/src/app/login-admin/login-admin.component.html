@@ -2,15 +2,23 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
+        <div class="row titulo"><!--LINHA DO TÍTULO-->
+          <div class="titulo col-12">
+            <h2>Login</h2>
+          </div>
+        </div>
 
         <form action="">
           <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
           <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
 
           <div class="col-12">
+
+            
+            
             <input autocomplete="off" id="login" class="input" type="text" pattern=".+" required [(ngModel)]="login"
             name="login"/>
-            <label class="label" for="login">Login</label>
+            <label class="label" for="login">Usuário</label>
 
             <div class="underDiv">
               <div class="underDivLeft"></div>
@@ -31,12 +39,12 @@
 
           <div id="row-btn" class="row">
             <div id="col-btn" class="col-12">
-              <button  (click)=handleLogin()  class="entrar btn btn-secondary"  >Entrar</button>
+              <button  (click)=handleLogin() class="entrar btn btn-secondary"  >Entrar</button>
             </div>
           </div>
 
         </form>
-      </div>
+      </div> 
     </div>
   </div>
 </div>

@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import { LogoutComponent } from './login-admin/logout.component';
 
+
 import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -26,7 +27,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
-    //LogoutComponent
+    //LogoutComponent,
+  
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProdutosComponent } from './produtos/produtos.component';
 import { AtendenteComponent } from './atendente/atendente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
+import { from } from 'rxjs';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'produtos', component: ProdutosComponent },
   { path: 'atendente', component: AtendenteComponent},
   { path: 'empresa', component: EmpresaComponent },
+ 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
