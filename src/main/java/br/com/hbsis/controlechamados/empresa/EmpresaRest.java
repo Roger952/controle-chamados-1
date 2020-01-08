@@ -25,7 +25,7 @@ public class EmpresaRest {
         return this.empresaService.save(empresaDTO);
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Empresa> findAll() {
         return this.iEmpresaRepository.findAll();
     }
