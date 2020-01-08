@@ -12,6 +12,7 @@ export class AuthenticationService {
 
   public login: String;
   public senha: String;
+  private usuarioAutenticado: boolean = false;
 
   constructor(private http: HttpClient) {
 
@@ -23,6 +24,7 @@ export class AuthenticationService {
         this.login = login;
         this.senha = senha;
         this.registerSuccessfulLogin(login, senha);
+        this.usuarioAutenticado = true;
       }));
   }
 
@@ -50,5 +52,9 @@ export class AuthenticationService {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
     if (user === null) return ''
     return user
+  }
+
+  LoggedUser(){
+    return this.usuarioAutenticado;
   }
 }

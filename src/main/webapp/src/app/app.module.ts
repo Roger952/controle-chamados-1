@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './seguranca/auth.guard';
 
 @NgModule({
   declarations: [
@@ -45,8 +46,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
