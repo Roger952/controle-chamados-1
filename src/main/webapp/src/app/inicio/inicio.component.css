@@ -1,0 +1,39 @@
+/* CSS GERAL */
+.background{
+    justify-content: center;
+   
+    display: flex;
+    background: url("../../assets/hbsisback.jpg");
+    margin: 0px;
+    
+    background-size: 100%;
+}
+
+.container{
+    width: 60%;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.col-12{
+    padding: 0px;
+} 
+
+.table{
+    border-radius: 6px;
+}
+
+
+h2{
+    color: white;
+    padding: 10px;
+}
+
+#rd{
+    display: none;
+}
+
+#rd:checked ~  #table{
+    overflow: visible;
+}
+

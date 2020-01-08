@@ -17,7 +17,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { EmpresaListComponent } from './empresa-list/empresa-list.component';
+import { InicioComponent } from './inicio/inicio.component';
+
 import { AuthGuard } from './seguranca/auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -28,8 +33,9 @@ import { AuthGuard } from './seguranca/auth.guard';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
-    //LogoutComponent,
-  
+
+    EmpresaListComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

@@ -17,12 +17,19 @@ export class AtendenteComponent implements OnInit {
 
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
+
+  toppings = new FormControl();
+  toppingList: Produtos[];
+
+
+
   ngOnInit() {
    this.produtoService.getProdutosList().subscribe(data => {
     this.toppingList = data;
    }, error =>{
      console.log(error)
    });
+
   }
 
   toppings = new FormControl();
