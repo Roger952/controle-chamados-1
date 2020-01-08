@@ -100,3 +100,13 @@
 label{
    font-weight: bold;
 }
+
+.titulo{
+
+    font-weight: bold;
+    margin: auto;
+    color: rgb(26, 55, 68);
+    text-align: center;
+
+}
+

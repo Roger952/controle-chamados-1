@@ -93,7 +93,7 @@
 
 /*SELECT PRODUTO*/
 #labelEscolha{
-    color:#3d3d3d;
+    color:grey;
 }
 
 #optionEscolha{
@@ -159,6 +159,7 @@
 ::ng-deep .ng-tns-c6-1{
     color: #3d3d3d;
 }
+
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
     background-color: grey;
     height: 2px !important;
@@ -166,3 +167,4 @@
 ::ng-deep .mat-select-arrow{
     color: #3d3d3d;
 }
+

@@ -12,7 +12,7 @@ export class LoginAdminComponent implements OnInit {
  
   login: string;
   senha: string;
-  errorMessage = 'Login ou Senha inválidos/nulos!';
+  errorMessage = 'Usuário e/ou Senha inválidos/nulos!';
   successMessage: string;
   invalidLogin = false;
   loginSuccess = false;

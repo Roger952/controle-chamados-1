@@ -14,10 +14,15 @@ import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import { LogoutComponent } from './login-admin/logout.component';
 
+
 import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
+
+import { AuthGuard } from './seguranca/auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -28,9 +33,9 @@ import { InicioComponent } from './inicio/inicio.component';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
+
     EmpresaListComponent,
     InicioComponent
-    //LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +52,9 @@ import { InicioComponent } from './inicio/inicio.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

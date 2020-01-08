@@ -8,19 +8,25 @@ import { AtendenteComponent } from './atendente/atendente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { InicioComponent } from './inicio/inicio.component';
 
+import { AuthGuard } from './seguranca/auth.guard';
+
+
 const routes: Routes = [
-  { path: 'login-admin', component: LoginAdminComponent, },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'produtos', component: ProdutosComponent },
-  { path: 'atendente', component: AtendenteComponent},
-  { path: 'empresa', component: EmpresaComponent },
+  { path: 'login-admin', component: LoginAdminComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
+  { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
+  { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard] },
   { path: 'inicio', component: InicioComponent },
+
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+  ]
 })
 export class AppRoutingModule { }
