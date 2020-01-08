@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Atendente } from '../atendente';
 import { AtendenteService } from '../atendente.service';
+import { ProdutosService } from '../produtos.service';
+import { Produtos } from '../produtos';
 
 @Component({
   selector: 'app-atendente',
@@ -13,10 +15,10 @@ export class AtendenteComponent implements OnInit {
   atendente: Atendente = new Atendente();
   submitted = false;
 
-  constructor(private atendenteService: AtendenteService) { }
+  constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
   toppings = new FormControl();
-  toppingList: string[] = ['Gustavo', 'Guga', 'Guganaro', 'Guguero', 'Bacon', 'Tomate'];
+  toppingList: string[];
 
   ngOnInit() {
 

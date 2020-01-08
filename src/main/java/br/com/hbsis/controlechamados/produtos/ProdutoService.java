@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Service
 public class ProdutoService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoService.class);
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoService.class);
     private final IProdutoRepository iProdutoRepository;
 
     public ProdutoService(IProdutoRepository iProdutoRepository) {
