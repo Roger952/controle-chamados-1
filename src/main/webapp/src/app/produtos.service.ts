@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Produtos } from './produtos';
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,6 @@ export class ProdutosService {
     }
 
     getProdutosList(): Observable<any>{
-        return this.http.get(`${this.baseUrl+'/lista'}`);
+        return this.http.get<Produtos>(`${this.baseUrl+'/lista'}`);
     }
 }

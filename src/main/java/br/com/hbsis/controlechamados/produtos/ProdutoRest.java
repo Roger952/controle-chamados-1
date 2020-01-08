@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/produtos")
@@ -19,7 +21,6 @@ public class ProdutoRest {
     }
 
     @GetMapping("/lista")
-
     public ResponseEntity<?> listAll() {
         return new ResponseEntity<>(produtoService.findAll(), HttpStatus.ACCEPTED);
     }

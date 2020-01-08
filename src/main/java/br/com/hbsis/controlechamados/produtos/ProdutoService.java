@@ -2,6 +2,7 @@ package br.com.hbsis.controlechamados.produtos;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -10,10 +11,11 @@ import java.util.Optional;
 
 @Service
 public class ProdutoService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoService.class);
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoService.class);
     private final IProdutoRepository iProdutoRepository;
 
+    @Autowired
     public ProdutoService(IProdutoRepository iProdutoRepository) {
         this.iProdutoRepository = iProdutoRepository;
     }

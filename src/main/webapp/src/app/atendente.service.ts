@@ -5,30 +5,29 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresaService {
+export class AtendenteService {
 
-  private baseUrl = 'http://localhost:8080/empresa';
+  private baseUrl = 'http://localhost:8080/atendente';
 
   constructor(private http: HttpClient) { }
 
-  getEmpresa(id: number): Observable<any> {
+  getAtendente(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
   }
 
-  createEmpresa(empresa: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl+'/save'}`, empresa);
+  createAtendente(atendente: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl+'/save'}`, atendente);
   }
 
-  updateEmpresa(id: number, value: any): Observable<Object> {
+  updateAtendente(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
   }
 
-  deleteEmpresa(id: number): Observable<any> {
+  deleteAtendente(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
   }
 
-  getEmpresaList(): Observable<any> {
+  getAtendenteList(): Observable<any> {
     return this.http.get(`${this.baseUrl+'/findAll'}`);
   }
-
 }

@@ -23,7 +23,7 @@ export class EmpresaComponent implements OnInit {
   }
   save(){
     this.empresaService.createEmpresa(this.empresa).subscribe(data => alert("Aplicação deu certo."), error => alert("Erro ao cadastrar."));
-  this.empresa = new Empresa();
+    this.empresa = new Empresa();
   }
 
   onSubmit() {

@@ -1,13 +1,15 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.storage.Disco;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/atendente")
 public class AtendenteRest {
 
@@ -20,10 +22,9 @@ public class AtendenteRest {
     }
 
     /** MÉTODOS */
-    @PostMapping
-    public AtendenteDTO save(@RequestParam("file") MultipartFile file, @RequestBody AtendenteDTO atendenteDTO){
-
-        LOGGER.info("Recebendo save dE atendente...");
+    @PostMapping("/save")
+    public AtendenteDTO save(@Valid @RequestParam("file") MultipartFile file, @RequestBody AtendenteDTO atendenteDTO){
+        LOGGER.info("Recebendo save de atendente...");
         return this.atendenteService.save(file, atendenteDTO);
     }
 }
