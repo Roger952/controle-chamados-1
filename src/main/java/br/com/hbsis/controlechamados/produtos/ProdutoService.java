@@ -96,4 +96,20 @@ public class ProdutoService {
         produto.setId(produtoDTO.getId());
         return produto;
     }
+
+    public Produto findByIdProduto (Long id){
+        LOGGER.info("Procurando o Produto..." +  id);
+
+        Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
+
+        if (optionalProduto.isPresent()){
+            return optionalProduto.get();
+        }
+
+        throw new IllegalArgumentException("Não existe um produto com este id");
+    }
+
+    public boolean existsById(Long idProduto){
+        return iProdutoRepository.existsById(idProduto);
+    }
 }
