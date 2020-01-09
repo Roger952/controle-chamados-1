@@ -1,6 +1,5 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoDTO;
 
 import java.util.ArrayList;

@@ -21,8 +21,8 @@ public class ProdutoRest {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<?> listAll() {
-        return new ResponseEntity<>(produtoService.findAll(), HttpStatus.ACCEPTED);
+    public List<Produto> listAll(){
+        return produtoService.findAll();
     }
 
     @PostMapping("/save")

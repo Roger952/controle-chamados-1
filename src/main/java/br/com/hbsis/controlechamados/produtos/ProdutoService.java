@@ -1,10 +1,10 @@
 package br.com.hbsis.controlechamados.produtos;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +38,7 @@ public class ProdutoService {
     private void validate(ProdutoDTO produtoDTO) {
         LOGGER.info("Validando os Produtos");
 
-        if (StringUtils.isEmpty(produtoDTO.getNome())) {
+        if (StringUtils.isBlank(produtoDTO.getNome())) {
             throw new IllegalArgumentException("O nome do produto não pode ser vazio");
         }
         if (iProdutoRepository.existsByNome(produtoDTO.getNome())) {
