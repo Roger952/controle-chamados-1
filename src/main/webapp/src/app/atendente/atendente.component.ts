@@ -17,29 +17,22 @@ export class AtendenteComponent implements OnInit {
 
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
-
   toppings = new FormControl();
   toppingList: Produtos[];
-
-
 
   ngOnInit() {
-   this.produtoService.getProdutosList().subscribe(data => {
-    this.toppingList = data;
-   }, error =>{
-     console.log(error)
-   });
-
+    this.produtoService.getProdutosList().subscribe(data => {
+      this.toppingList = data;
+    }, error => {
+      console.log(error)
+    });
   }
 
-  toppings = new FormControl();
-  toppingList: Produtos[];
-
-  newAtendente(): void{
+  newAtendente(): void {
     this.submitted = false;
     this.atendente = new Atendente();
   }
-  save(){
+  save() {
     this.atendenteService.createAtendente(this.atendente).subscribe(data => alert("Aplicação deu certo."), error => alert("Erro ao cadastrar."));
     this.atendente = new Atendente();
   }
@@ -48,5 +41,4 @@ export class AtendenteComponent implements OnInit {
     this.submitted = true;
     this.save();
   }
-
 }

@@ -1,8 +1,10 @@
-<div class= "background">
-  <div class="container">
+<div class="background">
+  <div class="container rounded">
     <div class="row">
       <div class="col-12">
-        <div class="row titulo"><!--LINHA DO TÍTULO-->
+
+        <div class="row titulo">
+          <!--LINHA DO TÍTULO-->
           <div class="titulo col-12">
             <h2>Login</h2>
           </div>
@@ -13,11 +15,8 @@
           <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
 
           <div class="col-12">
-
-            
-            
             <input autocomplete="off" id="login" class="input" type="text" pattern=".+" required [(ngModel)]="login"
-            name="login"/>
+              name="login" autofocus>
             <label class="label" for="login">Usuário</label>
 
             <div class="underDiv">
@@ -27,8 +26,8 @@
           </div>
 
           <div class="col-12">
-            <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required  [(ngModel)]="senha" id="senha"
-            name="senha">
+            <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required [(ngModel)]="senha"
+              id="senha" name="senha">
             <label class="label" for="senha">Senha</label>
 
             <div class="underDiv">
@@ -39,12 +38,12 @@
 
           <div id="row-btn" class="row">
             <div id="col-btn" class="col-12">
-              <button  (click)=handleLogin() class="entrar btn btn-secondary"  >Entrar</button>
+              <button (click)=handleLogin() class="entrar btn btn-dark">Entrar</button>
             </div>
           </div>
 
         </form>
-      </div> 
+      </div>
     </div>
   </div>
 </div>

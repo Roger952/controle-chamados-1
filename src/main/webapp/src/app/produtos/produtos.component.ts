@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./produtos.component.css']
 })
 export class ProdutosComponent implements OnInit {
-  
+
   produto: Produtos = new Produtos;
   submitted = false;
 
@@ -18,37 +18,29 @@ export class ProdutosComponent implements OnInit {
   ngOnInit() {
   }
 
-  newProduto(): void{
+  newProduto(): void {
     this.submitted = false;
     this.produto = new Produtos();
   }
 
-  save(){
-    this.produtoService.createProduto(this.produto)
-    .subscribe(data => console.log(data), 
-    error => console.log(error));
-  }
-
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
 
-    if(this.nomeProdutoValido(this.produto.nome)){
-      this.save();
-
-      throw alert('Produto cadastrado com sucesso!');
+    if (this.nomeProdutoValido(this.produto.nome)) {
+      this.produtoService.createProduto(this.produto).subscribe(data => alert('Produto cadastrado com sucesso!'),
+        error => alert('Erro ao cadastrar!'));
     }
-    else{
+    else {
       throw alert('Produto não pode estar vazio.');
     }
   }
 
-  nomeProdutoValido(nomeP: string){
-    if(nomeP === '' || nomeP === undefined || nomeP === null){
+  nomeProdutoValido(nomeP: string) {
+    if (nomeP === '' || /^\s*$/.test(nomeP)) {
       return false;
     }
-    else{
+    else {
       return true;
     }
   }
-
 }
