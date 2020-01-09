@@ -17,17 +17,17 @@ export class EmpresaComponent implements OnInit {
   ngOnInit() {
   }
 
-  newEmpresa(): void{
+  newEmpresa(): void {
     this.submitted = false;
     this.empresa = new Empresa();
   }
-  save(){
-    this.empresaService.createEmpresa(this.empresa).subscribe(data => alert("Aplicação deu certo."), error => alert("Erro ao cadastrar."));
-    this.empresa = new Empresa();
+  save() {
+    this.empresaService.createEmpresa(this.empresa).subscribe(data => alert("Aplicação deu certo."),
+      error => alert("Erro ao cadastrar."));
   }
 
   onSubmit() {
     this.submitted = true;
-    this.save();    
+    this.save();
   }
 }

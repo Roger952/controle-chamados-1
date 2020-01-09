@@ -35,7 +35,7 @@ public class ProdutoDTO {
     public String toString() {
         return "ProdutoDTO{" +
                 "id=" + id +
-                ", nomeProduto='" + nome + '\'' +
+                ", nome='" + nome + '\'' +
                 '}';
     }
 }
