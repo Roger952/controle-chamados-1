@@ -22,6 +22,7 @@ import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 
 import { AuthGuard } from './seguranca/auth.guard';
+import { CreateModuloComponent } from './create-modulo/create-modulo.component';
 
 
 @NgModule({
@@ -33,9 +34,11 @@ import { AuthGuard } from './seguranca/auth.guard';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
+  
 
     EmpresaListComponent,
-    InicioComponent
+    InicioComponent,
+    CreateModuloComponent
   ],
   imports: [
     BrowserModule,

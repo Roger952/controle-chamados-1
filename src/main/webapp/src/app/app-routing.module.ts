@@ -9,6 +9,7 @@ import { EmpresaComponent } from './empresa/empresa.component';
 import { InicioComponent } from './inicio/inicio.component';
 
 import { AuthGuard } from './seguranca/auth.guard';
+import { CreateModuloComponent } from './create-modulo/create-modulo.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
   { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
   { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard] },
+  { path: 'create-modulo', component: CreateModuloComponent },
   { path: 'inicio', component: InicioComponent },
 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
