@@ -1,12 +1,8 @@
 /* CSS GERAL */
 .background{
-    justify-content: center;
-   
+    background: rgb(167, 164, 164);
     display: flex;
-    background: url("../../assets/hbsisback.jpg");
-    margin: 0px;
-    
-    background-size: 100%;
+    height: 100%;
 }
 
 .container{
@@ -18,10 +14,6 @@
 .col-12{
     padding: 0px;
 } 
-
-.table{
-    border-radius: 6px;
-}
 
 
 h2{

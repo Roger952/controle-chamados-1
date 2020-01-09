@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 interface IEmpresaRepository extends JpaRepository<Empresa, Long> {
+    boolean existsByCnpj(String cnpj);
+    boolean existsByEmail(String email);
 }

@@ -1,9 +1,9 @@
 package br.com.hbsis.controlechamados.admin;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,11 +29,11 @@ import java.util.Optional;
         private Admin validate(AdminDTO adminDTO) {
             LOGGER.info("Validando o Admin");
 
-            if (StringUtils.isEmpty(adminDTO.getLogin())) {
+            if (StringUtils.isBlank(adminDTO.getLogin())) {
                 throw new IllegalArgumentException("O login do Admin  não pode ser vazio/nulo");
             }
 
-            if (StringUtils.isEmpty(adminDTO.getSenha())) {
+            if (StringUtils.isBlank(adminDTO.getSenha())) {
                 throw new IllegalArgumentException("A senha do admin não pode ser vazia/nulo");
             }
             Optional<Admin> adminOptional = existsUser(adminDTO.getLogin(), adminDTO.getSenha());
