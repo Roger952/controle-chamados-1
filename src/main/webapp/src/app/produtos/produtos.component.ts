@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Produtos } from '../produtos';
 import { ProdutosService } from '../produtos.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-produtos',
@@ -12,6 +13,7 @@ export class ProdutosComponent implements OnInit {
 
   produto: Produtos = new Produtos;
   submitted = false;
+  httpResponse: HttpErrorResponse;
 
   constructor(private produtoService: ProdutosService, private router: Router) { }
 
@@ -26,13 +28,9 @@ export class ProdutosComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.nomeProdutoValido(this.produto.nome)) {
+    
       this.produtoService.createProduto(this.produto).subscribe(data => alert('Produto cadastrado com sucesso!'),
-        error => alert('Erro ao cadastrar!'));
-    }
-    else {
-      throw alert('Produto não pode estar vazio.');
-    }
+        (error) => { alert(error.error[0].mensagemDesenvolvedor); });
   }
 
   nomeProdutoValido(nomeP: string) {

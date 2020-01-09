@@ -12,6 +12,9 @@ export class EmpresaComponent implements OnInit {
   empresa: Empresa = new Empresa();
   submitted = false;
 
+  /* MENSAGEM DE VALIDAÇÃO DE CAMPOS */
+  msg: string;
+
   constructor(private empresaService: EmpresaService) { }
 
   ngOnInit() {
@@ -29,5 +32,19 @@ export class EmpresaComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
+  }
+
+
+  validarCamposEmpresa(
+                        razaoSocial: string, 
+                        nomeFantasia: string, 
+                        cnpj: string, 
+                        ie: string, 
+                        email: string
+                      ): string{
+
+    if(razaoSocial == ''|| razaoSocial.length >= 51){
+      return this.msg = 'Favor preencher';
+    }
   }
 }
