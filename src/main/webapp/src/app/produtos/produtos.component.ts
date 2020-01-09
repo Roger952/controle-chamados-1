@@ -13,7 +13,6 @@ export class ProdutosComponent implements OnInit {
 
   produto: Produtos = new Produtos;
   submitted = false;
-  httpResponse: HttpErrorResponse;
 
   constructor(private produtoService: ProdutosService, private router: Router) { }
 
@@ -29,8 +28,13 @@ export class ProdutosComponent implements OnInit {
     this.submitted = true;
 
     
-      this.produtoService.createProduto(this.produto).subscribe(data => alert('Produto cadastrado com sucesso!'),
-        (error) => { alert(error.error[0].mensagemDesenvolvedor); });
+    if (this.nomeProdutoValido(this.produto.nome)) {
+        this.produtoService.createProduto(this.produto).subscribe(data => alert('Produto cadastrado com sucesso!'),
+        error => alert('Erro ao cadastrar!'));
+    }
+    else {
+      throw alert('Produto não pode estar vazio.');
+    }
   }
 
   nomeProdutoValido(nomeP: string) {

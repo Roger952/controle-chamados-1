@@ -43,8 +43,12 @@ export class EmpresaComponent implements OnInit {
                         email: string
                       ): string{
 
-    if(razaoSocial == ''|| razaoSocial.length >= 51){
-      return this.msg = 'Favor preencher';
+    if(razaoSocial.length >= 51){
+      return this.msg = 'Favor preencher razão social com até 50 digitos';
+    }
+
+    if(razaoSocial == ''){
+      return this.msg = 'Favor preencher razão social ';
     }
   }
 }
