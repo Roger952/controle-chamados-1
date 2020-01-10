@@ -2,9 +2,15 @@ package br.com.hbsis.controlechamados.modulo;
 
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.usuario.atendente.AtendenteService;
+import br.com.hbsis.controlechamados.utils.exportAndImport.Import;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ModuloService {
@@ -19,45 +25,66 @@ public class ModuloService {
         this.produtoService = produtoService;
     }
 
-    public ModuloDTO save(ModuloDTO moduloDTO) {
+    private boolean noEqualsNameAndProduto(ModuloDTO moduloDTO) {
+        return iModuloRepositoty.existsByNomeModuloAndProduto(moduloDTO.getNomeModulo(),
+                produtoService.findByNome(moduloDTO.getNomeProduto()));
+    }
 
-        LOGGER.info("Salvando os modelos");
+    public void saveImports(MultipartFile multipartFile, String nomeProduto) throws IOException {
 
-        this.validate(moduloDTO);
+        for (ModuloDTO moduloDTO : importFormated(multipartFile, nomeProduto)) {
 
+            if (String.valueOf(moduloDTO.getNomeProduto()).isEmpty()) {
+                LOGGER.info("O id do produto não pode ser vazio");
+            } else if (!produtoService.existsByNome(moduloDTO.getNomeProduto())) {
+                LOGGER.info("Não existe um produto com  este Id");
+            }
+            if (moduloDTO.getNomeModulo().isEmpty()) {
+                LOGGER.info("O nome do Modulo não pode estar vazio");
+            } else if (noEqualsNameAndProduto(moduloDTO)) {
+                LOGGER.info("Este produto já tem um modulo com o nome de " + moduloDTO.getNomeModulo());
+            } else if (moduloDTO.getNomeModulo().length() > 50) {
+                LOGGER.info("O numeros de caracteres permitidos foi exedido");
+            } else {
+                save(moduloDTO);
+            }
+
+        }
+    }
+
+    private void save(ModuloDTO moduloDTO) {
         Modulo modulo = new Modulo();
 
         modulo.setNomeModulo(moduloDTO.getNomeModulo());
-        modulo.setProduto(produtoService.findByIdProduto(moduloDTO.getIdProduto()));
+        modulo.setProduto(produtoService.findByNome(moduloDTO.getNomeProduto()));
 
-        modulo = iModuloRepositoty.save(modulo);
-
-        return ModuloDTO.of(modulo);
+        iModuloRepositoty.save(modulo);
     }
 
-    public void validate(ModuloDTO moduloDTO) {
+    public List<ModuloDTO> importFormated(MultipartFile multipartFile, String nomeProduto) throws IOException {
 
-        LOGGER.info("Validando os modelos");
+        List<ModuloDTO> moduloDTOS = new ArrayList<>();
+        Integer contador = 1;
 
-        if (moduloDTO == null) {
-            throw new IllegalArgumentException("A classe ModuloDTO esta vazia");
-        }
-        if (String.valueOf(moduloDTO.getIdProduto()).isEmpty()) {
-            throw new IllegalArgumentException("O id do produto não pode ser vazio");
-        } else if (!produtoService.existsById(moduloDTO.getIdProduto())) {
-            throw new IllegalArgumentException("Não existe um produto com este Id");
-        }
-        if (moduloDTO.getNomeModulo().isEmpty()) {
-            throw new IllegalArgumentException("O nome do Modulo não pode estar vazio");
-        } else if (noNameAndProdutoEquals(moduloDTO)) {
-            throw new IllegalArgumentException("Este produto já tem um modulo com este mesmo nome");
-        } else if (moduloDTO.getNomeModulo().length() > 50) {
-            throw new IllegalArgumentException("O numeros de caracteres permitidos foi exedido");
-        }
-    }
+        List<String[]> importCSV = Import.importWithoutDependencyCSV(multipartFile);
+        for (String[] linhaImportada : importCSV){
 
-    private boolean noNameAndProdutoEquals(ModuloDTO moduloDTO) {
-        return iModuloRepositoty.existsByNomeModuloAndProduto(moduloDTO.getNomeModulo(),
-                produtoService.findByIdProduto(moduloDTO.getIdProduto()));
+            ModuloDTO moduloDTO = new ModuloDTO();
+
+            if (linhaImportada.length > 1) {
+                LOGGER.info("O CSV só pode conter o nome do Modulo \r\n" + "Inconsistência encontrada na linha: " + contador);
+            } else if (linhaImportada[0].length() > 50) {
+                LOGGER.info("O nome inserido não pode ter mais de 50 caracteres \r\n" + "Inconsistência encontrada na linha: " + contador);
+            } else if (linhaImportada[0].isEmpty()) {
+                LOGGER.info("O nome do modulo Não pode ser vazio \r\n" + "Inconsistência encontrada na linha: " + contador);
+            } else {
+                moduloDTO.setNomeModulo(linhaImportada[0]);
+                moduloDTO.setNomeProduto(nomeProduto);
+
+                moduloDTOS.add(moduloDTO);
+            }
+            contador++;
+        }
+        return moduloDTOS;
     }
 }

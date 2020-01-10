@@ -22,7 +22,7 @@ import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 
 import { AuthGuard } from './seguranca/auth.guard';
-import { CreateModuloComponent } from './create-modulo/create-modulo.component';
+import { ModuloComponent } from './modulo/modulo.component';
 
 
 @NgModule({
@@ -38,7 +38,7 @@ import { CreateModuloComponent } from './create-modulo/create-modulo.component';
 
     EmpresaListComponent,
     InicioComponent,
-    CreateModuloComponent
+    ModuloComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +48,8 @@ import { CreateModuloComponent } from './create-modulo/create-modulo.component';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule
 
   ],
   providers: [

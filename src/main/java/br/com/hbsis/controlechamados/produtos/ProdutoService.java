@@ -109,7 +109,14 @@ public class ProdutoService {
         throw new IllegalArgumentException("Não existe um produto com este id");
     }
 
-    public boolean existsById(Long idProduto){
-        return iProdutoRepository.existsById(idProduto);
+    public boolean existsByNome(String nome){
+        return iProdutoRepository.existsByNome(nome);
+    }
+
+    public Produto findByNome(String nome) {
+        if (iProdutoRepository.existsByNome(nome)) {
+            return iProdutoRepository.findByNome(nome);
+        }
+        throw new IllegalArgumentException("Este nome não esta cadatrado no Banco de Dados");
     }
 }

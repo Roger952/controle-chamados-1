@@ -4,19 +4,19 @@ public class ModuloDTO {
 
     private Long id;
     private String nomeModulo;
-    private Long idProduto;
+    private String nomeProduto;
 
-    public ModuloDTO(Long id, String nomeModulo, Long idProduto) {
+    public ModuloDTO(Long id, String nomeModulo, String nomeProduto) {
         this.id = id;
         this.nomeModulo = nomeModulo;
-        this.idProduto = idProduto;
+        this.nomeProduto = nomeProduto;
     }
 
     public ModuloDTO() {
     }
 
     public static ModuloDTO of(Modulo modulo) {
-        return new ModuloDTO(modulo.getId(), modulo.getNomeModulo(), modulo.getProduto().getId());
+        return new ModuloDTO(modulo.getId(), modulo.getNomeModulo(), modulo.getProduto().getNome());
     }
 
     public Long getId() {
@@ -35,12 +35,12 @@ public class ModuloDTO {
         this.nomeModulo = nomeModulo;
     }
 
-    public Long getIdProduto() {
-        return idProduto;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ModuloDTO {
         return "ModuloDTO{" +
                 "id=" + id +
                 ", nomeModulo='" + nomeModulo + '\'' +
-                ", idProduto=" + idProduto +
+                ", idProduto=" + nomeProduto +
                 '}';
     }
 }

@@ -1,0 +1,53 @@
+<app-dashboard></app-dashboard>
+
+
+<div class="background">
+    <div class="container rounded">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row titulo">
+                    <!--LINHA DO TÍTULO-->
+                    <div class="col-12">
+                        <h1>Cadastro de Módulo</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+                            <!-- FORMULÁRIO -->
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="custom-file">
+                                        <input type="file" id="file" accept=".csv" class="form-control" (change)="onSelectFile($event)">
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <mat-label id="labelEscolha">Selecione o produto</mat-label>
+                                            <mat-select [formControl]="toppings" [(value)] = "selected" [(ngModel)]="modulo.nomeProduto">
+                                                <mat-option (click)="selectClick(topping)" id="nomeProduto" *ngFor="let topping of toppingList">
+                                                    {{topping.nome}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn btn-dark">Cadastrar Módulo</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form><!-- FORMULÁRIO -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
