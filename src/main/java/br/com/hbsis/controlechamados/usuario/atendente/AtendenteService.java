@@ -7,6 +7,7 @@ import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.produtos.ProdutoDTO;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class AtendenteService {
     private final ProdutoService produtoService;
     private final Disco disco;
 
+    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
+    private final String msgVazio = " não pode ser vazio!";
+
     @Autowired /** CONSTRUTOR */
     public AtendenteService(IAtendenteRepository iAtendenteRepository, AtendenteProdutoService atendenteProdutoService, ProdutoService produtoService, Disco disco) {
         this.iAtendenteRepository = iAtendenteRepository;
@@ -36,6 +40,8 @@ public class AtendenteService {
 
     /** MÉTODOS DE CRUD */
     public AtendenteDTO save(MultipartFile file, AtendenteDTO atendenteDTO) {
+
+        this.validate(atendenteDTO);
 
         LOGGER.info("Salvando atendente");
         LOGGER.debug("Atendente... nome: {} e email: {}", atendenteDTO.getNome(), atendenteDTO.getEmail());
@@ -97,6 +103,36 @@ public class AtendenteService {
             return atendenteDTO;
         }
         throw new IllegalArgumentException(String.format("Id %s de atendente não existe", id));
+    }
+
+    public void validate(AtendenteDTO atendenteDTO){
+
+        LOGGER.info("Validando atendente...");
+
+        /** MENSAGENS DE RETORNO AO USUÁRIO */
+        if(StringUtils.isBlank(atendenteDTO.getNome())){
+            throw new IllegalArgumentException("Nome"+msgVazio);
+        }
+
+        if(atendenteDTO.getNome().length() > 100){
+            throw new IllegalArgumentException("Nome deve conter no máximo 100 digitos!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("E-mail"+msgVazio);
+        }
+
+        if(atendenteDTO.getEmail().length() > 100){
+            throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getSenha())){
+            throw new IllegalArgumentException("Senha"+msgVazio);
+        }
+
+        if(atendenteDTO.getSenha().length() > 100){
+            throw new IllegalArgumentException("Senha deve conter no máximo 30 digitos!");
+        }
     }
 
 }

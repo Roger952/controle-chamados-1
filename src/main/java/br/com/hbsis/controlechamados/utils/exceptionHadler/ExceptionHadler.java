@@ -26,12 +26,11 @@ public class ExceptionHadler extends ResponseEntityExceptionHandler {
     @Autowired
     private MessageSource messageSource;
 
-
     @ExceptionHandler({EmptyResultDataAccessException.class})
     protected ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
 
         String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.toString();
+        String mensagemDesenvolvedor = ex.getMessage();
         List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, new HttpHeaders() , HttpStatus.NOT_FOUND, request);
     }
@@ -40,7 +39,7 @@ public class ExceptionHadler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
 
         String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.toString();
+        String mensagemDesenvolvedor = ex.getMessage();
         List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, new HttpHeaders() , HttpStatus.NOT_FOUND, request);
     }

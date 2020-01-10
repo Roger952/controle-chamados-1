@@ -1,12 +1,10 @@
 .background{
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    display: flex;
-    background: url("../../assets/hbsisback.jpg");
-    margin: 0px;
-    background-repeat: no-repeat;
-    background-size: 100%;
+    min-height: 100%;
+    background: url("../../assets/Wallpaper.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .container{
