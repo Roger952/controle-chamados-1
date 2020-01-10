@@ -17,10 +17,13 @@
                         <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
                             <!-- FORMULÁRIO -->
 
+                            <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                            <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
                             <div class="row" id="rowLados">
                                 <div class="col-12">
-                                    <input autocomplete="off" id="nome" class="input" type="text" pattern=".+" required
-                                        [(ngModel)]="atendente.nome" name="nome">
+                                    <input autocomplete="off" [value]="nome" id="nome" class="input" type="text" pattern=".+" required
+                                        [(ngModel)]="atendente.nome" name="nome"  maxlength="100">
                                     <label class="label" for="nome">Nome</label>
 
                                     <div class="underDiv">
@@ -30,8 +33,8 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <input autocomplete="off" id="email" class="input" type="text" pattern=".+" required
-                                        [(ngModel)]="atendente.email" name="email" />
+                                    <input autocomplete="off" [value]="email" id="email" class="input" type="text" pattern=".+" required
+                                        [(ngModel)]="atendente.email" name="email"  maxlength="50"/>
                                     <label class="label" for="email">Email</label>
 
                                     <div class="underDiv">
@@ -41,8 +44,8 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <input autocomplete="off" id="senha" class="input" type="text" pattern=".+" required
-                                        [(ngModel)]="atendente.senha" name="senha" />
+                                    <input autocomplete="off" [value]="senha" id="senha" class="input" type="text" pattern=".+" required
+                                        [(ngModel)]="atendente.senha" name="senha" maxlength="30"/>
                                     <label class="label" for="senha">Senha</label>
 
                                     <div class="underDiv">

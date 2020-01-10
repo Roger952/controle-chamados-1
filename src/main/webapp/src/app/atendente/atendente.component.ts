@@ -15,10 +15,22 @@ export class AtendenteComponent implements OnInit {
   atendente: Atendente = new Atendente();
   submitted = false;
 
+  /* RETORNO DE ERROS AO USER */
+  msgErro: string;
+  msgSucesso: string;
+  erro = false;
+  sucesso = false;
+
+  /* LIMPAR OS CAMPOS DE TEXTO */
+  nome: string;
+  email: string;
+  senha: string;
+
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
   toppings = new FormControl();
   toppingList: Produtos[];
+
 
   ngOnInit() {
     this.produtoService.getProdutosList().subscribe(data => {
@@ -33,12 +45,37 @@ export class AtendenteComponent implements OnInit {
     this.atendente = new Atendente();
   }
   save() {
-    this.atendenteService.createAtendente(this.atendente).subscribe(data => alert("Aplicação deu certo."), error => alert("Erro ao cadastrar."));
-    this.atendente = new Atendente();
+    this.atendenteService.createAtendente(this.atendente).subscribe(
+        (data) => {
+          this.msgSucesso = 'Cadastro realizado com sucesso!';
+          this.erro = false;
+          this.sucesso = true;
+          this.limpar();
+          console.log(this.msgSucesso);
+      }, 
+        (error) => {
+          this.msgErro = error.error[0].mensagemDesenvolvedor;
+          this.erro = true;
+          this.sucesso = false;
+          console.log(this.msgErro);
+    });
   }
 
   onSubmit() {
     this.submitted = true;
     this.save();
+  }
+
+  /* LIMPAR OS CAMPOS APÓS CADASTRO */
+  limpar() {
+
+    this.nome = (<HTMLInputElement>document.getElementById("nome")).value;
+    this.nome = "";
+
+    this.email = (<HTMLInputElement>document.getElementById("email")).value;
+    this.email = "";
+
+    this.senha = (<HTMLInputElement>document.getElementById("senha")).value;
+    this.senha = "";
   }
 }

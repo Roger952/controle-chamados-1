@@ -15,6 +15,9 @@ public class ProdutoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoService.class);
     private final IProdutoRepository iProdutoRepository;
 
+    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
+    private final String msgVazio = " não pode ser vazio!";
+
     @Autowired
     public ProdutoService(IProdutoRepository iProdutoRepository) {
         this.iProdutoRepository = iProdutoRepository;
@@ -38,11 +41,17 @@ public class ProdutoService {
     private void validate(ProdutoDTO produtoDTO) {
         LOGGER.info("Validando os Produtos");
 
+        /** MENSAGENS DE RETORNO AO USUÁRIO */
         if (StringUtils.isBlank(produtoDTO.getNome())) {
-            throw new IllegalArgumentException("O nome do produto não pode ser vazio");
+            throw new IllegalArgumentException("Nome"+msgVazio);
         }
+
+        if(produtoDTO.getNome().length() > 100){
+            throw new IllegalArgumentException("Nome deve conter no máximo 100 digitos!");
+        }
+
         if (iProdutoRepository.existsByNome(produtoDTO.getNome())) {
-            throw new IllegalArgumentException("Já existe um produto com este mesmo nome");
+            throw new IllegalArgumentException("Produto já cadastrado!");
         }
     }
 
