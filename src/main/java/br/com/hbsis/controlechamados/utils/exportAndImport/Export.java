@@ -10,8 +10,6 @@ public class Export {
 
     public void exportWithoutDependencyCSV(HttpServletResponse httpServletResponse, String file, String content) throws IOException {
         PrintWriter writer = httpServletResponse.getWriter();
-        StringBuilder store = new StringBuilder();
-
 
         httpServletResponse.setContentType("text/csv");
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName = " + file);

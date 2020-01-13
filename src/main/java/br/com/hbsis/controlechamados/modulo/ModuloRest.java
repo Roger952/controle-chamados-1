@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/modulos")
@@ -19,7 +21,7 @@ public class ModuloRest {
     }
 
     @PostMapping("/import/{nome}")
-    public void save(@PathVariable("nome") String nomeProduto, @RequestParam("file")MultipartFile multipartFile) throws Exception {
-        moduloService.saveImports(multipartFile, nomeProduto);
+    public void save(HttpServletResponse response, @PathVariable("nome") String nomeProduto, @RequestParam("file")MultipartFile multipartFile) throws Exception {
+        moduloService.saveImports(response, multipartFile, nomeProduto);
     }
 }
