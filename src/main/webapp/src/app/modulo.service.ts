@@ -12,7 +12,8 @@ export class ModuloService {
     constructor(private http: HttpClient){
     }
 
-    createModulo(nomeProduto: string, formData: FormData): Observable<any>{
-        return this.http.post(`${this.baseUrl+'/import'}/${nomeProduto}`, formData);
+    createModulo(nomeProduto: string, file: FormData): Observable<any>{
+
+        return this.http.post(`${this.baseUrl+'/import'}/${nomeProduto}`, file);
     }
   }

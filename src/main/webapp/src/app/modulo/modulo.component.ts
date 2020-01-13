@@ -19,7 +19,7 @@ export class ModuloComponent implements OnInit {
 
   toppings = new FormControl();
   toppingList: Produtos[];
-  public userFile: any = File;
+  userFile: any = File;
   modulo = new Modulo;
 
   ngOnInit() {
@@ -33,9 +33,15 @@ export class ModuloComponent implements OnInit {
   onSelectFile(event) {
     const file = event.target.files[0];
     this.userFile = file;
+
+    console.log(this.userFile)
+
   }
   onSubmit() {
-    const formData = this.userFile;
+
+    const formData = new FormData();
+
+    formData.append('file', this.userFile)
 
     this.moduloService.createModulo(this.modulo.nomeProduto, formData).subscribe((response) => {
       console.log(response);
