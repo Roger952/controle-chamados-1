@@ -43,15 +43,15 @@ export class ModuloComponent implements OnInit {
 
     formData.append('file', this.userFile)
 
-    this.moduloService.createModulo(this.modulo.nomeProduto, formData).subscribe((response) => {
+    this.moduloService.createModulo(formData).subscribe((response) => {
       console.log(response);
     });
-    console.log(this.modulo.nomeProduto)
+
   }
 
-  selectClick(topping){
+  // selectClick(topping){
   
-    this.modulo.nomeProduto = topping.nome;
-      console.log(this.modulo);
-  }
+  //   this.modulo.nomeProduto = topping.nome;
+  //     console.log(this.modulo);
+  // }
 }
