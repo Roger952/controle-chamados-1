@@ -1,3 +1,5 @@
+/*
+
 package br.com.hbsis.controlechamados.admin;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,11 +25,11 @@ import java.util.Optional;
 
             Admin admin = new Admin();
             validate(adminDTO);
-
             return admin;
         }
 
-        private Admin validate(AdminDTO adminDTO) {
+
+       private Admin validate(AdminDTO adminDTO) {
             LOGGER.info("Validando o Admin");
 
             if (StringUtils.isBlank(adminDTO.getLogin())) {
@@ -46,7 +48,7 @@ import java.util.Optional;
             throw new IllegalArgumentException("Login ou Senha do Usuario errado");
         }
 
-    public Optional<Admin> existsUser(String login, String senha){
+   public Optional<Admin> existsUser(String login, String senha){
         Optional<Admin> adminOptional = iAdminRepository.findByLoginAndSenha(login, senha);
 
         if (adminOptional.isPresent()){
@@ -55,6 +57,7 @@ import java.util.Optional;
 
         throw new IllegalArgumentException("Login ou Senha do Usuario errado");
     }
+
 
     public List<Admin> listar() {
 
@@ -97,3 +100,4 @@ import java.util.Optional;
             this.iAdminRepository.deleteById(id);
         }
     }
+*/

@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { LoginAdminComponent } from './login/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { AtendenteComponent } from './atendente/atendente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { InicioComponent } from './inicio/inicio.component';
-
-import { AuthGuard } from './seguranca/auth.guard';
+import { AuthGuard } from './login/auth.guard';
 
 
 const routes: Routes = [
@@ -17,7 +16,7 @@ const routes: Routes = [
   { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
   { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
   { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard] },
-  { path: 'inicio', component: InicioComponent },
+  { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }

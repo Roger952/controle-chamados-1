@@ -1,3 +1,5 @@
+/*
+
 package br.com.hbsis.controlechamados.admin;
 
 import org.slf4j.Logger;
@@ -48,3 +50,4 @@ public class AdminRest {
         this.adminService.delete(id);
     }
 }
+*/

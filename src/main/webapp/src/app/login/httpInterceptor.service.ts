@@ -6,14 +6,15 @@ import { AuthenticationService } from './auth.service';
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private authService: AuthenticationService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.authenticationService.isUserLoggedIn() && req.url.indexOf('basicauth') === -1) {
+        if (this.authService.isUserLoggedIn() && req.url.indexOf('/oauth/token') === -1) {
             const authReq = req.clone({
                 headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Basic ${window.btoa(this.authenticationService.login + ":" + this.authenticationService.senha)}`
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA=='
+                    
                 })
             });
             return next.handle(authReq);

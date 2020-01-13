@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { LoginAdminComponent } from './login/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProdutosComponent } from './produtos/produtos.component';
@@ -13,15 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import { LogoutComponent } from './login-admin/logout.component';
-
-
-import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { AuthenticationService } from './login/auth.service';
+import { HttpInterceptorService } from './login/httpInterceptor.service';
+import { HttpClientModule } from '@angular/common/http';
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 
-import { AuthGuard } from './seguranca/auth.guard';
+import { AuthGuard } from './login/auth.guard';
 
 
 @NgModule({
@@ -33,7 +31,6 @@ import { AuthGuard } from './seguranca/auth.guard';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
-
     EmpresaListComponent,
     InicioComponent
   ],
@@ -49,12 +46,9 @@ import { AuthGuard } from './seguranca/auth.guard';
 
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true,
-    },
-    AuthGuard
+    AuthGuard,
+    AuthenticationService,
+    HttpInterceptorService
   ],
   bootstrap: [AppComponent]
 })
