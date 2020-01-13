@@ -1,6 +1,6 @@
 package br.com.hbsis.controlechamados.admin;
 
-public class AdminDTO {
+public class AdminDTO  {
     private Long id;
     private String login, senha;
 

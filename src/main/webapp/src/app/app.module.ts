@@ -13,9 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import { LogoutComponent } from './login-admin/logout.component';
+import { AuthService } from './seguranca/auth.service';
 
 
-import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
+import { HttpInterceptorService } from './seguranca/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
@@ -49,12 +50,8 @@ import { AuthGuard } from './seguranca/auth.guard';
 
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true,
-    },
-    AuthGuard
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

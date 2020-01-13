@@ -1,43 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService} from './auth.service';
-import { Router, ActivatedRoute  } from '@angular/router';
+
+import { AuthService } from '../seguranca/auth.service';
 
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.component.html',
   styleUrls: ['./login-admin.component.css']
 })
+export class LoginAdminComponent {
 
-export class LoginAdminComponent implements OnInit {
- 
-  login: string;
-  senha: string;
-  errorMessage = 'Usuário e/ou Senha inválidos/nulos!';
-  successMessage: string;
-  invalidLogin = false;
-  loginSuccess = false;
+  constructor(private auth: AuthService) { }
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService) {   }
-
-  ngOnInit() {
-
+  login(usuario: string, senha: string) {
+    this.auth.islogin(usuario, senha);
   }
 
-  handleLogin() {
-    this.authenticationService.authenticationService(this.login, this.senha).subscribe((result)=> {
-      this.invalidLogin = false;
-      this.loginSuccess = true;
-      this.successMessage = 'Login Successful.';
-      this.router.navigate(['/inicio']);
-    }, () => {
-      this.invalidLogin = true;
-      this.loginSuccess = false;
-    });      
-  }
-   
 }
-
-
