@@ -11,10 +11,11 @@ import java.util.Optional;
     public class AdminService {
         private static final Logger LOGGER = LoggerFactory.getLogger(AdminService.class);
         private final IAdminRepository iAdminRepository;
+        private final AdminDTO adminDTO;
 
-        public AdminService(IAdminRepository iAdminRepository) {
+        public AdminService(IAdminRepository iAdminRepository, AdminDTO adminDTO) {
             this.iAdminRepository = iAdminRepository;
-
+            this.adminDTO = adminDTO;
         }
 
         public Admin loginAdmin(AdminDTO adminDTO) {
