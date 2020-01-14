@@ -13,9 +13,10 @@ export class AuthService {
   
   public login: String;
   public senha: String;
+  private usuarioAutenticado: boolean = false;
 
   constructor(private _router: Router, private http: HttpClient, private jwtHelper: JwtHelperService)
-   {this.carregarToken(); }
+   { this.carregarToken(); }
 
   islogin(login: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
@@ -68,24 +69,11 @@ export class AuthService {
     this.jwtPayload = null;
   }
 
+  //verificar se o token está expirado
   isAccessTokenInvalido() {
     const token = localStorage.getItem('token');
 
     return !token || this.jwtHelper.isTokenExpired(token);
-  }
-
-  temPermissao(permissao: string) {
-    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
-  }
-
-  temQualquerPermissao(roles) {
-    for (const role of roles) {
-      if (this.temPermissao(role)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   private armazenarToken(token: string) {
@@ -100,9 +88,5 @@ export class AuthService {
       this.armazenarToken(token);
     }
   }
-
-  public getToken(): string {
-    return localStorage.getItem('token');
-  }
-
+  
 }

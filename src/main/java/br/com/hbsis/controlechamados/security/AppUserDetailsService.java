@@ -24,6 +24,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+
         Optional<Admin> adminOptional = iAdminRepository.findByLogin(login);
         Admin admin = adminOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
         return new User(login, admin.getSenha(), getPermissoes(admin));

@@ -12,20 +12,21 @@ import { NgxMaskModule } from 'ngx-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-//import { LogoutComponent } from './login-admin/logout.component';
 import { AuthService } from './seguranca/auth.service';
 import { ControleHttp } from '../app/seguranca/Controle-http';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import {ProdutosService} from './produtos.service';
-
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-//import { HttpsRequestInterceptor } from './seguranca/HttpInterceptor';
+import { LogoutService } from '../app/seguranca/logout.service'
 
 
+/*export function tokenGetter() {
+  return localStorage.getItem('token');
+}*/
 
 @NgModule({
   declarations: [
@@ -50,13 +51,18 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    //HttpsRequestInterceptor,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('access_token');
+          return '';
         },
-      }
+      whitelistedDomains: [],
+      blacklistedRoutes: [],
+      headerName: 'Authorization',
+      throwNoTokenError: true,
+      skipWhenExpired: true,
+      authScheme:'Bearer' 
+}
     })
   ]
   ,
@@ -64,12 +70,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     AuthService,
     JwtHelperService,
     ProdutosService,
-    ControleHttp
-   /* {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpsRequestInterceptor,
-      multi: true
-    }*/
+    ControleHttp,
+    LogoutService
   ],
   bootstrap: [AppComponent]
 })
