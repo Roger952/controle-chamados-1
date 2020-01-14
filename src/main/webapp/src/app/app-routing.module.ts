@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginAdminComponent } from './login/login-admin.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { AtendenteComponent } from './atendente/atendente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { AuthGuard } from './login/auth.guard';
-
+import { AuthGuard} from './seguranca/auth.guard'
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent},
@@ -26,6 +26,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [
+    JwtHelperService
   ]
 })
 export class AppRoutingModule { }

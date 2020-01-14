@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "seg_admin")
 public class Admin extends AbstractEntity {
 
-    @Column(name = "login", unique = true, nullable = false)
+    @Column(name = "login", nullable = false)
     private String login;
     @Column(name = "senha", nullable = false)
     private String senha;

@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +46,7 @@ public class ProdutoService {
         }
 
         if(produtoDTO.getNome().length() > 100){
-            throw new IllegalArgumentException("Nome deve conter no máximo 100 digitos!");
+            throw new IllegalArgumentException("Nome deve conter no máximo 100 caracteres!");
         }
 
         if (iProdutoRepository.existsByNome(produtoDTO.getNome())) {
@@ -84,11 +83,11 @@ public class ProdutoService {
 
             return ProdutoDTO.of(produto);
         }
-        throw new IllegalArgumentException("O id deste Produto não existe");
+        throw new IllegalArgumentException("O ID deste Produto não existe");
     }
 
     public ProdutoDTO findById (Long id){
-        LOGGER.info("Procurando o Produto..." +  id);
+        LOGGER.info("Procurando Produto de ID..." +  id);
 
         Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
 
@@ -96,7 +95,7 @@ public class ProdutoService {
             return ProdutoDTO.of(optionalProduto.get());
         }
 
-        throw new IllegalArgumentException("Não existe um produto com este id");
+        throw new IllegalArgumentException("Não existe um produto com o ID" + id);
     }
 
     public Produto converterObjeto(ProdutoDTO produtoDTO) {

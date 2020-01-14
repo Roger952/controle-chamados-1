@@ -20,5 +20,4 @@ public class UsuarioSistema extends User {
     public Admin getAdmin() {
         return admin;
     }
-
 }

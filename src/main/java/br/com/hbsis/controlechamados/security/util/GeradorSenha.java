@@ -5,11 +5,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class GeradorSenha {
 
     public static void main(String[] args) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("adm"));
+        String password = "adm";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        System.out.println(hashedPassword);
     }
-
 }
-
-//admin
-//@ngul@r0

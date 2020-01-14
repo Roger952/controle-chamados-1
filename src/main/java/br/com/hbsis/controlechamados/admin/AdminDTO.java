@@ -9,6 +9,7 @@ public class AdminDTO  {
         this.login = login;
         this.senha = senha;
     }
+    public AdminDTO(){ }
 
     public static AdminDTO of(Admin admin){
         return new AdminDTO(admin.getId(), admin.getLogin(), admin.getSenha());

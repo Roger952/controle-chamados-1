@@ -31,7 +31,7 @@ public class EmpresaService {
         }
 
         if(empresaDTO.getRazaoSocial().length() > 50){
-            throw new IllegalArgumentException("Razão social deve conter no máximo 50 digitos!");
+            throw new IllegalArgumentException("Razão social deve conter no máximo 50 caracteres!");
         }
 
         if(StringUtils.isBlank(empresaDTO.getNomeFantasia())){
@@ -39,7 +39,7 @@ public class EmpresaService {
         }
 
         if(empresaDTO.getNomeFantasia().length() > 50){
-            throw new IllegalArgumentException("Nome fantasia deve conter no máximo 50 digitos!");
+            throw new IllegalArgumentException("Nome fantasia deve conter no máximo 50 caracteres!");
         }
 
         validateCnpj(empresaDTO);
@@ -49,7 +49,7 @@ public class EmpresaService {
         }
 
         if(empresaDTO.getIe().length() > 10){
-            throw new IllegalArgumentException("Inscrição estadual deve conter no máximo 10 digitos");
+            throw new IllegalArgumentException("Inscrição estadual deve conter no máximo 10 caracteres");
         }
 
         validateEmail(empresaDTO);
@@ -66,7 +66,7 @@ public class EmpresaService {
         }
 
         if(empresaDTO.getEmail().length() > 50){
-            throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
+            throw new IllegalArgumentException("E-mail deve conter no máximo 50 caracteres!");
         }
 
         if(this.iEmpresaRepository.existsByEmail(empresaDTO.getEmail())){

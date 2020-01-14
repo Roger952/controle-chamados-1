@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("controlechamados")
 public class ControleChamadosApiProperty {
 
-    private String originPermitida = "http://localhost:3200";
+    private String originPermitida = "http://localhost:4200";
 
     private final Seguranca seguranca = new Seguranca();
 

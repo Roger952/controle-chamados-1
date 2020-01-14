@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginAdminComponent } from './login/login-admin.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProdutosComponent } from './produtos/produtos.component';
@@ -13,13 +13,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import { LogoutComponent } from './login-admin/logout.component';
-import { AuthenticationService } from './login/auth.service';
-import { HttpInterceptorService } from './login/httpInterceptor.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './seguranca/auth.service';
+import { ControleHttp } from './seguranca/controlle-http';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {ProdutosService} from './produtos.service';
+
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './seguranca/auth.guard';
+//import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
 
-import { AuthGuard } from './login/auth.guard';
 
 
 @NgModule({
@@ -31,8 +36,10 @@ import { AuthGuard } from './login/auth.guard';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
+
     EmpresaListComponent,
     InicioComponent
+
   ],
   imports: [
     BrowserModule,
@@ -42,13 +49,28 @@ import { AuthGuard } from './login/auth.guard';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
-
-  ],
+    HttpClientModule,
+    //HttpsRequestInterceptor,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+      }
+    })
+  ]
+  ,
   providers: [
+    AuthService,
+    JwtHelperService,
+    ProdutosService,
+    ControleHttp,
     AuthGuard,
-    AuthenticationService,
-    HttpInterceptorService
+    /*{
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }*/
   ],
   bootstrap: [AppComponent]
 })
