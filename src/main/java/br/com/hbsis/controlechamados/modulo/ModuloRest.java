@@ -1,6 +1,5 @@
 package br.com.hbsis.controlechamados.modulo;
 
-import br.com.hbsis.controlechamados.produtos.ProdutoRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,10 @@ public class ModuloRest {
     }
 
     @PostMapping("/import")
-    public void save(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+    public String save(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+
         moduloService.saveImports(multipartFile);
+
+        return moduloService.messageCaseErr;
     }
 }
