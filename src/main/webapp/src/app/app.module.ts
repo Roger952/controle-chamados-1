@@ -14,15 +14,17 @@ import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import { LogoutComponent } from './login-admin/logout.component';
 import { AuthService } from './seguranca/auth.service';
+import { ControleHttp } from '../app/seguranca/Controle-http';
 
-
-import { HttpInterceptorService } from './seguranca/httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {ProdutosService} from './produtos.service';
+
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+//import { HttpsRequestInterceptor } from './seguranca/HttpInterceptor';
 
-import { AuthGuard } from './seguranca/auth.guard';
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { AuthGuard } from './seguranca/auth.guard';
 
     EmpresaListComponent,
     InicioComponent
+
   ],
   imports: [
     BrowserModule,
@@ -46,12 +49,27 @@ import { AuthGuard } from './seguranca/auth.guard';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
-
-  ],
+    HttpClientModule,
+    //HttpsRequestInterceptor,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+      }
+    })
+  ]
+  ,
   providers: [
-    AuthGuard,
-    AuthService
+    AuthService,
+    JwtHelperService,
+    ProdutosService,
+    ControleHttp
+   /* {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpsRequestInterceptor,
+      multi: true
+    }*/
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-<div class="background">
+<div class="background justify-content-center align-items-center d-flex">
   <div class="container rounded">
     <div class="row">
       <div class="col-12">
@@ -16,7 +16,7 @@
 
           <div class="col-12">
             <input autocomplete="off" id="login" class="input" type="text" pattern=".+" required [(ngModel)]="login"
-              name="login" autofocus>
+              name="login" autofocus >
             <label class="label" for="login">Usuário</label>
 
             <div class="underDiv">
@@ -27,7 +27,7 @@
 
           <div class="col-12">
             <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required [(ngModel)]="senha"
-              id="senha" name="senha">
+              id="senha" name="senha" >
             <label class="label" for="senha">Senha</label>
 
             <div class="underDiv">
@@ -38,7 +38,7 @@
 
           <div id="row-btn" class="row">
             <div id="col-btn" class="col-12">
-              <button (click)=handleLogin() class="entrar btn btn-dark">Entrar</button>
+              <button (click)="islogin();" class="entrar btn btn-dark">Entrar</button>
             </div>
           </div>
 
