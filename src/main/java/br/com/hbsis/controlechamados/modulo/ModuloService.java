@@ -40,7 +40,7 @@ public class ModuloService {
             if (String.valueOf(moduloDTO.getNomeProduto()).isEmpty()) {
                 export.exportErrInTxt("O id do produto não pode ser vazio" + "\r\n");
             } else if (!produtoService.existsByNome(moduloDTO.getNomeProduto())) {
-                export.exportErrInTxt("Não existe um produto com  este Id" + "\r\n");
+                export.exportErrInTxt("Não existe um produto com  este Nome" + "\r\n");
             }
             if (moduloDTO.getNomeModulo().isEmpty()) {
                 export.exportErrInTxt("O nome do Modulo não pode estar vazio" + "\r\n");
