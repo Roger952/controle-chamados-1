@@ -1,94 +1,107 @@
 <app-dashboard></app-dashboard>
 
-<div class="background">
-    <div class="container rounded">
-        <div class="row">
-            <div class="col-12">
+<div class="container rounded">
 
-                <div class="row titulo">
-                    <!--LINHA DO TÍTULO-->
+    <div class="row titulo">
+        <!--LINHA DO TÍTULO-->
+        <div class="col-12">
+            <h1>Cadastro de Atendente</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+                <!-- FORMULÁRIO -->
+
+                <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
+                <div class="row">
                     <div class="col-12">
-                        <h1>Cadastro de Atendente</h1>
+                        <input autocomplete="off" [value]="nome" id="nome" class="input" type="text" pattern=".+"
+                            required [(ngModel)]="atendente.nome" name="nome" maxlength="100">
+                        <label class="label" for="nome">Nome</label>
+
+                        <div class="underDiv">
+                            <div class="underDivLeft"></div>
+                            <div class="underDivRight"></div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12">
-                        <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
-                            <!-- FORMULÁRIO -->
+                        <input autocomplete="off" [value]="email" id="email" class="input" type="text" pattern=".+"
+                            required [(ngModel)]="atendente.email" name="email" maxlength="50" />
+                        <label class="label" for="email">Email</label>
 
-                            <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
-                            <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
-
-                            <div class="row" id="rowLados">
-                                <div class="col-12">
-                                    <input autocomplete="off" [value]="nome" id="nome" class="input" type="text" pattern=".+" required
-                                        [(ngModel)]="atendente.nome" name="nome"  maxlength="100">
-                                    <label class="label" for="nome">Nome</label>
-
-                                    <div class="underDiv">
-                                        <div class="underDivLeft"></div>
-                                        <div class="underDivRight"></div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <input autocomplete="off" [value]="email" id="email" class="input" type="text" pattern=".+" required
-                                        [(ngModel)]="atendente.email" name="email"  maxlength="50"/>
-                                    <label class="label" for="email">Email</label>
-
-                                    <div class="underDiv">
-                                        <div class="underDivLeft"></div>
-                                        <div class="underDivRight"></div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <input autocomplete="off" [value]="senha" id="senha" class="input" type="text" pattern=".+" required
-                                        [(ngModel)]="atendente.senha" name="senha" maxlength="30"/>
-                                    <label class="label" for="senha">Senha</label>
-
-                                    <div class="underDiv">
-                                        <div class="underDivLeft"></div>
-                                        <div class="underDivRight"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="validatedCustomFile" required
-                                            [(ngModel)]="atendente.foto" name="foto">
-                                        <label class="custom-file-label" for="validatedCustomFile">Escolher
-                                            arquivo...
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <mat-form-field id="checkEscolha" color="accent">
-                                            <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                                            <mat-select [formControl]="toppings" multiple>
-                                                <mat-option id="optionEscolha" *ngFor="let topping of toppingList" [value]="topping.nome">
-                                                    {{topping.nome}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <button class="btn btn-dark">Cadastrar Atendente</button>
-                                </div>
-                            </div>
-
-                        </form><!-- FORMULÁRIO -->
+                        <div class="underDiv">
+                            <div class="underDivLeft"></div>
+                            <div class="underDivRight"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <input autocomplete="off" [value]="senha" id="senha" class="input" type="text" pattern=".+"
+                            required [(ngModel)]="atendente.senha" name="senha" maxlength="30" />
+                        <label class="label" for="senha">Senha</label>
+
+                        <div class="underDiv">
+                            <div class="underDivLeft"></div>
+                            <div class="underDivRight"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <h5 id="h3Foto" pattern=".+">Selecione foto do atendente (Opcional)</h5>
+                    </div>
+                </div>
+
+                <div class="row"> <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
+
+                    <div class="col-6 col-file"><!-- LADO ESQUERDO -->
+                        
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto"
+                            name="foto" (change)="onChange($event)" (change)="selectFile($event)" onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
+                            <label class="custom-file-label" for="validatedCustomFile">{{filename}}</label>
+                        </div>
+
+                        <div>
+                            <label class="labelFotoEspec">Tamanho máximo 2MB</label>
+                            <label class="labelFotoEspec">Apenas arquivos .jpg .png e .jpeg</label>
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-6"><!-- LADO DIREITO -->
+                      
+                        <mat-form-field id="checkEscolha" color="accent">
+                            <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                                <!-- <mat-select [(ngModel)]="atendente.atendenteProdutoDTOList" name="atendenteProdutoDTOList" [formControl]="toppings" multiple> -->
+                                <mat-select [(ngModel)]="atendente.produtoList" name="produtoList" [formControl]="produtos" multiple>
+
+                                <mat-option (click)="selectClick(produtos)" id="optionEscolha" *ngFor="let produtos of produtoList" [value]="produtos">
+                                    {{produtos.nome}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-dark">Cadastrar Atendente</button>
+                    </div>
+                </div>
+
+            </form><!-- FORMULÁRIO -->
         </div>
     </div>
 </div>

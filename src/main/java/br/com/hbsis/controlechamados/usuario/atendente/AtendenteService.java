@@ -1,12 +1,11 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoDTO;
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoService;
 import br.com.hbsis.controlechamados.produtos.Produto;
-import br.com.hbsis.controlechamados.produtos.ProdutoDTO;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
+import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ public class AtendenteService {
     private final Disco disco;
 
     /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
-    private final String msgVazio = " não pode ser vazio!";
+    private final String msgVazio = " não pode estar vazio!";
 
     @Autowired /** CONSTRUTOR */
     public AtendenteService(IAtendenteRepository iAtendenteRepository, AtendenteProdutoService atendenteProdutoService, ProdutoService produtoService, Disco disco) {
@@ -39,73 +38,28 @@ public class AtendenteService {
     }
 
     /** MÉTODOS DE CRUD */
-    public AtendenteDTO save(MultipartFile file, AtendenteDTO atendenteDTO) {
+    public AtendenteDTO save(AtendenteDTO atendenteDTO) {
 
         this.validate(atendenteDTO);
 
         LOGGER.info("Salvando atendente");
-        LOGGER.debug("Atendente... nome: {} e email: {}", atendenteDTO.getNome(), atendenteDTO.getEmail());
+        LOGGER.debug("Atendente -> [{}]", atendenteDTO);
 
         Atendente atendente = new Atendente();
         atendente.setNome(atendenteDTO.getNome());
         atendente.setEmail(atendenteDTO.getEmail());
         atendente.setSenha(atendenteDTO.getSenha());
-        atendente.setFoto(file.getOriginalFilename());
+        atendente.setFoto(atendenteDTO.getFoto());
+        atendente.setProdutoList(atendenteDTO.getProdutoList());
 
-        /** LISTA DE ITENS */
-        atendente.setAtendenteProdutoList(saveAtendenteProduto(atendenteDTO.getAtendenteProdutoDTOList(), atendente));
-
-        atendente.setFoto(file.getOriginalFilename());
-
+        LOGGER.info("Executando save do atendente!");
         atendente = this.iAtendenteRepository.save(atendente);
 
-        /** EXECUTANDO UPLOAD DE IMAGEM */
-        disco.salvarFoto(file);
-
-        LOGGER.info("Finalizando save do atendente! DEU BOM");
+        LOGGER.info("Finalizando save do atendente!");
         return AtendenteDTO.of(atendente);
     }
 
-    public List<AtendenteProduto> saveAtendenteProduto(List<AtendenteProdutoDTO> atendenteProdutoDTOList, Atendente atendente){
-
-        LOGGER.info("Salvando Atendente Produto");
-        List<AtendenteProduto> atendenteProdutosList = new ArrayList<>();
-
-        for (AtendenteProdutoDTO atendenteProdutoDTO : atendenteProdutoDTOList){
-
-            ProdutoDTO produtoDTO = produtoService.findById(atendenteProdutoDTO.getIdProduto());
-            Produto produto = produtoService.converterObjeto(produtoDTO);
-
-            AtendenteDTO atendenteDTO = findById(atendenteProdutoDTO.getIdAtendente());
-            Atendente atendente1 = converterObjeto(atendenteDTO);
-
-            AtendenteProduto atendenteProduto = new AtendenteProduto(atendente1, produto);
-            atendenteProdutosList.add(atendenteProduto);
-        }
-        return this.atendenteProdutoService.saveAllNaRepository(atendenteProdutosList);
-    }
-
-    private Atendente converterObjeto(AtendenteDTO atendenteDTO) {
-
-        Atendente atendente = new Atendente();
-        atendente.setId(atendenteDTO.getId());
-        return atendente;
-    }
-
-    public AtendenteDTO findById(Long id){
-
-        Optional<Atendente> atendenteOptional = this.iAtendenteRepository.findById(id);
-
-        if (atendenteOptional.isPresent()){
-
-            Atendente atendente = atendenteOptional.get();
-            AtendenteDTO atendenteDTO = AtendenteDTO.of(atendente);
-            return atendenteDTO;
-        }
-        throw new IllegalArgumentException(String.format("Id %s de atendente não existe", id));
-    }
-
-    public void validate(AtendenteDTO atendenteDTO){
+    public AtendenteDTO validate(AtendenteDTO atendenteDTO){
 
         LOGGER.info("Validando atendente...");
 
@@ -122,6 +76,10 @@ public class AtendenteService {
             throw new IllegalArgumentException("E-mail"+msgVazio);
         }
 
+        if(!ValidatorEmail.isValidEmail(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("Padrão de e-mail inválido!");
+        }
+
         if(atendenteDTO.getEmail().length() > 100){
             throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
         }
@@ -133,6 +91,40 @@ public class AtendenteService {
         if(atendenteDTO.getSenha().length() > 100){
             throw new IllegalArgumentException("Senha deve conter no máximo 30 digitos!");
         }
+
+        if(atendenteDTO.getProdutoList() == null){
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getFoto())){
+            atendenteDTO.setFoto("default-person.png");
+        }
+
+        return atendenteDTO;
     }
 
+    /** MÉTODO DE FORMATAÇÃO GERAL */
+    private Atendente converterObjeto(AtendenteDTO atendenteDTO) {
+
+        Atendente atendente = new Atendente();
+        atendente.setId(atendenteDTO.getId());
+        return atendente;
+    }
+
+    public AtendenteDTO findById(Long id){
+
+        Optional<Atendente> atendenteOptional = this.iAtendenteRepository.findById(id);
+
+        if (atendenteOptional.isPresent()){
+
+            Atendente atendente = atendenteOptional.get();
+            return AtendenteDTO.of(atendente);
+        }
+        throw new IllegalArgumentException(String.format("Id %s de atendente não existe", id));
+    }
+
+    /** EXECUTAR FILE-UPLOAD NA CLASSE DISCO */
+    public void salvarFoto(MultipartFile file) {
+        disco.salvarFoto(file);
+    }
 }
