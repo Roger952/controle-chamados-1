@@ -1,4 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
+import { LogoutService } from '../seguranca/logout.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,8 +11,19 @@ import { Component, OnInit, NgModule } from '@angular/core';
 
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private logoutService : LogoutService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.logoutService.logout()
+      .then(() => {
+        this.router.navigate(['/login-admin']);
+      })
+      .catch(erro => console.error(erro));
   }
 }

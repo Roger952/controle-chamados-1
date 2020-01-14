@@ -12,66 +12,67 @@ import { NgxMaskModule } from 'ngx-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-//import { LogoutComponent } from './login-admin/logout.component';
 import { AuthService } from './seguranca/auth.service';
-import { ControleHttp } from './seguranca/controlle-http';
+import { ControleHttp } from '../app/seguranca/Controle-http';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import {ProdutosService} from './produtos.service';
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { AuthGuard } from './seguranca/auth.guard';
-//import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
+import { LogoutService } from '../app/seguranca/logout.service'
 
 
+/*export function tokenGetter() {
+return localStorage.getItem('token');
+}*/
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginAdminComponent,
-    DashboardComponent,
-    PageNotFoundComponent,
-    ProdutosComponent,
-    EmpresaComponent,
-    AtendenteComponent,
+declarations: [
+AppComponent,
+LoginAdminComponent,
+DashboardComponent,
+PageNotFoundComponent,
+ProdutosComponent,
+EmpresaComponent,
+AtendenteComponent,
 
-    EmpresaListComponent,
-    InicioComponent
+EmpresaListComponent,
+InicioComponent
 
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgxMaskModule.forRoot(),
-    BrowserAnimationsModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    //HttpsRequestInterceptor,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
-      }
-    })
-  ]
-  ,
-  providers: [
-    AuthService,
-    JwtHelperService,
-    ProdutosService,
-    ControleHttp,
-    AuthGuard,
-    /*{
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true
-    }*/
-  ],
-  bootstrap: [AppComponent]
+],
+imports: [
+BrowserModule,
+AppRoutingModule,
+NgxMaskModule.forRoot(),
+BrowserAnimationsModule,
+MatSelectModule,
+ReactiveFormsModule,
+FormsModule,
+HttpClientModule,
+JwtModule.forRoot({
+config: {
+tokenGetter: () => {
+return '';
+},
+whitelistedDomains: [],
+blacklistedRoutes: [],
+headerName: 'Authorization',
+throwNoTokenError: true,
+skipWhenExpired: true,
+authScheme:'Bearer'
+}
+})
+]
+,
+providers: [
+AuthService,
+JwtHelperService,
+ProdutosService,
+ControleHttp,
+LogoutService
+],
+bootstrap: [AppComponent]
 })
 export class AppModule { }

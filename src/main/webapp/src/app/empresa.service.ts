@@ -1,39 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Empresa } from './empresa';
-import { AuthService } from './seguranca/auth.service';
+import { ControleHttp } from '../app/seguranca/Controle-http';
+import { HttpHeaders }    from '@angular/common/http';
+
 
 @Injectable({
-  providedIn: 'root'
+providedIn: 'root'
 })
 export class EmpresaService {
 
-  private baseUrl = 'http://localhost:8080/empresa';
+private baseUrl = 'http://localhost:8080/empresa';
 
-  constructor(private http: HttpClient, public auth: AuthService){
+constructor(private http: ControleHttp) { }
+
+  getEmpresa(id: number): Observable<any> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.get(`${this.baseUrl+'/findById'}/${id}`, {headers});
   }
 
-  getEmpresa(id: number): Observable<any>{
-    return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
-}
+  createEmpresa(empresa: Object): Observable<Object> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.post(`${this.baseUrl+'/save'}`, empresa, {headers});
+  }
 
-createEmpresa(empresa: Object): Observable<Object>{
+  updateEmpresa(id: number, value: any): Observable<Object> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.put(`${this.baseUrl+'/update'}/${id}`, value, {headers});
+  }
 
-    const headers = new HttpHeaders().append('Authorization', `Bearer ${ this.auth.getToken() }`);
+  deleteEmpresa(id: number): Observable<any> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' }); // setar headers
+  }
 
-    return this.http.post<string>(`${this.baseUrl+'/save'}`, empresa, { headers, withCredentials: true });
-}
+  getEmpresaList(): Observable<Empresa[]> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.get<Empresa[]>(`${this.baseUrl+'/findAll'}`, {headers});
+  }
 
-updateEmpresa(id: number, value: any): Observable<Object>{
-    return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
-}
-
-deleteEmpresa(id: number): Observable<any>{
-    return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
-}
-
-getEmpresaList(): Observable<Empresa[]>{
-    return this.http.get<Empresa[]>(`${this.baseUrl+'/lista'}`);
-}
 }
