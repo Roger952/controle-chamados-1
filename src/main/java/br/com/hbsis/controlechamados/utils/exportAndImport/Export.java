@@ -1,20 +1,19 @@
 package br.com.hbsis.controlechamados.utils.exportAndImport;
 
-import org.springframework.http.HttpHeaders;
-
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Export {
 
-    public void exportWithoutDependencyCSV(HttpServletResponse httpServletResponse, String file, String content) throws IOException {
-        PrintWriter writer = httpServletResponse.getWriter();
+    public void exportErrInTxt(String content) throws IOException {
+        Path Location = Paths.get("C:/Users/roger.guillermo/Documents/erro.txt");
 
-        httpServletResponse.setContentType("text/csv");
-        httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName = " + file);
+        byte[] textInByte = content.getBytes();
 
-        writer.write(content);
+
+        Files.write(Location, textInByte);
     }
 
 }

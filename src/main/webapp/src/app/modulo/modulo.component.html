@@ -15,7 +15,7 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+                        <form (ngSubmit)="onSubmit()">
                             <!-- FORMULÁRIO -->
 
                             <div class="row">
@@ -25,6 +25,9 @@
                                             (change)="onSelectFile($event)">
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                <label class="labelFotoEspec">Tamanho máximo 2MB</label>
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-dark">Cadastrar Módulo</button>

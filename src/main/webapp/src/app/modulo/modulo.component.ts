@@ -23,11 +23,6 @@ export class ModuloComponent implements OnInit {
   modulo = new Modulo;
 
   ngOnInit() {
-    this.produtoService.getProdutosList().subscribe(data => {
-      this.toppingList = data;
-    }, error => {
-      console.log(error)
-    });
   }
 
   onSelectFile(event) {
@@ -48,10 +43,4 @@ export class ModuloComponent implements OnInit {
     });
 
   }
-
-  // selectClick(topping){
-  
-  //   this.modulo.nomeProduto = topping.nome;
-  //     console.log(this.modulo);
-  // }
 }

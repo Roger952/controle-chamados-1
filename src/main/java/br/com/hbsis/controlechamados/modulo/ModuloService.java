@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,23 +31,23 @@ public class ModuloService {
                 produtoService.findByNome(moduloDTO.getNomeProduto()));
     }
 
-    public void saveImports(HttpServletResponse httpServletResponse, MultipartFile multipartFile, String nomeProduto) throws IOException {
+    public void saveImports(MultipartFile multipartFile) throws IOException {
 
         Export export = new Export();
 
-        for (ModuloDTO moduloDTO : importFormatted(httpServletResponse, multipartFile, nomeProduto)) {
+        for (ModuloDTO moduloDTO : importFormatted(multipartFile)) {
 
             if (String.valueOf(moduloDTO.getNomeProduto()).isEmpty()) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "O id do produto não pode ser vazio" + "\r\n");
+                export.exportErrInTxt("O id do produto não pode ser vazio" + "\r\n");
             } else if (!produtoService.existsByNome(moduloDTO.getNomeProduto())) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "Não existe um produto com  este Id" + "\r\n");
+                export.exportErrInTxt("Não existe um produto com  este Id" + "\r\n");
             }
             if (moduloDTO.getNomeModulo().isEmpty()) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "O nome do Modulo não pode estar vazio" + "\r\n");
+                export.exportErrInTxt("O nome do Modulo não pode estar vazio" + "\r\n");
             } else if (noEqualsNameAndProduto(moduloDTO)) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "Este produto já tem um modulo com o nome de " + moduloDTO.getNomeModulo() + "\r\n");
+                export.exportErrInTxt("Este produto já tem um modulo com o nome de " + moduloDTO.getNomeModulo() + "\r\n");
             } else if (moduloDTO.getNomeModulo().length() > 50) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "O numeros de caracteres permitidos foi exedido" + "\r\n");
+                export.exportErrInTxt("O numeros de caracteres permitidos foi exedido" + "\r\n");
             } else {
                 save(moduloDTO);
             }
@@ -65,29 +64,35 @@ public class ModuloService {
         iModuloRepositoty.save(modulo);
     }
 
-    public List<ModuloDTO> importFormatted(HttpServletResponse httpServletResponse, MultipartFile multipartFile, String nomeProduto) throws IOException {
+    public List<ModuloDTO> importFormatted(MultipartFile multipartFile) throws IOException {
 
         List<ModuloDTO> moduloDTOS = new ArrayList<>();
         Integer contador = 2;
 
         List<String[]> importCSV = Import.importWithoutDependencyCSV(multipartFile);
-        for (String[] linhaImportada : importCSV) {
+        for (String[] lineImported : importCSV) {
 
             ModuloDTO moduloDTO = new ModuloDTO();
             Export export = new Export();
 
-            if (linhaImportada.length > 1) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "O CSV só pode conter o nome do Modulo \r\n" +
+            if (lineImported.length > 2) {
+                export.exportErrInTxt("O CSV só pode conter o nome do Modulo e o Produto no qual este pertence \r\n" +
                         "Inconsistência encontrada na linha: " + contador + "\r\n");
-            } else if (linhaImportada[0].length() > 50) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "O nome inserido não pode ter mais de 50 caracteres \r\n" +
+            } else if (lineImported[0].length() > 50) {
+                export.exportErrInTxt("O nome inserido não pode ter mais de 50 caracteres \r\n" +
                         "Inconsistência encontrada na linha: " + contador + "\r\n");
-            } else if (linhaImportada[0].isEmpty()) {
-                export.exportWithoutDependencyCSV(httpServletResponse, "error.csv", "O nome do modulo Não pode ser vazio \r\n" +
+            } else if (lineImported[0].isEmpty()) {
+                export.exportErrInTxt("O nome do modulo Não pode ser vazio \r\n" +
+                        "Inconsistência encontrada na linha: " + contador + "\r\n");
+            } else if (lineImported[1].isEmpty()) {
+                export.exportErrInTxt("O nome do produto Não pode estar vazio \r\n" +
+                        "Inconsistência encontrada na linha: " + contador + "\r\n");
+            } else if (!produtoService.existsByNome(lineImported[1])) {
+                export.exportErrInTxt("O nome deste produto não existe ou ainda não foi cadastrado \r\n" +
                         "Inconsistência encontrada na linha: " + contador + "\r\n");
             } else {
-                moduloDTO.setNomeModulo(linhaImportada[0]);
-                moduloDTO.setNomeProduto(nomeProduto);
+                moduloDTO.setNomeModulo(lineImported[0]);
+                moduloDTO.setNomeProduto(lineImported[1]);
 
                 moduloDTOS.add(moduloDTO);
             }
