@@ -1,6 +1,7 @@
 package br.com.hbsis.controlechamados.produtos;
 
 public class ProdutoDTO {
+
     private Long id;
     private String nome;
 

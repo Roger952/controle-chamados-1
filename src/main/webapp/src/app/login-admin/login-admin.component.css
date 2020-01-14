@@ -1,22 +1,19 @@
-.background{
-    min-height: 100%;
-    background: url("../../assets/Wallpaper.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-
 .container{
-    width: 30%;
-    margin: 0px 0px 0px 0px;
+    width: 350px;
     background-color: rgba(255, 255, 255, .7);
-    padding: 30px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-#row-btn{
-    padding: 0px 10px;
+.titulo{
+    font-weight: bold;
+    margin: auto;
+    color: rgb(26, 55, 68);
+    text-align: center;
+}
+
+.alert{
+    margin: 10px 0px 25px;
 }
 
 .underDiv{
@@ -44,7 +41,6 @@
 
 .btn{
     width: 100%;
-    margin: 10px 0px 20px 0px;
 }
 
 .input:valid + .label,
@@ -84,8 +80,8 @@
     cursor: text;
     transition: .2s ease-in-out;
     box-sizing: border-box;
-
     padding-left: 15px;
+    font-weight: bold;
 }
 
 .input,
@@ -95,16 +91,4 @@
     font-size: 1rem;
 }
 
-label{
-   font-weight: bold;
-}
-
-.titulo{
-
-    font-weight: bold;
-    margin: auto;
-    color: rgb(26, 55, 68);
-    text-align: center;
-
-}
 

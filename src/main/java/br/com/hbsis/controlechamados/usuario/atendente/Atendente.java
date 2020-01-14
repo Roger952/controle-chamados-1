@@ -1,6 +1,7 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
+import br.com.hbsis.controlechamados.produtos.Produto;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,9 +26,13 @@ public class Atendente {
     @Column(name = "senha", unique = false, nullable = false, length = 30)
     private String senha;
 
-    @OneToMany
-    @JoinColumn(name = "id_atendente", referencedColumnName = "id")
-    private List<AtendenteProduto> atendenteProdutoList;
+    /** MUITOS ATENDENTES PARA MUITOS PRODUTOS */
+    @ManyToMany
+    @JoinTable(
+            name = "seg_atendente_produto",
+            joinColumns = @JoinColumn(name = "id_atendente"),
+            inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    private List<Produto> produtoList;
 
     /** GETTER & SETTER */
     public Long getId() {
@@ -70,12 +75,13 @@ public class Atendente {
         this.senha = senha;
     }
 
-    public List<AtendenteProduto> getAtendenteProdutoList() {
-        return atendenteProdutoList;
+    /** @ManyToMany */
+    public List<Produto> getProdutoList() {
+        return produtoList;
     }
 
-    public void setAtendenteProdutoList(List<AtendenteProduto> atendenteProdutoList) {
-        this.atendenteProdutoList = atendenteProdutoList;
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
     }
 
     @Override
@@ -86,7 +92,7 @@ public class Atendente {
                 ", foto='" + foto + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", atendenteProdutoList=" + atendenteProdutoList +
+                ", produtoList=" + produtoList +
                 '}';
     }
 }

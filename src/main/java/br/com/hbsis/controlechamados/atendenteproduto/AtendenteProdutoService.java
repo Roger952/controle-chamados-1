@@ -16,7 +16,7 @@ public class AtendenteProdutoService {
     }
 
     /** MÉTODO AUXILIAR DE ACESSO A REPOSITORY */
-    public List<AtendenteProduto> saveAllNaRepository(List<AtendenteProduto> atendenteProdutosList) {
-        return this.iAtendenteProdutoRepository.saveAll(atendenteProdutosList);
+    public void saveNaRepository(AtendenteProduto atendenteProduto) {
+        this.iAtendenteProdutoRepository.save(atendenteProduto);
     }
 }

@@ -19,9 +19,6 @@ export class ProdutosComponent implements OnInit {
   erro = false;
   sucesso = false;
 
-  /* LIMPAR OS CAMPOS DE TEXTO */
-  nome: string;
-
   constructor(private produtoService: ProdutosService) { }
 
   ngOnInit() {
@@ -56,8 +53,8 @@ export class ProdutosComponent implements OnInit {
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
-
-    this.nome = (<HTMLInputElement>document.getElementById("nome")).value;
-    this.nome = "";
+    this.produto.nome = '';
+    
   }
+  
 }

@@ -20,8 +20,8 @@ public class Disco {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Disco.class);
 
-    /** RESOLUÇÃO DAS IMAGENS */
-    private final int MAX_SIZE_IMAGE = 1920 * 1080;
+//    /** RESOLUÇÃO DAS IMAGENS */
+//    private final int MAX_SIZE_IMAGE = 2 * 1024 * 1024;
 
     @Value("${hbsis.disco.raiz}")
     private String raiz;
@@ -55,7 +55,7 @@ public class Disco {
         }
     }
 
-    public void validate(MultipartFile file){
+    public void validate(MultipartFile file) {
 
         /** OBTER AS  */
         String nomeArquivo = file.getOriginalFilename();
@@ -69,9 +69,9 @@ public class Disco {
             throw new IllegalArgumentException("Tipo de imagem incorreta, selecione tipo png - jpeg - jpg");
         }
 
-        if (file.getSize() > MAX_SIZE_IMAGE){
-            throw new IllegalArgumentException("Tamanho de imagem deve ser menor do que 2MB");
-        }
+//        if (file.getBytes() > MAX_SIZE_IMAGE){
+//            throw new IllegalArgumentException("Tamanho de imagem deve ser menor do que 2MB");
+//        }
     }
 
     private boolean isImageInCorrectType(String nomeArquivo) {
