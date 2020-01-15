@@ -34,6 +34,7 @@ public class EmpresaRest {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_DELETAR_EMPRESA')")
     public void delete(@PathVariable("id") Long id) {
         this.empresaService.delete(id);
     }

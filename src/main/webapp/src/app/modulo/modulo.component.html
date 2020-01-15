@@ -1,0 +1,38 @@
+<app-dashboard></app-dashboard>
+ 
+    <div class="container rounded">
+        <div class="row">
+            <div class="col-12">
+ 
+                <div class="row titulo">
+                    <!--LINHA DO TÍTULO-->
+                    <div class="col-12">
+                        <h1>Cadastro de Módulo</h1>
+                    </div>
+                </div>
+ 
+                <div class="row">
+                    <div class="col-12">
+                        <form (ngSubmit)="onSubmit()">
+                            <!-- FORMULÁRIO -->
+ 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="custom-file">
+                                        <input type="file" id="file" accept=".csv" class="form-control"
+                                            (change)="onSelectFile($event)" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="labelFotoEspec">Tamanho máximo 2MB</label>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-dark">Cadastrar Módulo</button>
+                            </div>
+                        </form><!-- FORMULÁRIO -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

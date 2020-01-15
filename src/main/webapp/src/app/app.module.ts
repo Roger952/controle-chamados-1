@@ -14,15 +14,16 @@ import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from './seguranca/auth.service';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-
 import {ProdutosService} from './produtos.service';
+
+import { HttpClientModule } from '@angular/common/http';
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { LogoutService } from '../app/seguranca/logout.service'
 import { AuthGuard } from './seguranca/auth.guard';
-import { HttpClientModule} from '@angular/common/http';
+import { ModuloComponent } from './modulo/modulo.component';
 
 
 /*export function tokenGetter() {
@@ -40,8 +41,8 @@ import { HttpClientModule} from '@angular/common/http';
     AtendenteComponent,
 
     EmpresaListComponent,
-    InicioComponent
-
+    InicioComponent,
+    ModuloComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +53,7 @@ import { HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    MatSelectModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
