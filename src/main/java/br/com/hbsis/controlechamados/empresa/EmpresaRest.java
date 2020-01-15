@@ -1,6 +1,7 @@
 package br.com.hbsis.controlechamados.empresa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,16 +22,19 @@ public class EmpresaRest {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_MODULO')")
     public EmpresaDTO save(@Valid @RequestBody EmpresaDTO empresaDTO) {
         return this.empresaService.save(empresaDTO);
     }
 
     @GetMapping("/findAll")
+    @PreAuthorize("hasRole('ROLE_LISTAR_MODULO')")
     public List<Empresa> findAll() {
         return this.iEmpresaRepository.findAll();
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_DELETAR_MODULO')")
     public void delete(@PathVariable("id") Long id) {
         this.empresaService.delete(id);
     }

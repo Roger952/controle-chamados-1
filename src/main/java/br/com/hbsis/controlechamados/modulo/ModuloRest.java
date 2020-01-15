@@ -12,16 +12,25 @@ public class ModuloRest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuloRest.class);
 
     private final ModuloService moduloService;
+    private String message = "";
 
     public ModuloRest(ModuloService moduloService) {
         this.moduloService = moduloService;
     }
 
     @PostMapping("/import")
-    public String save(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+    public void save(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
         moduloService.saveImports(multipartFile);
 
-        return moduloService.messageCaseErr;
+        message = moduloService.messageCaseErr;
+    }
+
+    @GetMapping("/export")
+    public String exportMessage() {
+        if (!message.isEmpty()) {
+            return message;
+        }
+        throw new IllegalArgumentException("Esta enviando uma mensagem vazia");
     }
 }

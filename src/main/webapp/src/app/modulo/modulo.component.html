@@ -22,7 +22,7 @@
                                 <div class="col-md-12">
                                     <div class="custom-file">
                                         <input type="file" id="file" accept=".csv" class="form-control"
-                                            (change)="onSelectFile($event)">
+                                            (change)="onSelectFile($event)" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,6 @@
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-dark">Cadastrar Módulo</button>
-                                <button class="btn btn-dark" (click)="downloadFile()">View File</button>
                             </div>
                         </form><!-- FORMULÁRIO -->
                     </div>

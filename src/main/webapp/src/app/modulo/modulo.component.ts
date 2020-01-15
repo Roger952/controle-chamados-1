@@ -4,7 +4,10 @@ import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
 import { Modulo } from '../modulo';
 import { ModuloService } from '../modulo.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -15,12 +18,13 @@ import { Observable } from 'rxjs';
 export class ModuloComponent implements OnInit {
 
 
-  constructor(private moduloService: ModuloService, private produtoService: ProdutosService) { }
+  constructor(private moduloService: ModuloService, private produtoService: ProdutosService, private sanitizer: DomSanitizer) { }
 
   toppings = new FormControl();
   toppingList: Produtos[];
   userFile: any = File;
   modulo = new Modulo;
+  fileUrl;
 
   ngOnInit() {
   }
@@ -38,9 +42,19 @@ export class ModuloComponent implements OnInit {
 
     formData.append('file', this.userFile)
 
-    this.moduloService.createModulo(formData).subscribe((response) => {
-      console.log(response);
-    });
+    this.moduloService.createModulo(formData).subscribe(data => this.downloadFile(), error => alert("Deu erro"));
 
+  }
+
+  downloadFile() {
+
+    this.moduloService.downloadFile().subscribe(data => {
+      alert('Confirme para exibir o relatorio do cadastro');
+
+      console.log("Passou opor aqui");
+
+      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'error.txt');
+
+    });
   }
 }

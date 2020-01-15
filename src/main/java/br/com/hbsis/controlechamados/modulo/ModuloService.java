@@ -35,6 +35,9 @@ public class ModuloService {
 
     public String saveImports(MultipartFile multipartFile) throws IOException {
 
+
+        messageCaseErr = "";
+
         Integer contador = 2;
 
         for (ModuloDTO moduloDTO : importFormatted(multipartFile)) {
@@ -52,7 +55,7 @@ public class ModuloService {
                         "Inconsistência encontrada na linha: " + contador + "\r\n";
 
             } else if (noEqualsNameAndProduto(moduloDTO)) {
-                messageCaseErr += "Este produto já tem um modulo com o nome de " + moduloDTO.getNomeModulo() + "\r\n" +
+                messageCaseErr += "Este produto já tem um modulo com o  nome de " + moduloDTO.getNomeModulo() + "\r\n" +
                         "Inconsistência encontrada na linha: " + contador + "\r\n";
 
             } else if (moduloDTO.getNomeModulo().length() > 50) {
@@ -78,6 +81,8 @@ public class ModuloService {
     }
 
     public List<ModuloDTO> importFormatted(MultipartFile multipartFile) throws IOException {
+
+        messageCaseErr = "";
 
         List<ModuloDTO> moduloDTOS = new ArrayList<>();
         Integer contador = 2;
