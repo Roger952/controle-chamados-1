@@ -18,13 +18,6 @@ export class EmpresaComponent implements OnInit {
   erro = false;
   sucesso = false;
 
-  /* LIMPAR OS CAMPOS DE TEXTO */
-  razaoSocial: string;
-  nomeFantasia: string;
-  cnpj: string;
-  ie: string;
-  email: string;
-
   constructor(private empresaService: EmpresaService) { }
 
   ngOnInit() {
@@ -59,20 +52,10 @@ export class EmpresaComponent implements OnInit {
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
-
-    this.razaoSocial = (<HTMLInputElement>document.getElementById("razaoSocial")).value;
-    this.razaoSocial = "";
-
-    this.nomeFantasia = (<HTMLInputElement>document.getElementById("nomeFantasia")).value;
-    this.nomeFantasia = "";
-
-    this.cnpj = (<HTMLInputElement>document.getElementById("cnpj")).value;
-    this.cnpj = "";
-
-    this.ie = (<HTMLInputElement>document.getElementById("ie")).value;
-    this.ie = "";
-
-    this.email = (<HTMLInputElement>document.getElementById("email")).value;
-    this.email = "";
+    this.empresa.razaoSocial = '';
+    this.empresa.nomeFantasia = '';
+    this.empresa.cnpj = '';
+    this.empresa.ie = '';
+    this.empresa.email = '';
   }
 }

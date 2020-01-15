@@ -22,9 +22,15 @@ public class AtendenteRest {
     }
 
     /** MÉTODOS */
-    @PostMapping("/save/{file}")
-    public AtendenteDTO save(@Valid @RequestParam("file") MultipartFile file, @RequestBody AtendenteDTO atendenteDTO){
+    @PostMapping("/save")
+    public AtendenteDTO save(@RequestBody AtendenteDTO atendenteDTO){
         LOGGER.info("Recebendo save de atendente...");
-        return this.atendenteService.save(file, atendenteDTO);
+        return this.atendenteService.save(atendenteDTO);
+    }
+
+    @PostMapping("/saveImagem")
+    public void saveImagem(@Valid @RequestParam MultipartFile file){
+        LOGGER.info("Recebendo save de imagem...");
+        this.atendenteService.salvarFoto(file);
     }
 }

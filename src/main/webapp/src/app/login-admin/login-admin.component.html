@@ -1,49 +1,54 @@
-<div class="background justify-content-center align-items-center d-flex">
   <div class="container rounded">
-    <div class="row">
+
+    <div class="row titulo"> <!--LINHA DO TÍTULO-->
+      <div class="col-12 titulo">
+        <h2>Login</h2>
+      </div>
+    </div>
+
+    <div class="row"><!-- LINHA DO FORMULÁRIO -->
       <div class="col-12">
+        <form>
 
-        <div class="row titulo">
-          <!--LINHA DO TÍTULO-->
-          <div class="titulo col-12">
-            <h2>Login</h2>
-          </div>
-        </div>
-
-        <form action="">
+          <!-- MENSAGENS DE RETORNO -->
           <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
           <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
 
-          <div class="col-12">
-            <input autocomplete="off" id="login" class="input" type="text" pattern=".+" required [(ngModel)]="login"
-                   name="login" autofocus >
-            <label class="label" for="login">Usuário</label>
+          <div class="row">
+            <div class="col-12">
+              <input autocomplete="off" id="login" class="input" type="text" pattern=".+" required [(ngModel)]="login"
+                name="login" autofocus>
+              <label class="label" for="login">Usuário</label>
 
-            <div class="underDiv">
-              <div class="underDivLeft"></div>
-              <div class="underDivRight"></div>
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
             </div>
           </div>
 
-          <div class="col-12">
-            <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required [(ngModel)]="senha"
-                   id="senha" name="senha" >
-            <label class="label" for="senha">Senha</label>
+          <div class="row">
+            <div class="col-12">
+              <input autocomplete="off" id="senha" class="input" type="password" pattern=".+" required [(ngModel)]="senha"
+                id="senha" name="senha">
+              <label class="label" for="senha">Senha</label>
 
-            <div class="underDiv">
-              <div class="underDivLeft"></div>
-              <div class="underDivRight"></div>
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
             </div>
           </div>
 
           <div id="row-btn" class="row">
             <div id="col-btn" class="col-12">
-              <button (click)="islogin('admi01', 'squad2');" class="entrar btn btn-dark">Entrar</button>
+              <button (click)=handleLogin() class="entrar btn btn-dark">Entrar</button>
             </div>
           </div>
 
         </form>
+
       </div>
     </div>
+
   </div>
-</div>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ControleHttp } from '../app/seguranca/Controle-http';
 import { HttpHeaders }    from '@angular/common/http';
@@ -11,30 +12,44 @@ export class AtendenteService {
 
   private baseUrl = 'http://localhost:8080/atendente';
 
-  constructor(private http: ControleHttp) { }
+  constructor(private http: HttpClient) { }
 
-  getAtendente(id: number): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl+'/findById'}/${id}`, {headers});
-  }
+  // getAtendente(id: number): Observable<any> {
+  //   return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
+  // }
 
   createAtendente(atendente: Object): Observable<Object> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl+'/save'}`, atendente, {headers});
+
+    console.log("Atendente: "+ atendente);
+
+    return this.http.post(`${this.baseUrl+'/save'}`, atendente);
   }
 
-  updateAtendente(id: number, value: any): Observable<Object> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.put(`${this.baseUrl+'/update'}/${id}`, value, {headers});
-  }
+  // updateAtendente(id: number, value: any): Observable<Object> {
+  //   return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
+  // }
 
-  deleteAtendente(id: number): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });// setar header
+  // deleteAtendente(id: number): Observable<any> {
+  //   return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
+  // }
+
+  // getAtendenteList(): Observable<any> {
+  //   return this.http.get(`${this.baseUrl+'/findAll'}`);
+  // }
+
+  /* FILE-UPLOAD */
+  uploadImg(file: File): Observable<any>{
+
+    console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
+
+    let url = this.baseUrl + '/saveImagem';
+    let formData: FormData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(url, formData);
   }
 
   getAtendenteList(): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl+'/findAll'}`, {headers});
+    return this.http.get(`${this.baseUrl+'/findAll'}`);
   }
 }

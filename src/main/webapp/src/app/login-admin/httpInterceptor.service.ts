@@ -1,12 +1,12 @@
 /*import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../seguranca/auth.service';
+import { AuthenticationService } from './auth.service';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-    constructor(private authenticationService: AuthService) { }
+    constructor(private authenticationService: AuthenticationService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.authenticationService.getToken() && req.url.indexOf('oauth/token') === -1) {

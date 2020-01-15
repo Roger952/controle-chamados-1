@@ -15,26 +15,37 @@ export class AtendenteComponent implements OnInit {
   atendente: Atendente = new Atendente();
   submitted = false;
 
+  /* LISTA DE PRODUTOS */
+  produtos = new FormControl();
+  produtoList: Produtos[];
+
+  /* FILE */
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  filename: string;
+
   /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
   sucesso = false;
 
-  /* LIMPAR OS CAMPOS DE TEXTO */
-  nome: string;
-  email: string;
-  senha: string;
-
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
-  toppings = new FormControl();
-  toppingList: Produtos[];
+  /* MÉTODOS DO FILE */
+  selectFile(event){
+    this.selectedFiles = event.target.files;
+  }
 
+  onChange(event) {
+    this.filename = event.srcElement.files[0].name;
+    this.filename = this.filename.substring(this.filename.length - 20);
+  }
 
   ngOnInit() {
-    this.produtoService.getProdutosList().subscribe(data => {
-      this.toppingList = data;
+    this.produtoService.getProdutosList().subscribe(
+      data => {
+      this.produtoList = data;
     }, error => {
       console.log(error)
     });
@@ -44,15 +55,20 @@ export class AtendenteComponent implements OnInit {
     this.submitted = false;
     this.atendente = new Atendente();
   }
+
   save() {
+
+    if(this.atendente.foto != null){
+        this.atendente.foto = this.atendente.foto.substring(12);
+    }
+
     this.atendenteService.createAtendente(this.atendente).subscribe(
         (data) => {
           this.msgSucesso = 'Cadastro realizado com sucesso!';
           this.erro = false;
           this.sucesso = true;
           this.limpar();
-          console.log(this.msgSucesso);
-      }, 
+      },
         (error) => {
           this.msgErro = error.error[0].mensagemDesenvolvedor;
           this.erro = true;
@@ -64,18 +80,29 @@ export class AtendenteComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
+
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
+
+    console.log("Arquivo (file): "+this.currentFileUpload);
+    console.log("Atendente: "+this.atendente);
   }
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
-
-    this.nome = (<HTMLInputElement>document.getElementById("nome")).value;
-    this.nome = "";
-
-    this.email = (<HTMLInputElement>document.getElementById("email")).value;
-    this.email = "";
-
-    this.senha = (<HTMLInputElement>document.getElementById("senha")).value;
-    this.senha = "";
+    this.atendente.nome = '';
+    this.atendente.email = '';
+    this.atendente.senha = '';
   }
+
+  selectClick(produtos){
+
+    const index = this.atendente.produtoList.indexOf(produtos, 0);
+    if(index > -1){
+      this.atendente.produtoList.splice(index, 1);
+      this.atendente.produtoList.push(produtos);
+    }
+    console.log(this.atendente.produtoList);
+  }
+
 }
