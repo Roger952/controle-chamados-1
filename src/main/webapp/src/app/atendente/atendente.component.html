@@ -56,18 +56,16 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <h5 id="h3Foto" pattern=".+">Selecione foto do atendente (Opcional)</h5>
-                    </div>
-                </div>
-
-                <div class="row"> <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
+                <div class="row mb-3"> <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
 
                     <div class="col-6 col-file"><!-- LADO ESQUERDO -->
                         
+                        <div>
+                            <h5 id="h3Foto" pattern=".+">Selecione foto (Opcional)</h5>
+                        </div>
+
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto"
+                            <input title="{{filename}}" type="file" class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto"
                             name="foto" (change)="onChange($event)" (change)="selectFile($event)" onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
                             <label class="custom-file-label" for="validatedCustomFile">{{filename}}</label>
                         </div>

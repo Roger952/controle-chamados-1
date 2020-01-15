@@ -93,6 +93,10 @@ export class AtendenteComponent implements OnInit {
     this.atendente.nome = '';
     this.atendente.email = '';
     this.atendente.senha = '';
+    this.atendente.produtoList = [];
+
+    this.atendente.foto = "C:/fakepath/default-person.png";
+    this.filename = ''
   }
 
   selectClick(produtos){
