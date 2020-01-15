@@ -1,0 +1,2 @@
+ALTER TABLE dbo.seg_admin
+ALTER COLUMN login VARCHAR(100) COLLATE Latin1_General_CS_AS NOT NULL;

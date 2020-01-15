@@ -4,4 +4,4 @@ create table seg_admin(
     senha VARCHAR(100)  NOT NULL
 )
 
-create unique index ix_seg_admin_login on seg_admin(id, login);
+create unique index ix_seg_admin_login on seg_admin(id);
