@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
   { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard] },
   { path: 'modulo', component: ModuloComponent, canActivate:[AuthGuard] },
-  { path: 'inicio', component: InicioComponent },
+  { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
