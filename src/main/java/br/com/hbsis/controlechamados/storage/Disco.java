@@ -20,8 +20,8 @@ public class Disco {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Disco.class);
 
-//    /** RESOLUÇÃO DAS IMAGENS */
-//    private final int MAX_SIZE_IMAGE = 2 * 1024 * 1024;
+    /** RESOLUÇÃO DAS IMAGENS */
+    private final int MAX_SIZE_IMAGE = 2 * 1024 * 1024;
 
     @Value("${hbsis.disco.raiz}")
     private String raiz;
@@ -55,41 +55,36 @@ public class Disco {
         }
     }
 
+    /** VALIDAÇÕES */
     public void validate(MultipartFile file) {
 
-        /** OBTER AS  */
         String nomeArquivo = file.getOriginalFilename();
 
-        /** VALIDAR TIPO DE IMAGEM */
-        boolean validacao = isImageInCorrectType(nomeArquivo);
-
-        if(validacao){
-            LOGGER.info("Arquivo do tipo correto");
-        }else {
+        if(!isImageInCorrectType(nomeArquivo)) {
             throw new IllegalArgumentException("Tipo de imagem incorreta, selecione tipo png - jpeg - jpg");
         }
 
-//        if (file.getBytes() > MAX_SIZE_IMAGE){
-//            throw new IllegalArgumentException("Tamanho de imagem deve ser menor do que 2MB");
-//        }
+        if(file.getSize() > MAX_SIZE_IMAGE){
+            throw new IllegalArgumentException("Tamanho de imagem deve ser menor do que 2MB");
+        }
     }
 
     private boolean isImageInCorrectType(String nomeArquivo) {
 
-        boolean validacao = false;
         String lastLetters = nomeArquivo.substring(nomeArquivo.length() -4);
+        LOGGER.info("Tipo do arquivo: "+lastLetters);
 
-        if(lastLetters.equalsIgnoreCase(".jpg")){
-            validacao = true;
+        if(lastLetters.equals(".jpg")){
+            return true;
         }
 
-        if(nomeArquivo.substring(nomeArquivo.length() -5).equalsIgnoreCase(".jpeg")){
-            validacao = true;
+        if(nomeArquivo.substring(nomeArquivo.length() -5).equals(".jpeg")){
+            return true;
         }
 
-        if(lastLetters.equalsIgnoreCase(".png")){
-            validacao = true;
+        if(lastLetters.equals(".png")){
+            return true;
         }
-        return validacao;
+        return false;
     }
 }
