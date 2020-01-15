@@ -1,89 +1,94 @@
 <app-dashboard></app-dashboard>
 
-<div class="background">
-  <div class="container rounded">
-    <div class="row">
+<div class="container rounded">
+
+    <div class="row titulo"><!--LINHA DO TÍTULO-->
       <div class="col-12">
-
-        <div class="row titulo">
-          <!--LINHA DO TÍTULO-->
-          <div class="col-12">
-            <h1>Cadastro de Empresa</h1>
-          </div>
-        </div>
-
-        <div class="row">
-          <div id="col-12" class="col-12">
-
-            <!-- FORMULÁRIO -->
-            <form #empresaForm="ngForm" (ngSubmit)="onSubmit()">
-
-              <!-- CAMPOS DE TEXTO -->
-              <div class="col-12">
-                <input autocomplete="off" id="razaoSocial" class="input" type="text" pattern=".+" required
-                  [(ngModel)]="empresa.razaoSocial" name="razaoSocial">
-                <label class="label" for="razaoSocial">Razão Social</label>
-
-                <div class="underDiv">
-                  <div class="underDivLeft"></div>
-                  <div class="underDivRight"></div>
-                </div>
-              </div>
-
-              <div class="col-12">
-                <input autocomplete="off" id="nomeFantasia" class="input" type="text" pattern=".+" required
-                  [(ngModel)]="empresa.nomeFantasia" name="nomeFantasia" />
-                <label class="label" for="nomeFantasia">Nome Fantasia</label>
-
-                <div class="underDiv">
-                  <div class="underDivLeft"></div>
-                  <div class="underDivRight"></div>
-                </div>
-              </div>
-
-              <div class="col-12">
-                <input mask="00.000.000/0000-00" autocomplete="off" id="cnpj" class="input" type="text" pattern=".+"
-                  required [(ngModel)]="empresa.cnpj" name="cnpj" />
-                <label class="label" for="cnpj">CNPJ</label>
-
-                <div class="underDiv">
-                  <div class="underDivLeft"></div>
-                  <div class="underDivRight"></div>
-                </div>
-              </div>
-
-              <div class="col-12">
-                <input autocomplete="off" id="ie" class="input" type="text" pattern=".+" required
-                  [(ngModel)]="empresa.ie" name="ie" />
-                <label class="label" for="ie">Incrição Estadual</label>
-
-                <div class="underDiv">
-                  <div class="underDivLeft"></div>
-                  <div class="underDivRight"></div>
-                </div>
-              </div>
-
-              <div class="col-12">
-                <input autocomplete="off" id="email" class="input" type="text" pattern=".+" required
-                  [(ngModel)]="empresa.email" name="email" />
-                <label class="label" for="email">E-mail</label>
-
-                <div class="underDiv">
-                  <div class="underDivLeft"></div>
-                  <div class="underDivRight"></div>
-                </div>
-              </div>
-
-              <div id="row-btn" class="row">
-                <div id="col-btn" class="col-12">
-                  <button id="btn-dark" class="btn btn-dark" type="submit">Cadastrar Empresa</button>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
+        <h1>Cadastro de Empresa</h1>
       </div>
     </div>
-  </div>
+
+    <div class="row"><!-- LINHA DO FORMULÁRIO -->
+      <div class="col-12">
+        <form #empresaForm="ngForm" (ngSubmit)="onSubmit()">
+
+          <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+          <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
+          <!-- CAMPOS DE TEXTO -->
+          <div class="row">
+            <div class="col-12">
+              <input autocomplete="off" [value]="razaoSocial" id="razaoSocial" class="input" type="text" pattern=".+" required
+                [(ngModel)]="empresa.razaoSocial" name="razaoSocial" maxlength="50">
+              <label class="label" for="razaoSocial">Razão Social</label>
+
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <input autocomplete="off" [value]="nomeFantasia" id="nomeFantasia" class="input" type="text" pattern=".+" required
+                [(ngModel)]="empresa.nomeFantasia" name="nomeFantasia" maxlength="50"/>
+              <label class="label" for="nomeFantasia">Nome Fantasia</label>
+
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <input mask="00.000.000/0000-00" [value]="cnpj" autocomplete="off" id="cnpj" class="input" type="text" pattern=".+"
+                required [(ngModel)]="empresa.cnpj" name="cnpj" />
+              <label class="label" for="cnpj">CNPJ</label>
+
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <input autocomplete="off" [value]="ie" id="ie" class="input" type="text" pattern=".+" required
+                [(ngModel)]="empresa.ie" name="ie" maxlength="10"/>
+              <label class="label" for="ie">Incrição Estadual</label>
+
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <input autocomplete="off" [value]="email" id="email" class="input" type="text" pattern=".+" required
+                [(ngModel)]="empresa.email" name="email" maxlength="50"/>
+              <label class="label" for="email">E-mail</label>
+
+              <div class="underDiv">
+                <div class="underDivLeft"></div>
+                <div class="underDivRight"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="row-btn" class="row">
+            <div id="col-btn" class="col-12">
+              <button id="btn-dark" class="btn btn-dark" type="submit">Cadastrar Empresa</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
 </div>
+    

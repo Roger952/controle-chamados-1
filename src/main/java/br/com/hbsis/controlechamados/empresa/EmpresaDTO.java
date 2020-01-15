@@ -9,26 +9,10 @@ import javax.validation.constraints.Size;
 public class EmpresaDTO {
 
     private Long id;
-
-    @NotNull
-    @Size(min = 1, max = 50)
     private String razaoSocial;
-
-    @NotNull
-    @Size(min = 1, max = 50)
     private String nomeFantasia;
-
-    @NotNull
-    @ValidationCNPJ(length = 14, message = "CNPJ inválido")
     private String cnpj;
-
-    @NotNull
-    @Size(min = 1, max = 10)
     private String ie;
-
-    @NotNull
-    @Email(message = "E-mail deve ser válido")
-    @Size(min = 1, max = 50)
     private String email;
 
     public EmpresaDTO() {

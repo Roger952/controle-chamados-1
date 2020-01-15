@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Produtos } from '../produtos';
 import { ProdutosService } from '../produtos.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-produtos',
@@ -13,7 +13,13 @@ export class ProdutosComponent implements OnInit {
   produto: Produtos = new Produtos;
   submitted = false;
 
-  constructor(private produtoService: ProdutosService, private router: Router) { }
+  /* RETORNO DE ERROS AO USER */
+  msgErro: string;
+  msgSucesso: string;
+  erro = false;
+  sucesso = false;
+
+  constructor(private produtoService: ProdutosService) { }
 
   ngOnInit() {
   }
@@ -23,24 +29,32 @@ export class ProdutosComponent implements OnInit {
     this.produto = new Produtos();
   }
 
+  save(){
+    this.produtoService.createProduto(this.produto).subscribe(
+      (data) => {
+        this.msgSucesso = 'Cadastro realizado com sucesso!';
+        this.erro = false;
+        this.sucesso = true;
+        this.limpar();
+        console.log(this.msgSucesso);
+    },
+      (error) => {
+        this.msgErro = error.error[0].mensagemDesenvolvedor;
+        this.erro = true;
+        this.sucesso = false;
+        console.log(this.msgErro);
+    });
+  }
+
   onSubmit() {
     this.submitted = true;
-
-    if (this.nomeProdutoValido(this.produto.nome)) {
-      this.produtoService.createProduto(this.produto).subscribe(data => alert('Produto cadastrado com sucesso!'),
-        error => alert('Erro ao cadastrar!'));
-    }
-    else {
-      throw alert('Produto não pode estar vazio.');
-    }
+    this.save();
   }
 
-  nomeProdutoValido(nomeP: string) {
-    if (nomeP === '' || /^\s*$/.test(nomeP)) {
-      return false;
-    }
-    else {
-      return true;
-    }
+  /* LIMPAR OS CAMPOS APÓS CADASTRO */
+  limpar() {
+    this.produto.nome = '';
+    
   }
+  
 }

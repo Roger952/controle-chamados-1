@@ -1,46 +1,42 @@
 <app-dashboard></app-dashboard>
 
-<div class="background">
-  <div class="container rounded">
-    <div class="row">
-      <div class="col-12">
+<div class="container rounded">
 
-        <div class="row titulo"><!--LINHA DO TÍTULO-->
+  <div class="row titulo"><!--LINHA DO TÍTULO-->
+    <div class="col-12">
+      <h1>Cadastro de Produto</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+
+      <form #produtoForm="ngForm" (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
+
+        <div class="alert alert-danger" *ngIf="erro">{{msgErro}}</div>
+        <div class="alert alert-success" *ngIf="sucesso">{{msgSucesso}}</div>
+
+        <div class="row">
           <div class="col-12">
-            <h1>Cadastro de Produto</h1>
+            <input autocomplete="off" [value]="nome" id="nome" name="nome" pattern=".+" [(ngModel)]="produto.nome"
+              class="input" type="text" required>
+            <label class="label" for="nome">Nome</label>
+
+            <div class="underDiv">
+              <div class="underDivLeft"></div>
+              <div class="underDivRight"></div>
+            </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-12">
-            <form #produtoForm="ngForm" (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
-
-              <div class="row">
-                <div class="col-12">
-
-                  <div class="col-12">
-                    <input autocomplete="off" id="nome" name="nome" #nome="ngModel" [(ngModel)]="produto.nome" class="input" type="text" required>
-                    <label class="label" for="nome">Nome</label>
-
-                    <div class="underDiv">
-                      <div class="underDivLeft"></div>
-                      <div class="underDivRight"></div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12">
-                  <button class="btn btn-dark" type="submit">Cadastrar Produto</button>
-                </div>
-              </div>
-
-            </form>
+            <button class="btn btn-dark" type="submit">Cadastrar Produto</button>
           </div>
         </div>
-      </div>
+
+      </form>
     </div>
   </div>
+
 </div>

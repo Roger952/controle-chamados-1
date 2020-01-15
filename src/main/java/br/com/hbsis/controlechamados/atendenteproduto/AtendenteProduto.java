@@ -22,12 +22,6 @@ public class AtendenteProduto {
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
 
-    /** CONSTRUTOR */
-    public AtendenteProduto(Atendente atendente, Produto produto) {
-        this.atendente = atendente;
-        this.produto = produto;
-    }
-
     public Long getId() {
         return id;
     }
