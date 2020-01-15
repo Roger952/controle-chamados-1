@@ -1,39 +1,28 @@
 /* CSS GERAL */
-.background{
-    justify-content: center;
-   
-    display: flex;
-    background: url("../../assets/hbsisback.jpg");
-    margin: 0px;
-    
-    background-size: 100%;
+.container{
+    margin-top: 50px;
+    width: 600px;
+    background-color: rgba(255, 255, 255, .7);
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-.container{
-    width: 60%;
-    margin-top: 80px;
+.titulo{
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgb(26, 55, 68);
     text-align: center;
+}
+
+.alert{
+    margin: 10px 0px 25px;
 }
 
 .col-12{
     padding: 0px;
 } 
 
-.table{
-    border-radius: 6px;
-}
-
-
 h2{
-    color: white;
+    color: rgb(26, 55, 68);
     padding: 10px;
 }
-
-#rd{
-    display: none;
-}
-
-#rd:checked ~  #table{
-    overflow: visible;
-}
-

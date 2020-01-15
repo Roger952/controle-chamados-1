@@ -1,12 +1,12 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoDTO;
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoService;
 import br.com.hbsis.controlechamados.produtos.Produto;
-import br.com.hbsis.controlechamados.produtos.ProdutoDTO;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
+import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,9 @@ public class AtendenteService {
     private final ProdutoService produtoService;
     private final Disco disco;
 
+    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
+    private final String msgVazio = " não pode estar vazio!";
+
     @Autowired /** CONSTRUTOR */
     public AtendenteService(IAtendenteRepository iAtendenteRepository, AtendenteProdutoService atendenteProdutoService, ProdutoService produtoService, Disco disco) {
         this.iAtendenteRepository = iAtendenteRepository;
@@ -35,50 +38,72 @@ public class AtendenteService {
     }
 
     /** MÉTODOS DE CRUD */
-    public AtendenteDTO save(MultipartFile file, AtendenteDTO atendenteDTO) {
+    public AtendenteDTO save(AtendenteDTO atendenteDTO) {
+
+        this.validate(atendenteDTO);
 
         LOGGER.info("Salvando atendente");
-        LOGGER.debug("Atendente... nome: {} e email: {}", atendenteDTO.getNome(), atendenteDTO.getEmail());
+        LOGGER.debug("Atendente -> [{}]", atendenteDTO);
 
         Atendente atendente = new Atendente();
         atendente.setNome(atendenteDTO.getNome());
         atendente.setEmail(atendenteDTO.getEmail());
         atendente.setSenha(atendenteDTO.getSenha());
-        atendente.setFoto(file.getOriginalFilename());
+        atendente.setFoto(atendenteDTO.getFoto());
+        atendente.setProdutoList(atendenteDTO.getProdutoList());
 
-        /** LISTA DE ITENS */
-        atendente.setAtendenteProdutoList(saveAtendenteProduto(atendenteDTO.getAtendenteProdutoDTOList(), atendente));
-
-        atendente.setFoto(file.getOriginalFilename());
-
+        LOGGER.info("Executando save do atendente!");
         atendente = this.iAtendenteRepository.save(atendente);
 
-        /** EXECUTANDO UPLOAD DE IMAGEM */
-        disco.salvarFoto(file);
-
-        LOGGER.info("Finalizando save do atendente! DEU BOM");
+        LOGGER.info("Finalizando save do atendente!");
         return AtendenteDTO.of(atendente);
     }
 
-    public List<AtendenteProduto> saveAtendenteProduto(List<AtendenteProdutoDTO> atendenteProdutoDTOList, Atendente atendente){
+    public AtendenteDTO validate(AtendenteDTO atendenteDTO){
 
-        LOGGER.info("Salvando Atendente Produto");
-        List<AtendenteProduto> atendenteProdutosList = new ArrayList<>();
+        LOGGER.info("Validando atendente...");
 
-        for (AtendenteProdutoDTO atendenteProdutoDTO : atendenteProdutoDTOList){
-
-            ProdutoDTO produtoDTO = produtoService.findById(atendenteProdutoDTO.getIdProduto());
-            Produto produto = produtoService.converterObjeto(produtoDTO);
-
-            AtendenteDTO atendenteDTO = findById(atendenteProdutoDTO.getIdAtendente());
-            Atendente atendente1 = converterObjeto(atendenteDTO);
-
-            AtendenteProduto atendenteProduto = new AtendenteProduto(atendente1, produto);
-            atendenteProdutosList.add(atendenteProduto);
+        /** MENSAGENS DE RETORNO AO USUÁRIO */
+        if(StringUtils.isBlank(atendenteDTO.getNome())){
+            throw new IllegalArgumentException("Nome"+msgVazio);
         }
-        return this.atendenteProdutoService.saveAllNaRepository(atendenteProdutosList);
+
+        if(atendenteDTO.getNome().length() > 100){
+            throw new IllegalArgumentException("Nome deve conter no máximo 100 digitos!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("E-mail"+msgVazio);
+        }
+
+        if(!ValidatorEmail.isValidEmail(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("Padrão de e-mail inválido!");
+        }
+
+        if(atendenteDTO.getEmail().length() > 100){
+            throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getSenha())){
+            throw new IllegalArgumentException("Senha"+msgVazio);
+        }
+
+        if(atendenteDTO.getSenha().length() > 100){
+            throw new IllegalArgumentException("Senha deve conter no máximo 30 digitos!");
+        }
+
+        if(atendenteDTO.getProdutoList() == null){
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getFoto())){
+            atendenteDTO.setFoto("default-person.png");
+        }
+
+        return atendenteDTO;
     }
 
+    /** MÉTODO DE FORMATAÇÃO GERAL */
     private Atendente converterObjeto(AtendenteDTO atendenteDTO) {
 
         Atendente atendente = new Atendente();
@@ -93,10 +118,13 @@ public class AtendenteService {
         if (atendenteOptional.isPresent()){
 
             Atendente atendente = atendenteOptional.get();
-            AtendenteDTO atendenteDTO = AtendenteDTO.of(atendente);
-            return atendenteDTO;
+            return AtendenteDTO.of(atendente);
         }
         throw new IllegalArgumentException(String.format("Id %s de atendente não existe", id));
     }
 
+    /** EXECUTAR FILE-UPLOAD NA CLASSE DISCO */
+    public void salvarFoto(MultipartFile file) {
+        disco.salvarFoto(file);
+    }
 }

@@ -6,3 +6,5 @@ CREATE TABLE seg_atendentes
     email VARCHAR(50)           NOT NULL,
     senha VARCHAR(30)           NOT NULL
 );
+
+create unique index ix_seg_atendentes_01 on seg_atendentes (email asc);

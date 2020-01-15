@@ -1,8 +1,8 @@
 package br.com.hbsis.controlechamados.utils.cnpj;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -20,7 +20,7 @@ public class ValidatorCNPJ implements ConstraintValidator<ValidationCNPJ, String
     public boolean isValid(String cnpj, ConstraintValidatorContext context) {
         LOGGER.info(" :D Validando CNPJ {} :D", cnpj);
         cnpj.replaceAll("\\D", "");
-        if (StringUtils.isEmpty(cnpj)) {
+        if (StringUtils.isBlank(cnpj)) {
             LOGGER.info(" :D CNPJ inválido {} :D", cnpj);
             return false;
         }
@@ -42,6 +42,9 @@ public class ValidatorCNPJ implements ConstraintValidator<ValidationCNPJ, String
     public static boolean isValidCNPJ(String cnpj) {
         cnpj = cnpj.trim().replace(".", "").replace("-", "");
         if ((cnpj.length() != 14)) {
+            return false;
+        }
+        if(StringUtils.containsOnly(cnpj, "0")){
             return false;
         }
         int digito1 = calculateDigitCnpj(cnpj.substring(0, 12));

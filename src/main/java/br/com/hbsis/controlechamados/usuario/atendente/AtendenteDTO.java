@@ -1,7 +1,6 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoDTO;
+import br.com.hbsis.controlechamados.produtos.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,33 +12,35 @@ public class AtendenteDTO {
     private String nome;
     private String foto;
     private String email;
-    private List<AtendenteProdutoDTO> atendenteProdutoDTOList;
+    private List<Produto> produtoList;
     private String senha;
 
     /** CONSTRUTORES */
     public AtendenteDTO() {
     }
 
-    public AtendenteDTO(Long id, String nome, String foto, String email, List<AtendenteProdutoDTO> atendenteProdutoDTOList, String senha) {
+    public AtendenteDTO(Long id, String nome, String foto, String email, List<Produto> produtoList, String senha) {
         this.id = id;
         this.nome = nome;
         this.foto = foto;
         this.email = email;
-        this.atendenteProdutoDTOList = atendenteProdutoDTOList;
+        this.produtoList = produtoList;
         this.senha = senha;
     }
 
     public static AtendenteDTO of(Atendente atendente) {
 
-        List<AtendenteProdutoDTO> atendenteProdutoDTOList = new ArrayList<>();
-        atendente.getAtendenteProdutoList().forEach(atendenteProduto -> atendenteProdutoDTOList.add(AtendenteProdutoDTO.of(atendenteProduto)));
+        List<Produto> produtoList = new ArrayList<>();
+        for(int i=0; i>atendente.getProdutoList().size(); i++){
+            produtoList.add(atendente.getProdutoList().get(i));
+        }
 
         return new AtendenteDTO(
                 atendente.getId(),
                 atendente.getNome(),
                 atendente.getFoto(),
                 atendente.getEmail(),
-                atendenteProdutoDTOList,
+                produtoList,
                 atendente.getSenha()
         );
     }
@@ -77,20 +78,21 @@ public class AtendenteDTO {
         this.email = email;
     }
 
-    public List<AtendenteProdutoDTO> getAtendenteProdutoDTOList() {
-        return atendenteProdutoDTOList;
-    }
-
-    public void setAtendenteProdutoDTOList(List<AtendenteProdutoDTO> atendenteProdutoDTOList) {
-        this.atendenteProdutoDTOList = atendenteProdutoDTOList;
-    }
-
     public String getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    /** @ManyToMany - List */
+    public List<Produto> getProdutoList() {
+        return produtoList;
+    }
+
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class AtendenteDTO {
                 ", nome='" + nome + '\'' +
                 ", foto='" + foto + '\'' +
                 ", email='" + email + '\'' +
-                ", atendenteProdutoDTOList=" + atendenteProdutoDTOList +
+                ", produtoList=" + produtoList +
                 ", senha='" + senha + '\'' +
                 '}';
     }
