@@ -4,6 +4,8 @@ import { EmpresaService } from '../empresa.service';
 import { Router } from '@angular/router';
 import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
+import { AtendenteService } from '../atendente.service';
+import { Atendente } from '../atendente';
 
 @Component({
   selector: 'app-inicio',
@@ -12,17 +14,18 @@ import { Produtos } from '../produtos';
 })
 export class InicioComponent implements OnInit {
 
-  empresas : Empresa[];
-  produtos : Produtos[];
+  empresas: Empresa[];
+  produtos: Produtos[];
+  atendentes: Atendente[];
 
-  constructor(
-    private empresaService: EmpresaService, 
+  constructor(private empresaService: EmpresaService,
     private produtoService: ProdutosService,
-    private router: Router) { }
+    private atendenteService: AtendenteService) { }
 
   ngOnInit() {
-    this.empresaService.getEmpresaList().subscribe(data => {this.empresas = data;}, error => {console.log(error);});
-    this.produtoService.getProdutosList().subscribe(data => {this.produtos = data;}, error => {console.log(error);});
+    this.empresaService.getEmpresaList().subscribe(data => { this.empresas = data; }, error => { console.log(error); });
+    this.produtoService.getProdutosList().subscribe(data => { this.produtos = data; }, error => { console.log(error); });
+    this.atendenteService.getAtendenteList().subscribe(data => { this.atendentes = data; }, error => { console.log(error); });
   }
 
 }

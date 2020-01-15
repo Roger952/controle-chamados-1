@@ -30,9 +30,9 @@ export class AtendenteService {
   //   return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
   // }
 
-  // getAtendenteList(): Observable<any> {
-  //   return this.http.get(`${this.baseUrl+'/findAll'}`);
-  // }
+  getAtendenteList(): Observable<any> {
+    return this.http.get(`${this.baseUrl+'/findAll'}`);
+  }
 
   /* FILE-UPLOAD */
   uploadImg(file: File): Observable<any>{
