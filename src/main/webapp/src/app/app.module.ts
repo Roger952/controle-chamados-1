@@ -15,13 +15,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from './seguranca/auth.service';
 import { ControleHttp } from '../app/seguranca/Controle-http';
 
-import { HttpClientModule } from '@angular/common/http';
 import {ProdutosService} from './produtos.service';
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { LogoutService } from '../app/seguranca/logout.service'
+import { AuthGuard } from './seguranca/auth.guard';
+import { HttpClientModule} from '@angular/common/http';
 
 
 /*export function tokenGetter() {
@@ -56,12 +57,6 @@ import { LogoutService } from '../app/seguranca/logout.service'
         tokenGetter: () => {
           return '';
         },
-      whitelistedDomains: [],
-      blacklistedRoutes: [],
-      headerName: 'Authorization',
-      throwNoTokenError: true,
-      skipWhenExpired: true,
-      authScheme:'Bearer' 
 }
     })
   ]
@@ -71,7 +66,8 @@ import { LogoutService } from '../app/seguranca/logout.service'
     JwtHelperService,
     ProdutosService,
     ControleHttp,
-    LogoutService
+    LogoutService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

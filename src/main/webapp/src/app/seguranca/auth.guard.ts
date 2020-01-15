@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 import { AuthService } from './auth.service';
 
 
@@ -19,17 +19,10 @@ export class AuthGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-        if (this.authService.isAccessTokenInvalido()) {
-            console.log('Navegação com access token inválido. Obtendo novo token...');
+        if (this.authService.isAccessTokenInvalido() || (localStorage.getItem('')) ) {
 
-            return this.authService.obterNovoAccessToken().then(() => {
-                if (this.authService.isAccessTokenInvalido()) {
-                    this.router.navigate(['/login-admin']);
-                    return false;
-                }else{
-                return true;
-            }
-            });
+            this.router.navigate(['/login-admin']);
+            return false;
         }
         return true;
     }

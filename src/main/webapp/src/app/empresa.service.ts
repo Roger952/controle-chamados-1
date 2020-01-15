@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Empresa } from './empresa';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-import { HttpHeaders }    from '@angular/common/http';
+import { HttpHeaders, HttpClient }    from '@angular/common/http';
 
 
 @Injectable({
@@ -12,10 +12,10 @@ export class EmpresaService {
 
   private baseUrl = 'http://localhost:8080/empresa';
 
-  constructor(private http: ControleHttp) { }
+  constructor(private http: HttpClient) { }
 
   getEmpresa(id: number): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    let headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
     return this.http.get(`${this.baseUrl+'/findById'}/${id}`, {headers});
   }
 
@@ -35,7 +35,7 @@ export class EmpresaService {
   }
 
   getEmpresaList(): Observable<Empresa[]> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    let headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
     return this.http.get<Empresa[]>(`${this.baseUrl+'/findAll'}`, {headers});
   }
 

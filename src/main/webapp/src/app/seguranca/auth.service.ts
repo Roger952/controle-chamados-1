@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders }    from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
-
 @Injectable()
 export class AuthService {
 
@@ -32,6 +30,7 @@ export class AuthService {
         this.armazenarToken(response.access_token);
       })
       .catch(response => {
+        this.usuarioAutenticado = true;
         if (response.status === 400) {
           if (response.error === 'invalid_grant') {
             return Promise.reject('Usuário ou senha inválida!');
@@ -53,6 +52,7 @@ export class AuthService {
       .toPromise()
       .then(response => {
         this.armazenarToken(response.access_token);
+        this.usuarioAutenticado = true;
 
         console.log('Novo access token criado!');
 
@@ -88,5 +88,10 @@ export class AuthService {
       this.armazenarToken(token);
     }
   }
-  
+
+  LoggedUser(){
+    return this.usuarioAutenticado;
+  }
+
+ 
 }
