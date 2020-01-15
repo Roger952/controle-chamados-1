@@ -5,6 +5,7 @@ import br.com.hbsis.controlechamados.storage.Disco;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ public class AtendenteRest {
 
     /** MÉTODOS */
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_ATENDENTE')")
     public AtendenteDTO save(@RequestBody AtendenteDTO atendenteDTO){
         LOGGER.info("Recebendo save de atendente...");
         return this.atendenteService.save(atendenteDTO);
@@ -40,6 +42,7 @@ public class AtendenteRest {
     }
 
     @GetMapping("/findAll")
+    @PreAuthorize("hasRole('ROLE_LISTAR_ATENDENTE')")
     public List<Atendente> findAll() {
         return this.iAtendenteRepository.findAll();
     }
