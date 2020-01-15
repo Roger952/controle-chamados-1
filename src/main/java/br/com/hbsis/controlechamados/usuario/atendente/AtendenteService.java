@@ -62,7 +62,7 @@ public class AtendenteService {
         /** EXECUTANDO UPLOAD DE IMAGEM */
         disco.salvarFoto(file);
 
-        LOGGER.info("Finalizando save do atendente! DEU BOM");
+        LOGGER.info("Atendente cadastrado com sucesso!");
         return AtendenteDTO.of(atendente);
     }
 
