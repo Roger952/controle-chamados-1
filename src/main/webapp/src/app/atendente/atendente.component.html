@@ -14,7 +14,7 @@
             <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
                 <!-- FORMULÁRIO -->
 
-                <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                <div class="alert alert-warning" *ngIf='erro'>{{msgErro}}</div>
                 <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
 
                 <div class="row">
