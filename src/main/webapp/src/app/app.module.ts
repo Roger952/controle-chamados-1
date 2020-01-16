@@ -69,7 +69,7 @@ import { ModuloComponent } from './modulo/modulo.component';
     ProdutosService,
     ControleHttp,
     LogoutService,
-    AuthGuard
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

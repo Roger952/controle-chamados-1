@@ -92,7 +92,7 @@ public class ModuloService {
 
             ModuloDTO moduloDTO = new ModuloDTO();
 
-            if (lineImported.length > 2) {
+            if (lineImported.length != 2) {
                 messageCaseErr += "O CSV só pode conter o nome do Modulo e o Produto no qual este pertence \r\n" +
                         "Inconsistência encontrada na linha: " + contador + "\r\n";
             } else if (lineImported[0].length() > 50) {
