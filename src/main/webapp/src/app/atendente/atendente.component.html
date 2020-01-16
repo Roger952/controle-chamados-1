@@ -72,26 +72,25 @@
                 <div class="row mb-3"> <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
 
                     <div class="col-6 col-file"><!-- LADO ESQUERDO -->
-                        
+
                         <div>
                             <h5 id="h3Foto" pattern=".+">Selecione foto (Opcional)</h5>
                         </div>
 
                         <div class="custom-file">
-                            <input title="{{filename}}" type="file" class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto"
+                            <input accept="image/*" title="{{filename}}" type="file" class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto"
                             name="foto" (change)="onChange($event)" (change)="selectFile($event)" onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
                             <label class="custom-file-label" for="validatedCustomFile">{{filename}}</label>
                         </div>
 
-                        <div>
-                            <label class="labelFotoEspec">Tamanho máximo 2MB</label>
-                            <label class="labelFotoEspec">Apenas arquivos .jpg .png e .jpeg</label>
+                        <div class="text-center">
+                            <label class="labelFotoEspec">Tamanho máximo 2MB.</label>
                         </div>
-                        
+
                     </div>
 
                     <div class="col-6"><!-- LADO DIREITO -->
-                      
+
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione produtos</mat-label>
                                 <!-- <mat-select [(ngModel)]="atendente.atendenteProdutoDTOList" name="atendenteProdutoDTOList" [formControl]="toppings" multiple> -->
