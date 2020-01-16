@@ -1,13 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ProdutosService } from '../produtos.service';
-import { Produtos } from '../produtos';
-import { Modulo } from '../modulo';
-import { ModuloService } from '../modulo.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { saveAs } from 'file-saver';
-import { Observable } from 'rxjs';
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Modulo} from '../modulo';
+import {ModuloService} from '../modulo.service';
+import {saveAs} from 'file-saver';
 
 
 @Component({
@@ -17,24 +11,23 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 })
 export class ModuloComponent implements OnInit {
 
-  constructor(private moduloService: ModuloService, private produtoService: ProdutosService, private sanitizer: DomSanitizer) { }
-
   userFile: any = File;
   modulo = new Modulo;
-
   /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
   sucesso = false;
-
   selectedFiles: FileList;
   filename: string;
+
+  constructor(private moduloService: ModuloService) {
+  }
 
   ngOnInit() {
   }
 
-  selectFile(event){
+  selectFile(event) {
     this.selectedFiles = event.target.files;
   }
 
@@ -58,25 +51,30 @@ export class ModuloComponent implements OnInit {
         this.msgSucesso = 'Cadastro realizado com sucesso!';
         this.erro = false;
         this.sucesso = true;
-        this.limpar();
         this.downloadFile();
-        
-      }, 
+        this.limpar();
+      },
       (error) => {
         this.msgErro = 'Selecione um arquivo CSV!';
         this.erro = true;
         this.sucesso = false;
-    });
+      });
 
   }
 
   downloadFile() {
 
     this.moduloService.downloadFile().subscribe(data => {
-      alert('Confirme para exibir o relatorio do cadastro');
+      this.msgSucesso = 'Baixando as inconsistências encontradas';
+      this.erro = false;
+      this.sucesso = true;
 
-      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'error.txt');
+      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.csv');
 
+    }, (error) => {
+      this.msgErro = 'Nenhuma inconsistência encontrada, upload concluido com sucesso!';
+      this.erro = true;
+      this.sucesso = false;
     });
   }
 
