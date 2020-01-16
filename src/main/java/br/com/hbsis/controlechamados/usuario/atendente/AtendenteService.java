@@ -84,6 +84,10 @@ public class AtendenteService {
             throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
         }
 
+        if(iAtendenteRepository.existsByEmail(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("Email já cadastrado!");
+        }
+
         if(StringUtils.isBlank(atendenteDTO.getSenha())){
             throw new IllegalArgumentException("Senha"+msgVazio);
         }
