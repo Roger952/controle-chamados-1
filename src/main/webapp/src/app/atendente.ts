@@ -6,6 +6,5 @@ export class Atendente {
     email: string;
     senha: string;
     foto: string;
-    
     produtoList: Produtos[];
 }

@@ -48,7 +48,20 @@
                         <input autocomplete="off" [value]="senha" id="senha" class="input" type="text" pattern=".+"
                             required [(ngModel)]="atendente.senha" name="senha" maxlength="30" />
                         <label class="label" for="senha">Senha</label>
+                        
+                        <div class="underDiv">
+                            <div class="underDivLeft"></div>
+                            <div class="underDivRight"></div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-12">
+                        <input autocomplete="off" [value]="senhaConfirmacao" id="senhaConfirmacao" class="input" type="text" pattern=".+"
+                            required name="senhaConfirmacao" maxlength="30" />
+                        <label class="label" for="senhaConfirmacao">Confirmação Senha</label>
+                        
                         <div class="underDiv">
                             <div class="underDivLeft"></div>
                             <div class="underDivRight"></div>

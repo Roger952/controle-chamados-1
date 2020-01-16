@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3200")
 @RequestMapping("/modulos")
 public class ModuloRest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuloRest.class);
@@ -33,6 +33,6 @@ public class ModuloRest {
         if (!message.isEmpty()) {
             return message;
         }
-        throw new IllegalArgumentException("Esta enviando uma mensagem vazia");
+        throw new IllegalArgumentException("Está enviando uma mensagem vazia!");
     }
 }

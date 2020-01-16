@@ -4,6 +4,7 @@ import { Atendente } from '../atendente';
 import { AtendenteService } from '../atendente.service';
 import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-atendente',
@@ -29,6 +30,7 @@ export class AtendenteComponent implements OnInit {
   msgSucesso: string;
   erro = false;
   sucesso = false;
+
 
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
@@ -61,20 +63,31 @@ export class AtendenteComponent implements OnInit {
     if(this.atendente.foto != null){
         this.atendente.foto = this.atendente.foto.substring(12);
     }
+    if(!(this.confirmacaoSenha())){
+      this.msgErro = 'As senhas não correspondem';
+      this.erro = true;
+      this.sucesso = false;
+      console.log('Deu ruim!!!');
 
-    this.atendenteService.createAtendente(this.atendente).subscribe(
-        (data) => {
-          this.msgSucesso = 'Cadastro realizado com sucesso!';
-          this.erro = false;
-          this.sucesso = true;
-          this.limpar();
-      },
-        (error) => {
-          this.msgErro = error.error[0].mensagemDesenvolvedor;
-          this.erro = true;
-          this.sucesso = false;
-          console.log(this.msgErro);
-    });
+    } else {
+    this.atendenteService.createAtendente(this.atendente).subscribe( 
+      (data) => {
+      this.msgSucesso = 'Cadastro realizado com sucesso!';
+      this.erro = false;
+      this.sucesso = true;
+      console.log(this.msgSucesso);
+      this.limpar();
+  },
+    (error) => {
+      this.msgErro = error.error[0].mensagemDesenvolvedor;
+      this.erro = true;
+      this.sucesso = false;
+      console.log(this.msgErro);
+  });
+      
+        
+  }
+
   }
 
   onSubmit() {
@@ -93,12 +106,25 @@ export class AtendenteComponent implements OnInit {
     this.atendente.nome = '';
     this.atendente.email = '';
     this.atendente.senha = '';
+
     this.atendente.produtoList = [];
 
     this.atendente.foto = "C:/fakepath/default-person.png";
     this.filename = ''
   }
 
+  confirmacaoSenha(): boolean{
+     const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
+     
+console.log(senhaConfirmacao);
+    if(this.atendente.senha != senhaConfirmacao){
+     
+      this.erro = true;
+      this.sucesso = false;
+      return false;
+    }
+  }
+  
   selectClick(produtos){
 
     const index = this.atendente.produtoList.indexOf(produtos, 0);
