@@ -19,8 +19,6 @@ export class ModuloService {
     return this.http.post(`${this.baseUrl + '/import'}`, file, {headers});
   }
 
-
-
   downloadFile(): Observable<ArrayBuffer> {
     let headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
 

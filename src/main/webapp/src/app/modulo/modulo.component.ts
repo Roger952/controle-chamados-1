@@ -17,32 +17,56 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 })
 export class ModuloComponent implements OnInit {
 
-
   constructor(private moduloService: ModuloService, private produtoService: ProdutosService, private sanitizer: DomSanitizer) { }
 
-  toppings = new FormControl();
-  toppingList: Produtos[];
   userFile: any = File;
   modulo = new Modulo;
-  fileUrl;
+
+  /* RETORNO DE ERROS AO USER */
+  msgErro: string;
+  msgSucesso: string;
+  erro = false;
+  sucesso = false;
+
+  selectedFiles: FileList;
+  filename: string;
 
   ngOnInit() {
+  }
+
+  selectFile(event){
+    this.selectedFiles = event.target.files;
+  }
+
+  onChange(event) {
+    this.filename = event.srcElement.files[0].name;
+    this.filename = this.filename.substring(this.filename.length - 20);
   }
 
   onSelectFile(event) {
     const file = event.target.files[0];
     this.userFile = file;
-
-    console.log(this.userFile)
-
   }
+
   onSubmit() {
 
     const formData = new FormData();
-
     formData.append('file', this.userFile)
 
-    this.moduloService.createModulo(formData).subscribe(data => this.downloadFile(), error => alert("Deu erro"));
+    this.moduloService.createModulo(formData).subscribe(
+      (data) => {
+        this.msgSucesso = 'Cadastro realizado com sucesso!';
+        this.erro = false;
+        this.sucesso = true;
+        this.limpar();
+        this.downloadFile();
+        
+      }, 
+      (error) => {
+        this.msgErro = 'Selecione um arquivo CSV!';
+        this.erro = true;
+        this.sucesso = false;
+    });
 
   }
 
@@ -51,10 +75,14 @@ export class ModuloComponent implements OnInit {
     this.moduloService.downloadFile().subscribe(data => {
       alert('Confirme para exibir o relatorio do cadastro');
 
-      console.log("Passou opor aqui");
-
       saveAs(new Blob([data], { type: 'multipart/form-data' }), 'error.txt');
 
     });
+  }
+
+  limpar() {
+    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+    this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.filename = '';
   }
 }

@@ -1,38 +1,43 @@
 <app-dashboard></app-dashboard>
  
-    <div class="container rounded">
-        <div class="row">
-            <div class="col-12">
- 
-                <div class="row titulo">
-                    <!--LINHA DO TÍTULO-->
-                    <div class="col-12">
-                        <h1>Cadastro de Módulo</h1>
-                    </div>
-                </div>
- 
-                <div class="row">
-                    <div class="col-12">
-                        <form (ngSubmit)="onSubmit()">
-                            <!-- FORMULÁRIO -->
- 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="custom-file">
-                                        <input type="file" id="file" accept=".csv" class="form-control"
-                                            (change)="onSelectFile($event)" multiple>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="labelFotoEspec">Tamanho máximo 2MB</label>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-dark">Cadastrar Módulo</button>
-                            </div>
-                        </form><!-- FORMULÁRIO -->
-                    </div>
-                </div>
-            </div>
+<div class="container rounded">
+    
+    <div class="row titulo"><!--LINHA DO TÍTULO--> 
+        <div class="col-12">
+            <h1>Cadastro de Módulo</h1>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
+                
+                <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div>
+                            <h6 id="h6Csv" pattern=".+">Selecione um arquivo CSV</h6>
+                        </div>
+
+                        <div class="custom-file">
+                            <input title="{{filename}}" type="file" id="file" accept=".csv" class="form-control" class="custom-file-input" id="validatedCustomFile"
+                                (change)="onSelectFile($event)" (change)="onChange($event)" (change)="selectFile($event)">
+                            <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-dark">Cadastrar Módulo</button>
+                    </div>
+                </div>
+
+            </form><!-- FORMULÁRIO -->
+        </div>   
+    </div>
+
+</div>
