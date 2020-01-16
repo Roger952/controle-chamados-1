@@ -63,7 +63,7 @@ export class AtendenteComponent implements OnInit {
     if(this.atendente.foto != null){
         this.atendente.foto = this.atendente.foto.substring(12);
     }
-    if(!(this.confirmacaoSenha())){
+    if(this.confirmacaoSenha()){
       this.msgErro = 'As senhas não correspondem';
       this.erro = true;
       this.sucesso = false;
@@ -121,7 +121,7 @@ console.log(senhaConfirmacao);
      
       this.erro = true;
       this.sucesso = false;
-      return false;
+      return this.erro;
     }
   }
   
