@@ -1,8 +1,10 @@
 package br.com.hbsis.controlechamados.admin;
 
+import br.com.hbsis.controlechamados.permissao.Permissao;
 import br.com.hbsis.controlechamados.utils.entity.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "seg_admin")
@@ -12,6 +14,11 @@ public class Admin extends AbstractEntity {
     private String login;
     @Column(name = "senha", nullable = false)
     private String senha;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "codigo_usuario")
+            , inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
+    private List<Permissao> permissoes;
 
     public String getLogin() {
         return login;
@@ -29,11 +36,20 @@ public class Admin extends AbstractEntity {
         this.senha = senha;
     }
 
+    public List<Permissao> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(List<Permissao> permissoes) {
+        this.permissoes = permissoes;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
-                "login='"   + login + '\'' +
+                "login='" + login + '\'' +
                 ", senha='" + senha + '\'' +
+                ", permissoes=" + permissoes +
                 '}';
     }
 }

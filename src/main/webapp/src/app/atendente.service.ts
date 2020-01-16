@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ControleHttp } from '../app/seguranca/Controle-http';
+import { HttpHeaders }    from '@angular/common/http';
+import { Atendente } from './atendente';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,7 @@ export class AtendenteService {
 
   private baseUrl = 'http://localhost:8080/atendente';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: ControleHttp) { }
 
   // getAtendente(id: number): Observable<any> {
   //   return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
@@ -19,7 +22,8 @@ export class AtendenteService {
 
     console.log("Atendente: "+ atendente);
 
-    return this.http.post(`${this.baseUrl+'/save'}`, atendente);
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.post(`${this.baseUrl+'/save'}`, atendente, { headers });
   }
 
   // updateAtendente(id: number, value: any): Observable<Object> {
@@ -30,9 +34,9 @@ export class AtendenteService {
   //   return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
   // }
 
-  getAtendenteList(): Observable<any> {
+  /*getAtendenteList(): Observable<any> {
     return this.http.get(`${this.baseUrl+'/findAll'}`);
-  }
+  }*/
 
   /* FILE-UPLOAD */
   uploadImg(file: File): Observable<any>{
@@ -42,8 +46,12 @@ export class AtendenteService {
     let url = this.baseUrl + '/saveImagem';
     let formData: FormData = new FormData();
     formData.append('file', file);
-
-    return this.http.post(url, formData);
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.post(url, formData, { headers });
   }
-  
+
+  getAtendenteList(): Observable<Atendente[]> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.get(`${this.baseUrl+'/findAll'}`, {headers} );
+  }
 }

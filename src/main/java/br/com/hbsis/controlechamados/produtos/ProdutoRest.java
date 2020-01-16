@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class ProdutoRest {
     }
 
     @GetMapping("/lista")
+    @PreAuthorize("hasRole('ROLE_LISTAR_PRODUTO')")
     public List<Produto> listAll(){
         return produtoService.findAll();
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_PRODUTO')")
     public ProdutoDTO save(@RequestBody ProdutoDTO produtoDTO) {
         return produtoService.save(produtoDTO);
     }

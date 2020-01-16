@@ -12,18 +12,23 @@ import { NgxMaskModule } from 'ngx-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-//import { LogoutComponent } from './login-admin/logout.component';
+import { AuthService } from './seguranca/auth.service';
+import { ControleHttp } from '../app/seguranca/Controle-http';
+import {ProdutosService} from './produtos.service';
 
-
-import { HttpInterceptorService } from './login-admin/httpInterceptor.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
-
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { LogoutService } from '../app/seguranca/logout.service'
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 
+
+/*export function tokenGetter() {
+  return localStorage.getItem('token');
+}*/
 
 @NgModule({
   declarations: [
@@ -34,7 +39,6 @@ import { ModuloComponent } from './modulo/modulo.component';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
-  
 
     EmpresaListComponent,
     InicioComponent,
@@ -49,16 +53,23 @@ import { ModuloComponent } from './modulo/modulo.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    MatSelectModule
-
-  ],
+    MatSelectModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        },
+}
+    })
+  ]
+  ,
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true,
-    },
-    AuthGuard
+    AuthService,
+    JwtHelperService,
+    ProdutosService,
+    ControleHttp,
+    LogoutService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

@@ -22,19 +22,19 @@ public class EmpresaRest {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_CADASTRAR_MODULO')")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_EMPRESA')")
     public EmpresaDTO save(@Valid @RequestBody EmpresaDTO empresaDTO) {
         return this.empresaService.save(empresaDTO);
     }
 
     @GetMapping("/findAll")
-    @PreAuthorize("hasRole('ROLE_LISTAR_MODULO')")
+    @PreAuthorize("hasRole('ROLE_LISTAR_EMPRESA')")
     public List<Empresa> findAll() {
         return this.iEmpresaRepository.findAll();
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_DELETAR_MODULO')")
+    @PreAuthorize("hasRole('ROLE_DELETAR_EMPRESA')")
     public void delete(@PathVariable("id") Long id) {
         this.empresaService.delete(id);
     }
