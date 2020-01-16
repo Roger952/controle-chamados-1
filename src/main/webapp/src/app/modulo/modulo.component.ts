@@ -58,7 +58,9 @@ export class ModuloComponent implements OnInit {
         this.msgSucesso = 'Cadastro realizado com sucesso!';
         this.erro = false;
         this.sucesso = true;
+        this.limpar();
         this.downloadFile();
+        
       }, 
       (error) => {
         this.msgErro = 'Selecione um arquivo CSV!';
@@ -76,5 +78,11 @@ export class ModuloComponent implements OnInit {
       saveAs(new Blob([data], { type: 'multipart/form-data' }), 'error.txt');
 
     });
+  }
+
+  limpar() {
+    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+    this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.filename = '';
   }
 }
