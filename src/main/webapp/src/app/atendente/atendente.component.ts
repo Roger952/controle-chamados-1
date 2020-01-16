@@ -73,7 +73,6 @@ export class AtendenteComponent implements OnInit {
           this.msgErro = error.error[0].mensagemDesenvolvedor;
           this.erro = true;
           this.sucesso = false;
-          console.log(this.msgErro);
     });
   }
 
@@ -83,9 +82,6 @@ export class AtendenteComponent implements OnInit {
 
     this.currentFileUpload = this.selectedFiles.item(0);
     this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
-
-    console.log("Arquivo (file): "+this.currentFileUpload);
-    console.log("Atendente: "+this.atendente);
   }
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
