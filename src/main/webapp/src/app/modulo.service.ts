@@ -17,8 +17,6 @@ export class ModuloService {
     return this.http.post(`${this.baseUrl + '/import'}`, file);
   }
 
-
-
   downloadFile(): Observable<ArrayBuffer> {
     let headers = new HttpHeaders();
 

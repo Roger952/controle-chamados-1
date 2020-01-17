@@ -3,6 +3,7 @@ package br.com.hbsis.controlechamados.modulo;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.usuario.atendente.AtendenteService;
 import br.com.hbsis.controlechamados.utils.exportAndImport.Import;
+import br.com.hbsis.controlechamados.utils.formatedObjects.FormatedMessageToCsv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,47 +29,18 @@ public class ModuloService {
         this.produtoService = produtoService;
     }
 
-    private boolean noEqualsNameAndProduto(ModuloDTO moduloDTO) {
-        return iModuloRepositoty.existsByNomeModuloAndProduto(moduloDTO.getNomeModulo(),
-                produtoService.findByNome(moduloDTO.getNomeProduto()));
+    private boolean noEqualsNameAndProduto(String nomeModulo, String nomeProduto) {
+        return iModuloRepositoty.existsByNomeModuloAndProduto(nomeModulo,
+                produtoService.findByNome(nomeProduto));
     }
 
-    public String saveImports(MultipartFile multipartFile) throws IOException {
-
-
-        messageCaseErr = "";
-
-        Integer contador = 2;
+    public void saveAndImports(MultipartFile multipartFile) throws IOException {
 
         for (ModuloDTO moduloDTO : importFormatted(multipartFile)) {
 
-            if (String.valueOf(moduloDTO.getNomeProduto()).isEmpty()) {
-                messageCaseErr += "O id do produto não pode ser vazio" + "\r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-            } else if (!produtoService.existsByNome(moduloDTO.getNomeProduto())) {
-                messageCaseErr += "Não existe um produto com  este Nome" + "\r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
+            save(moduloDTO);
 
-            }
-            if (moduloDTO.getNomeModulo().isEmpty()) {
-                messageCaseErr += "O nome do Modulo não pode estar vazio" + "\r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-
-            } else if (noEqualsNameAndProduto(moduloDTO)) {
-                messageCaseErr += "Este produto já tem um modulo com o  nome de " + moduloDTO.getNomeModulo() + "\r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-
-            } else if (moduloDTO.getNomeModulo().length() > 50) {
-                messageCaseErr += "O numeros de caracteres permitidos foi exedido" + "\r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-
-            } else {
-                save(moduloDTO);
-            }
-            contador++;
-            LOGGER.info(messageCaseErr);
         }
-        return messageCaseErr;
     }
 
     private void save(ModuloDTO moduloDTO) {
@@ -82,39 +54,63 @@ public class ModuloService {
 
     public List<ModuloDTO> importFormatted(MultipartFile multipartFile) throws IOException {
 
-        messageCaseErr = "";
+        FormatedMessageToCsv formatedMessageToCsv = new FormatedMessageToCsv();
 
         List<ModuloDTO> moduloDTOS = new ArrayList<>();
         Integer contador = 2;
 
+        messageCaseErr = formatedMessageToCsv.formatedModuloCSV("Nome_Modulo", "Nome_Modulo", "Mensagem/ Descrição");
+
+
         List<String[]> importCSV = Import.importWithoutDependencyCSV(multipartFile);
         for (String[] lineImported : importCSV) {
 
-            ModuloDTO moduloDTO = new ModuloDTO();
-
-            if (lineImported.length != 2) {
-                messageCaseErr += "O CSV só pode conter o nome do Modulo e o Produto no qual este pertence \r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-            } else if (lineImported[0].length() > 50) {
-                messageCaseErr += "O nome inserido não pode ter mais de 50 caracteres \r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-            } else if (lineImported[0].isEmpty()) {
-                messageCaseErr += "O nome do modulo Não pode ser vazio \r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-            } else if (lineImported[1].isEmpty()) {
-                messageCaseErr += "O nome do produto Não pode estar vazio \r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-            } else if (!produtoService.existsByNome(lineImported[1])) {
-                messageCaseErr += "O nome deste produto não existe ou ainda não foi cadastrado \r\n" +
-                        "Inconsistência encontrada na linha: " + contador + "\r\n";
-            } else {
+            if (isFormatted(formatedMessageToCsv, contador, lineImported)) {
+                ModuloDTO moduloDTO = new ModuloDTO();
                 moduloDTO.setNomeModulo(lineImported[0]);
                 moduloDTO.setNomeProduto(lineImported[1]);
-
-                moduloDTOS.add(moduloDTO);
             }
             contador++;
         }
         return moduloDTOS;
+    }
+
+    private boolean isFormatted(FormatedMessageToCsv formatedMessageToCsv, Integer contador, String[] lineImported) {
+
+
+        if (lineImported.length != 2 || lineImported.length != 3) {
+            messageCaseErr += formatedMessageToCsv.formatedModuloCSV(lineImported[0], lineImported[1],
+                    "O CSV só pode conter o nome do Modulo, o Produto qual este pertence, e uma descrição opcional" +
+                            "Inconsistência encontrada na linha: " + contador + " da importação original");
+            return false;
+        } else if (lineImported[0].length() > 50) {
+            messageCaseErr += formatedMessageToCsv.formatedModuloCSV(lineImported[0], lineImported[1],
+                    "O nome inserido não pode ter mais de 50 caracteres - " +
+                            "Inconsistência encontrada na linha: " + contador + " da importação original");
+            return false;
+        } else if (lineImported[0].isEmpty()) {
+            messageCaseErr += formatedMessageToCsv.formatedModuloCSV(lineImported[0], lineImported[1],
+                    "O nome do modulo Não pode ser vazio - " +
+                            "Inconsistência encontrada na linha: " + contador + " da importação original");
+            return false;
+        }
+        if (lineImported[1].isEmpty()) {
+            messageCaseErr += formatedMessageToCsv.formatedModuloCSV(lineImported[0], lineImported[1],
+                    "O nome do produto Não pode estar vazio - " +
+                            "Inconsistência encontrada na linha: " + contador + " da importação original");
+            return false;
+        } else if (!produtoService.existsByNome(lineImported[1])) {
+            messageCaseErr += formatedMessageToCsv.formatedModuloCSV(lineImported[0], lineImported[1],
+                    "O nome deste produto não existe ou ainda não foi cadastrado \r\n" +
+                            "Inconsistência encontrada na linha: " + contador + "\r\n");
+            return false;
+        }
+        if (noEqualsNameAndProduto(lineImported[0], lineImported[1])) {
+            messageCaseErr += formatedMessageToCsv.formatedModuloCSV(lineImported[0], lineImported[1],
+                    "Este produto já tem um modulo com o  nome de " + lineImported[1] + "\r\n" +
+                            "Inconsistência encontrada na linha: " + contador + "\r\n");
+            return false;
+        }
+        return true;
     }
 }
