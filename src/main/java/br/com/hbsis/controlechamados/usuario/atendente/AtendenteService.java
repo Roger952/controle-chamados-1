@@ -130,7 +130,7 @@ public class AtendenteService {
         }
 
         if(atendenteDTO.getProdutoList().size() == 0){
-            throw new IllegalArgumentException("Favor selecionar no mínimo um produto! teste");
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
         }
 
         if(StringUtils.isBlank(atendenteDTO.getFoto())){
