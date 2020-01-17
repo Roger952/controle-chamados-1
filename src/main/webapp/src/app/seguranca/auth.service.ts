@@ -11,7 +11,6 @@ export class AuthService {
   
   public login: String;
   public senha: String;
-  private usuarioAutenticado: boolean = false;
 
   constructor(private _router: Router, private http: HttpClient, private jwtHelper: JwtHelperService)
    { this.carregarToken(); }
@@ -30,7 +29,6 @@ export class AuthService {
         this.armazenarToken(response.access_token);
       })
       .catch(response => {
-        this.usuarioAutenticado = true;
         if (response.status === 400) {
           if (response.error === 'invalid_grant') {
             return Promise.reject('Usuário ou senha inválida!');
@@ -52,8 +50,6 @@ export class AuthService {
       .toPromise()
       .then(response => {
         this.armazenarToken(response.access_token);
-        this.usuarioAutenticado = true;
-
         console.log('Novo access token criado!');
 
         return Promise.resolve(null);
@@ -81,7 +77,7 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  private carregarToken() {
+   carregarToken() {
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -89,9 +85,18 @@ export class AuthService {
     }
   }
 
-  LoggedUser(){
-    return this.usuarioAutenticado;
+  temPermissao(permissao: string) {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
   }
 
- 
+  temQualquerPermissao(roles) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 }
