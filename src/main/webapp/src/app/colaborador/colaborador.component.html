@@ -78,13 +78,14 @@
 
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                                <!-- <mat-select [(ngModel)]="colaborador.colaboradorProdutoList" name="colaboradorProdutoList" [formControl]="toppings" multiple> -->
-                                <mat-select [(ngModel)]="colaborador.produtoList" name="produtoList" [formControl]="produtos" multiple>
+
+                            <mat-select [(ngModel)]="colaborador.produtoList" name="produtoList" [formControl]="produtos" multiple>
 
                                 <mat-option (click)="selectClickProduto(produtos)" id="optionEscolha" *ngFor="let produtos of produtoList" [value]="produtos">
                                     {{produtos.nome}}
                                 </mat-option>
                             </mat-select>
+                            
                         </mat-form-field>
                     </div>
 
@@ -93,19 +94,13 @@
 
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione Empresas</mat-label>
-                                <!-- <mat-select [(ngModel)]="colaborador.colaboradorEmpresaList" name="colaboradorEmpresasList" [formControl]="toppings" multiple> -->
-                                    <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId" [formControl]="empresas" >
+
+                            <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId" [formControl]="empresas" >
                                         <mat-option  (click)= "selectEmpresa()" *ngFor="let empresas of empresasList" [value]="empresas.id" id ='empresasId'>
                                           {{empresas.razaoSocial}}
                                         </mat-option>
-                                      </mat-select>
-                               
-                                    <!-- <mat-select [(ngModel)]="colaborador.empresasList" name="empresasList" [formControl]="empresas" multiple>
-
-                                <mat-option (click)="selectClickEmpresas(empresas)" id="optionEscolha" *ngFor="let empresas of empresasList" [value]="empresas">
-                                    {{empresas.razaoSocial}}
-                                </mat-option>
-                            </mat-select> -->
+                            </mat-select>
+                            
                         </mat-form-field>
                     </div>
 

@@ -10,7 +10,7 @@ import { Chamado } from './chamado';
 })
 export class ChamadoService {
 
-  private baseUrl = 'http://localhost:8080/colaborador';
+  private baseUrl = 'http://localhost:8080/chamado';
 
   constructor(private http: ControleHttp) { }
 
