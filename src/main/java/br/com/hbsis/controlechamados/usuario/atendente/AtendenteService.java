@@ -84,12 +84,42 @@ public class AtendenteService {
             throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
         }
 
+        if(iAtendenteRepository.existsByEmail(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("Email já cadastrado!");
+        }
+
         if(StringUtils.isBlank(atendenteDTO.getSenha())){
             throw new IllegalArgumentException("Senha"+msgVazio);
         }
 
-        if(atendenteDTO.getSenha().length() > 100){
+        if(atendenteDTO.getSenha().length() > 30){
             throw new IllegalArgumentException("Senha deve conter no máximo 30 digitos!");
+        }
+        if(atendenteDTO.getSenha().length() < 8){
+            throw new IllegalArgumentException("Senha fraca: Possui menos de 8 digitos.");
+        }
+
+        if(StringUtils.containsOnly(atendenteDTO.getSenha().toLowerCase(), "qwertyuiopasdfghjklzxcvbnm")){
+            throw new IllegalArgumentException("Senha fraca: Possui apenas letras");
+        }
+
+        if(StringUtils.containsOnly(atendenteDTO.getSenha(), "0123456789")){
+            throw new IllegalArgumentException("Senha fraca: Possui apenas numeros.");
+        }
+        if(!StringUtils.containsAny(atendenteDTO.getSenha().toLowerCase(), "qwertyuiopasdfghjklzxcvbnm0123456789")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter letras e numeros.");
+        }
+        if(!StringUtils.containsAny(atendenteDTO.getSenha(), "qwertyuiopasdfghjklzxcvbnm")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter letras minusculas e maiusculas.");
+        }
+        if(!StringUtils.containsAny(atendenteDTO.getSenha(), "QWERTYUIOPASDFGHJKLZXCVBNM")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter letras maiusculas.");
+        }
+        if(!StringUtils.containsAny(atendenteDTO.getSenha(), "0123456789")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter numeros.");
+        }
+        if(!StringUtils.containsAny(atendenteDTO.getSenha(), "$&+,:;=?@#|'<>.^*()%!-")){
+            throw new IllegalArgumentException("Senha fraca: Senha precisa de caracteres especiais");
         }
 
         if(atendenteDTO.getProdutoList() == null){

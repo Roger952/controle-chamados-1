@@ -62,19 +62,29 @@ export class AtendenteComponent implements OnInit {
         this.atendente.foto = this.atendente.foto.substring(12);
     }
 
-    this.atendenteService.createAtendente(this.atendente).subscribe(
+    if (this.confirmacaoSenha()) {
+      this.msgErro = 'As senhas não correspondem';
+      this.erro = true;
+      this.sucesso = false;
+      console.log('Deu ruim!!!');
+
+    } else {
+      this.atendenteService.createAtendente(this.atendente).subscribe(
         (data) => {
           this.msgSucesso = 'Cadastro realizado com sucesso!';
           this.erro = false;
           this.sucesso = true;
+          console.log(this.msgSucesso);
           this.limpar();
-      },
+
+        },
         (error) => {
           this.msgErro = error.error[0].mensagemDesenvolvedor;
           this.erro = true;
           this.sucesso = false;
           console.log(this.msgErro);
-    });
+        });
+    }  
   }
 
   onSubmit() {
@@ -83,9 +93,6 @@ export class AtendenteComponent implements OnInit {
 
     this.currentFileUpload = this.selectedFiles.item(0);
     this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
-
-    console.log("Arquivo (file): "+this.currentFileUpload);
-    console.log("Atendente: "+this.atendente);
   }
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
@@ -94,9 +101,10 @@ export class AtendenteComponent implements OnInit {
     this.atendente.email = '';
     this.atendente.senha = '';
     this.atendente.produtoList = [];
-
-    this.atendente.foto = "C:/fakepath/default-person.png";
-    this.filename = ''
+    (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
+    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+    this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.filename = '';
   }
 
   selectClick(produtos){
@@ -107,6 +115,17 @@ export class AtendenteComponent implements OnInit {
       this.atendente.produtoList.push(produtos);
     }
     console.log(this.atendente.produtoList);
+  }
+
+  confirmacaoSenha(): boolean {
+    const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
+
+    if (this.atendente.senha != senhaConfirmacao) {
+
+      this.erro = true;
+      this.sucesso = false;
+      return this.erro;
+    }
   }
 
 }
