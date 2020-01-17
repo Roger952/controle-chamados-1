@@ -151,4 +151,8 @@ public class ColaboradorService {
     public List<Colaborador> findAll(){
         return this.iColaboradorRepository.findAll();
     }
+
+    public List<Colaborador> LikeAs(String nome){
+        return iColaboradorRepository.findByNomeContaining(nome);
+    }
 }
