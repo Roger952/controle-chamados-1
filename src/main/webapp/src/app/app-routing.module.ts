@@ -13,9 +13,10 @@ import { ModuloComponent } from './modulo/modulo.component';
 
 import { AuthService } from './seguranca/auth.service';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
+import { AuthGuard2 } from './seguranca/auth.guard2';
 
 const routes: Routes = [
-  { path: 'login-admin', component: LoginAdminComponent},
+  { path: 'login-admin', component: LoginAdminComponent, canActivate: [AuthGuard2]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
   { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
