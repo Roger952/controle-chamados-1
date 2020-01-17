@@ -1,0 +1,75 @@
+<app-dashboard></app-dashboard>
+
+<div class="container rounded">
+
+    <div class="row titulo">
+        <!--LINHA DO TÍTULO-->
+        <div class="col-12">
+            <h1>Chamados</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+                <!-- FORMULÁRIO -->
+
+                <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
+
+                        <mat-form-field id="checkEscolha" color="accent">
+                            <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                                <!-- <mat-select [(ngModel)]="colaborador.colaboradorProdutoList" name="colaboradorProdutoList" [formControl]="toppings" multiple> -->
+                                <mat-select [(ngModel)]="colaborador.produtoList" name="produtoList" [formControl]="produtos" multiple>
+
+                                <mat-option (click)="selectClickProduto(produtos)" id="optionEscolha" *ngFor="let produtos of produtoList" [value]="produtos">
+                                    {{produtos.nome}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    
+
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <input autocomplete="off" [value]="nome" id="nome" class="input" type="text" pattern=".+"
+                            required [(ngModel)]="colaborador.nome" name="nome" maxlength="200">
+                        <label class="label" for="nome">Titulo</label>
+
+                        <div class="underDiv">
+                            <div class="underDivLeft"></div>
+                            <div class="underDivRight"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                <div class="row">
+                    <div class="col-12">
+                        <label class="labelDEscricao" >Descrição</label>
+                        <textarea></textarea>
+                        <div class="underDiv">
+                            <div class="underDivLeft"></div>
+                            <div class="underDivRight"></div>
+                        </div>
+        
+                          
+                    </div>
+                </div>
+
+                
+             
+    
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-dark">Salvar</button>
+                    </div>
+                </div>
+
+            </form><!-- FORMULÁRIO -->
+        </div>
+    </div>
+</div>

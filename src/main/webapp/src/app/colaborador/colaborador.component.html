@@ -48,11 +48,11 @@
                         <input autocomplete="off" [value]="senha" id="senha" class="input" type="password" pattern=".+"
                             required [(ngModel)]="colaborador.senha" name="senha"  maxlength="30" />
                         <label class="label" for="senha">Senha</label>
-                        
                         <div class="underDiv">
+        
                             <div class="underDivLeft"></div>
                             <div class="underDivRight"></div>
-                            <label class="labelFotoEspec"> * Uma letra maiúscula, minúscula e um caractere especial.</label>
+                               <label class="labelFotoEspec"> * Uma letra maiúscula, minúscula, caractere especial e um número.</label>
                         </div>
                     </div>
                 </div>
@@ -64,11 +64,13 @@
                         <label class="label" for="senhaConfirmacao">Confirmação Senha</label>
                         
                         <div class="underDiv">
+
                             <div class="underDivLeft"></div>
                             <div class="underDivRight"></div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="row mb-3"> <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
 
