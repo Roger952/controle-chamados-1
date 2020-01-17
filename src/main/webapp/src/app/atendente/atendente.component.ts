@@ -4,6 +4,7 @@ import { Atendente } from '../atendente';
 import { AtendenteService } from '../atendente.service';
 import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-atendente',
@@ -33,8 +34,12 @@ export class AtendenteComponent implements OnInit {
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
   /* MÉTODOS DO FILE */
-  selectFile(event){
+  selectFile(event) {
     this.selectedFiles = event.target.files;
+
+    console.log(this.selectedFiles[0].size)
+    console.log(this.selectedFiles[0].name)
+    this.verificarFile();
   }
 
   onChange(event) {
@@ -45,10 +50,47 @@ export class AtendenteComponent implements OnInit {
   ngOnInit() {
     this.produtoService.getProdutosList().subscribe(
       data => {
-      this.produtoList = data;
-    }, error => {
-      console.log(error)
-    });
+        this.produtoList = data;
+      }, error => {
+        console.log(error)
+      });
+  }
+
+  verificarFile() {
+
+    let formData: FormData = new FormData();
+
+    if (this.selectedFiles[0] != undefined) {
+      if (this.selectedFiles[0].size <= 1000 * 1000 * 2) {
+        for (let i = 0; i < this.selectedFiles.length; i++) {
+          formData.append("file", this.selectedFiles[i], this.selectedFiles[i].name)
+        }
+      } else {
+        (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+        this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
+        this.filename = '';
+        this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
+        this.erro = true;
+
+        console.log(this.atendente.foto)
+      }
+    } else {
+      this.erro = false;
+    }
+    if (this.selectedFiles[0] != undefined) {
+      if (this.selectedFiles[0].name.substring(this.selectedFiles.length - 5) != '.jpeg'
+        || this.selectedFiles[0].name.substring(this.selectedFiles.length - 5) != '.jfif'
+        || this.selectedFiles[0].name.substring(this.selectedFiles.length - 4) != '.jpg'
+        || this.selectedFiles[0].name.substring(this.selectedFiles.length - 4) != '.jpg') {
+        (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+        this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
+        this.filename = '';
+        this.msgErro = "Arquivo não é esperado, por favor selecione outro";
+        this.erro = true;
+
+        console.log(this.atendente.foto)
+      }
+    }
   }
 
   newAtendente(): void {
@@ -58,8 +100,8 @@ export class AtendenteComponent implements OnInit {
 
   save() {
 
-    if(this.atendente.foto != null){
-        this.atendente.foto = this.atendente.foto.substring(12);
+    if (this.atendente.foto != null || this.atendente.foto === '') {
+      this.atendente.foto = this.atendente.foto.substring(12);
     }
 
     if (this.confirmacaoSenha()) {
@@ -84,15 +126,19 @@ export class AtendenteComponent implements OnInit {
           this.sucesso = false;
           console.log(this.msgErro);
         });
-    }  
+    }
   }
 
   onSubmit() {
+
+    this.verificarFile();
     this.submitted = true;
     this.save();
 
     this.currentFileUpload = this.selectedFiles.item(0);
     this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
+
+
   }
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
@@ -107,10 +153,10 @@ export class AtendenteComponent implements OnInit {
     this.filename = '';
   }
 
-  selectClick(produtos){
+  selectClick(produtos) {
 
     const index = this.atendente.produtoList.indexOf(produtos, 0);
-    if(index > -1){
+    if (index > -1) {
       this.atendente.produtoList.splice(index, 1);
       this.atendente.produtoList.push(produtos);
     }
