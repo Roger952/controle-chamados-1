@@ -10,6 +10,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
+
 import { AuthService } from './seguranca/auth.service';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 
