@@ -46,12 +46,13 @@
                 <div class="row">
                     <div class="col-12">
                         <input autocomplete="off" [value]="senha" id="senha" class="input" type="password" pattern=".+"
-                            required [(ngModel)]="colaborador.senha" name="senha" maxlength="30" />
+                            required [(ngModel)]="colaborador.senha" name="senha"  maxlength="30" />
                         <label class="label" for="senha">Senha</label>
                         
                         <div class="underDiv">
                             <div class="underDivLeft"></div>
                             <div class="underDivRight"></div>
+                            <label class="labelFotoEspec"> * Uma letra maiúscula, minúscula e um caractere especial.</label>
                         </div>
                     </div>
                 </div>
