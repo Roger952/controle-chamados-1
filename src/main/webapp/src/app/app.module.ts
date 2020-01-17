@@ -26,9 +26,9 @@ import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 
 
-/*export function tokenGetter() {
+export function tokenGetter() {
   return localStorage.getItem('token');
-}*/
+}
 
 @NgModule({
   declarations: [
@@ -56,10 +56,10 @@ import { ModuloComponent } from './modulo/modulo.component';
     MatSelectModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return '';
-        },
-}
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:8080'],
+        blacklistedRoutes: [],
+      }
     })
   ]
   ,

@@ -1,3 +1,4 @@
 export class Modulo {
-    nomeProduto: string;
+  nomeModulo: string;
+  nomeProduto: string;
 }

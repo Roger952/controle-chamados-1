@@ -3,9 +3,10 @@
 <div class="container rounded">
 
   <div class="row titulo"><!--LINHA DO TÍTULO-->
-    <div class="col-12">
+    <div class="col-8">
       <h1>Cadastro de Módulo</h1>
     </div>
+
   </div>
 
   <div class="row">
@@ -18,8 +19,15 @@
         <div class="row">
           <div class="col-md-12">
 
-            <div>
-              <h6 id="h6Csv" pattern=".+">Selecione um arquivo CSV</h6>
+            <div class="row">
+              <div class="col-5">
+                <h6 id="h6Csv" pattern=".+">Selecione um arquivo CSV</h6>
+              </div>
+
+              <div class="col-7">
+                <button class="btn btn-dark" (click)="exportModel()">Baixar modelo de importação</button>
+              </div>
+
             </div>
 
             <div class="custom-file">
@@ -33,9 +41,10 @@
 
         <div class="row">
           <div class="col-12">
-            <button class="btn btn-dark">Cadastrar Módulo</button>
+            <button class="btn btn-dark" (click)="upload()">Cadastrar Módulo</button>
           </div>
         </div>
+
 
       </form><!-- FORMULÁRIO -->
     </div>
