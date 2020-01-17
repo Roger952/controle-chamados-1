@@ -5,15 +5,16 @@ import br.com.hbsis.controlechamados.produtos.Produto;
 import java.util.List;
 
 public class ColaboradorDTO {
-    private Long id;
+    private Long id, codigo;
     private String nome;
     private String email;
     private String senha;
     private Long empresa;
     private List<Produto> produtoList;
 
-    public ColaboradorDTO(Long id, String nome, String email, String senha, Long empresaId, List<Produto> produtoList) {
+    public ColaboradorDTO(Long id, Long codigo, String nome, String email, String senha, Long empresaId, List<Produto> produtoList) {
         this.id = id;
+        this.codigo = codigo;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -24,12 +25,21 @@ public class ColaboradorDTO {
     public static ColaboradorDTO of (Colaborador colaborador){
         return new ColaboradorDTO(
                 colaborador.getId(),
+                colaborador.getCodigo(),
                 colaborador.getNome(),
                 colaborador.getEmail(),
                 colaborador.getSenha(),
                 colaborador.getEmpresa().getId(),
                 colaborador.getProdutoList()
         );
+    }
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
     public Long getId() {
@@ -84,6 +94,7 @@ public class ColaboradorDTO {
     public String toString() {
         return "ColaboradorDTO{" +
                 "id=" + id +
+                ", codigo=" + codigo +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +

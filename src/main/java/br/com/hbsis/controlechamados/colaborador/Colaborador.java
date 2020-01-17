@@ -22,6 +22,9 @@ public class Colaborador {
     @Column(name = "senha", nullable = false, length = 100)
     private String senha;
 
+    @Column(name = "codigo", nullable = false, length = 100)
+    private Long codigo;
+
     @ManyToOne
     @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = false)
     private Empresa empresa;
@@ -33,12 +36,25 @@ public class Colaborador {
     public Colaborador() {
     }
 
-    public Colaborador(String nome, String email, String senha, Empresa empresa, List<Produto> produtoList) {
+    public Colaborador(Long id, String nome, String email, String senha, Long codigo, Empresa empresa, List<Produto> produtoList) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.codigo = codigo;
         this.empresa = empresa;
         this.produtoList = produtoList;
+    }
+
+    public Colaborador(String nome, Long codigo, String email, String senha, Empresa empresa, List<Produto> produtoList) {
+    }
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
     public Long getId() {
@@ -96,6 +112,7 @@ public class Colaborador {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
+                ", codigo=" + codigo +
                 ", empresa=" + empresa +
                 ", produtoList=" + produtoList +
                 '}';

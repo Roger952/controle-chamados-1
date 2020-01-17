@@ -47,6 +47,7 @@ public class ModuloService {
         Modulo modulo = new Modulo();
 
         modulo.setNomeModulo(moduloDTO.getNomeModulo());
+        modulo.setCodigo(moduloDTO.getCodigo());
         modulo.setProduto(produtoService.findByNome(moduloDTO.getNomeProduto()));
 
         iModuloRepositoty.save(modulo);

@@ -2,21 +2,35 @@ package br.com.hbsis.controlechamados.modulo;
 
 public class ModuloDTO {
 
-    private Long id;
+    private Long id, codigo;
     private String nomeModulo;
     private String nomeProduto;
 
-    public ModuloDTO(Long id, String nomeModulo, String nomeProduto) {
+    public ModuloDTO(Long id, Long codigo, String nomeModulo, String nomeProduto) {
         this.id = id;
         this.nomeModulo = nomeModulo;
         this.nomeProduto = nomeProduto;
+        this.codigo = codigo;
     }
 
     public ModuloDTO() {
     }
 
     public static ModuloDTO of(Modulo modulo) {
-        return new ModuloDTO(modulo.getId(), modulo.getNomeModulo(), modulo.getProduto().getNome());
+        return new ModuloDTO(
+                modulo.getId(),
+                modulo.getCodigo(),
+                modulo.getNomeModulo(),
+                modulo.getProduto().getNome()
+                );
+    }
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
     public Long getId() {
@@ -47,8 +61,9 @@ public class ModuloDTO {
     public String toString() {
         return "ModuloDTO{" +
                 "id=" + id +
+                ", codigo=" + codigo +
                 ", nomeModulo='" + nomeModulo + '\'' +
-                ", idProduto=" + nomeProduto +
+                ", nomeProduto='" + nomeProduto + '\'' +
                 '}';
     }
 }

@@ -25,7 +25,19 @@ public class Empresa {
     @Column(name = "email",  unique = true, nullable = false, length = 50)
     private String email;
 
+    @Column(name = "codigo",  unique = true, nullable = false, length = 50)
+    private Long codigo;
+
     public Empresa() {
+    }
+
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
     public Long getId() {
@@ -79,12 +91,13 @@ public class Empresa {
     @Override
     public String toString() {
         return "Empresa{" +
-                "Id=" + id +
+                "id=" + id +
                 ", razaoSocial='" + razaoSocial + '\'' +
                 ", nomeFantasia='" + nomeFantasia + '\'' +
                 ", cnpj='" + cnpj + '\'' +
-                ", ie=" + ie +
+                ", ie='" + ie + '\'' +
                 ", email='" + email + '\'' +
+                ", codigo='" + codigo + '\'' +
                 '}';
     }
 }

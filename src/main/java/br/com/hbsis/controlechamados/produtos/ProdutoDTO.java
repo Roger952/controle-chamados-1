@@ -2,18 +2,29 @@ package br.com.hbsis.controlechamados.produtos;
 
 public class ProdutoDTO {
 
-    private Long id;
+    private Long id, codigo;
     private String nome;
 
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(String nome) {
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
+
+    public ProdutoDTO(String nome, Long codigo) {
         this.nome = nome;
+        this.codigo = codigo;
     }
 
     public static ProdutoDTO of(Produto produto){
-        return new ProdutoDTO(produto.getNome());
+        return new ProdutoDTO(
+                produto.getNome(),
+                produto.getCodigo());
     }
 
     public Long getId() {
@@ -36,6 +47,7 @@ public class ProdutoDTO {
     public String toString() {
         return "ProdutoDTO{" +
                 "id=" + id +
+                ", codigo=" + codigo +
                 ", nome='" + nome + '\'' +
                 '}';
     }

@@ -18,6 +18,17 @@ public class Modulo extends AbstractEntity {
     @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
 
+    @Column(name = "codigo",  unique = true, nullable = false, length = 50)
+    private Long codigo;
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNomeModulo() {
         return nomeModulo;
     }
@@ -37,8 +48,9 @@ public class Modulo extends AbstractEntity {
     @Override
     public String toString() {
         return "Modulo{" +
-                "nomeProduto='" + nomeModulo + '\'' +
+                "nomeModulo='" + nomeModulo + '\'' +
                 ", produto=" + produto +
+                ", codigo=" + codigo +
                 '}';
     }
 }

@@ -26,6 +26,9 @@ public class Atendente {
     @Column(name = "senha", unique = false, nullable = false, length = 30)
     private String senha;
 
+    @Column(name = "codigo", unique = false, nullable = false, length = 30)
+    private Long codigo;
+
     /** MUITOS ATENDENTES PARA MUITOS PRODUTOS */
     @ManyToMany
     @JoinTable(
@@ -33,9 +36,16 @@ public class Atendente {
             joinColumns = @JoinColumn(name = "id_atendente"),
             inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
-
-
+       
     /** GETTER & SETTER */
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
     public Long getId() {
         return id;
@@ -94,6 +104,7 @@ public class Atendente {
                 ", foto='" + foto + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
+                ", codigo=" + codigo +
                 ", produtoList=" + produtoList +
                 '}';
     }

@@ -119,10 +119,12 @@ public class ColaboradorService {
 
         Colaborador colaborador = new Colaborador(
                 colaboradorDTO.getNome(),
+                colaboradorDTO.getCodigo(),
                 colaboradorDTO.getEmail(),
                 colaboradorDTO.getSenha(),
                 findEmpresa(colaboradorDTO.getEmpresa()),
                 colaboradorDTO.getProdutoList()
+
         );
 
         colaborador = this.iColaboradorRepository.save(colaborador);

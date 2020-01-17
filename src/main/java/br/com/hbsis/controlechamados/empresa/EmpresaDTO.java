@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 public class EmpresaDTO {
 
-    private Long id;
+    private Long id, codigo;
     private String razaoSocial;
     private String nomeFantasia;
     private String cnpj;
@@ -18,8 +18,9 @@ public class EmpresaDTO {
     public EmpresaDTO() {
     }
 
-    public EmpresaDTO(Long id, String razaoSocial, String nomeFantasia, String cnpj, String ie, String email) {
+    public EmpresaDTO(Long id, Long codigo ,String razaoSocial, String nomeFantasia, String cnpj, String ie, String email) {
         this.id = id;
+        this.codigo = codigo;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
@@ -30,12 +31,21 @@ public class EmpresaDTO {
     public static EmpresaDTO of(Empresa empresa) {
         return new EmpresaDTO(
                 empresa.getId(),
+                empresa.getCodigo(),
                 empresa.getCnpj(),
                 empresa.getRazaoSocial(),
                 empresa.getNomeFantasia(),
                 empresa.getIe(),
                 empresa.getEmail()
         );
+    }
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
     public Long getId() {

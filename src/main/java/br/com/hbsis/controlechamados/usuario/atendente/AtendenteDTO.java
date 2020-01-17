@@ -8,7 +8,7 @@ import java.util.List;
 public class AtendenteDTO {
 
     /** ATRIBUTOS */
-    private Long id;
+    private Long id, codigo;
     private String nome;
     private String foto;
     private String email;
@@ -19,8 +19,9 @@ public class AtendenteDTO {
     public AtendenteDTO() {
     }
 
-    public AtendenteDTO(Long id, String nome, String foto, String email, List<Produto> produtoList, String senha) {
+    public AtendenteDTO(Long id, Long codigo, String nome, String foto, String email, List<Produto> produtoList, String senha) {
         this.id = id;
+        this.codigo = codigo;
         this.nome = nome;
         this.foto = foto;
         this.email = email;
@@ -37,6 +38,7 @@ public class AtendenteDTO {
 
         return new AtendenteDTO(
                 atendente.getId(),
+                atendente.getCodigo(),
                 atendente.getNome(),
                 atendente.getFoto(),
                 atendente.getEmail(),
@@ -45,7 +47,18 @@ public class AtendenteDTO {
 
         );
     }
+
+
+
     /** GETTER & SETTER */
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
     public Long getId() {
         return id;
@@ -100,6 +113,7 @@ public class AtendenteDTO {
     public String toString() {
         return "AtendenteDTO{" +
                 "id=" + id +
+                ", codigo=" + codigo +
                 ", nome='" + nome + '\'' +
                 ", foto='" + foto + '\'' +
                 ", email='" + email + '\'' +
