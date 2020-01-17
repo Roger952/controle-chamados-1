@@ -19,9 +19,13 @@ export class ColaboradorService {
   //   return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
   // }
 
-  createColaborador(colaborador: Object): Observable<Object> {
+  createColaborador(colaborador: Colaborador): Observable<Object> {
 
-    console.log("Colaborador: "+ colaborador);
+    console.log("Colaborador: "+ colaborador.email);
+    console.log("Colaborador: "+ colaborador.nome);
+    console.log("Colaborador: "+ colaborador.senha);
+    console.log("Colaborador: "+ colaborador.empresaId);
+    console.log("Colaborador: "+ colaborador.produtoList);
 
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
     return this.http.post(`${this.baseUrl+'/save'}`, colaborador, { headers });

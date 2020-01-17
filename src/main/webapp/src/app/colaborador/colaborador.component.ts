@@ -35,17 +35,7 @@ export class ColaboradorComponent implements OnInit {
   erro = false;
   sucesso = false;
 
-  constructor(private colaboradorService : ColaboradorService, private produtoService: ProdutosService, private empresa: EmpresaService) { }
-
-  /* MÉTODOS DO FILE */
-  selectFile(event){
-    this.selectedFiles = event.target.files;
-  }
-
-  onChange(event) {
-    this.filename = event.srcElement.files[0].name;
-    this.filename = this.filename.substring(this.filename.length - 20);
-  }
+  constructor(private colaboradorService : ColaboradorService, private produtoService: ProdutosService, private empresaService: EmpresaService) { }
 
   ngOnInit() {
     this.produtoService.getProdutosList().subscribe(
@@ -54,6 +44,14 @@ export class ColaboradorComponent implements OnInit {
     }, error => {
       console.log(error)
     });
+
+    this.empresaService.getEmpresaList().subscribe(
+      data => {
+      this.empresasList = data;
+    }, error => {
+      console.log(error)
+    });
+
   }
 
   newAtendente(): void {
@@ -93,9 +91,6 @@ export class ColaboradorComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
-
-    console.log("Arquivo (file): "+this.currentFileUpload);
-    console.log("Atendente: "+this.colaborador);
   }
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
@@ -104,7 +99,7 @@ export class ColaboradorComponent implements OnInit {
     this.colaborador.email = '';
     this.colaborador.senha = '';
     this.colaborador.produtoList = [];
-    this.colaborador.empresaList = [];
+    this.colaborador.empresaId = 1;
 
     (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
 
@@ -112,8 +107,6 @@ export class ColaboradorComponent implements OnInit {
 
   confirmacaoSenha(): boolean{
      const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
-
-console.log(senhaConfirmacao);
     if(this.colaborador.senha != senhaConfirmacao){
 
       this.erro = true;
@@ -121,6 +114,12 @@ console.log(senhaConfirmacao);
       return this.erro;
     }
   }
+
+  selectEmpresa(){
+    
+    console.log(this.colaborador.empresaId);
+  }
+
 
   selectClickProduto(produtos) {
 
@@ -130,15 +129,5 @@ console.log(senhaConfirmacao);
       this.colaborador.produtoList.push(produtos);
     }
     console.log(this.colaborador.produtoList);
-  }
-
-  selectClickEmpresa(empresas) {
-
-    const index = this.colaborador.empresaList.indexOf(empresas, 0);
-    if(index > -1){
-      this.colaborador.empresaList.splice(index, 1);
-      this.colaborador.empresaList.push(empresas);
-    }
-    console.log(this.colaborador.empresaList);
   }
 }

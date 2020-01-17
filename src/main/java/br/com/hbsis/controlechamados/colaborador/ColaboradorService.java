@@ -24,7 +24,7 @@ public class ColaboradorService {
 
     private void validate(ColaboradorDTO colaboradorDTO){
         LOGGER.info("Validando colaborador...");
-
+        LOGGER.info("colaborador" + colaboradorDTO);
         if(colaboradorDTO == null){
             throw new IllegalArgumentException("Colaborador DTO vazio.");
         }
@@ -105,6 +105,13 @@ public class ColaboradorService {
     }
 
     public ColaboradorDTO save(ColaboradorDTO colaboradorDTO){
+
+        LOGGER.info("ColaboradorEmpresaID" + colaboradorDTO.getEmpresa());
+        LOGGER.info("email" + colaboradorDTO.getEmail());
+        LOGGER.info("senha" + colaboradorDTO.getSenha());
+        LOGGER.info("nome" + colaboradorDTO.getNome());
+        LOGGER.info("list prod" + colaboradorDTO.getProdutoList());
+
         validate(colaboradorDTO);
         validarExistenciaEmail(colaboradorDTO.getEmail());
 

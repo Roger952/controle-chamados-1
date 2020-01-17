@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/colaboradores")
+@RequestMapping("/colaborador")
 public class ColaboradorRest {
     private final ColaboradorService colaboradorService;
 
