@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ControleHttp} from "./seguranca/Controle-http";
@@ -39,7 +39,7 @@ export class ModuloService {
     }));
   }
 
-  downloadModule(): Observable<ArrayBuffer>{
+  downloadModule(): Observable<ArrayBuffer> {
 
     const options: {
       headers?: HttpHeaders;
