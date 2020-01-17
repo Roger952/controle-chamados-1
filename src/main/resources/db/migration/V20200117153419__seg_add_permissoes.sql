@@ -1,0 +1,1 @@
+INSERT INTO permissao (id, descricao) values (13, 'ROLE_LIST_LIKE_NOME_COLABORADOR');
