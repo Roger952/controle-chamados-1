@@ -58,30 +58,26 @@ export class AtendenteComponent implements OnInit {
 
   verificarFile() {
 
+    console.log(this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.jpg')
+
     let formData: FormData = new FormData();
 
-    if (this.selectedFiles[0] != undefined) {
-      if (this.selectedFiles[0].size <= 1000 * 1000 * 2) {
-        for (let i = 0; i < this.selectedFiles.length; i++) {
-          formData.append("file", this.selectedFiles[i], this.selectedFiles[i].name)
-        }
-      } else {
+    if(this.selectedFiles[0] != undefined) {
+      if (this.selectedFiles[0].size > 1000 * 1000 * 2) {
         (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
         this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
         this.filename = '';
         this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
         this.erro = true;
-
         console.log(this.atendente.foto)
+      } else{
+        this.erro = false;
       }
-    } else {
-      this.erro = false;
-    }
-    if (this.selectedFiles[0] != undefined) {
-      if (this.selectedFiles[0].name.substring(this.selectedFiles.length - 5) != '.jpeg'
-        || this.selectedFiles[0].name.substring(this.selectedFiles.length - 5) != '.jfif'
-        || this.selectedFiles[0].name.substring(this.selectedFiles.length - 4) != '.jpg'
-        || this.selectedFiles[0].name.substring(this.selectedFiles.length - 4) != '.jpg') {
+
+      if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 5) != '.jpeg'
+        && this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 5) != '.jfif'
+        && this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.jpg'
+        && this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.png') {
         (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
         this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
         this.filename = '';
@@ -89,8 +85,13 @@ export class AtendenteComponent implements OnInit {
         this.erro = true;
 
         console.log(this.atendente.foto)
+      }else{
+        
       }
+    }else{
+      this.erro = false;
     }
+
   }
 
   newAtendente(): void {
