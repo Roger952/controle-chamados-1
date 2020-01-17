@@ -1,6 +1,6 @@
-package br.com.hbsis.controlechamados.atendimentocolaborador;
+package br.com.hbsis.controlechamados.chamados;
 
-import br.com.hbsis.controlechamados.atendimentocolaborador.arquivo.ArquivoDTO;
+import br.com.hbsis.controlechamados.chamados.arquivo.ArquivoDTO;
 
 import java.util.ArrayList;
 import java.util.Date;

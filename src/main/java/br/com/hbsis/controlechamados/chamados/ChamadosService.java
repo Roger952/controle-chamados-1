@@ -1,12 +1,13 @@
-package br.com.hbsis.controlechamados.atendimentocolaborador;
+package br.com.hbsis.controlechamados.chamados;
 
-import br.com.hbsis.controlechamados.atendimentocolaborador.arquivo.Arquivo;
-import br.com.hbsis.controlechamados.atendimentocolaborador.arquivo.ArquivoDTO;
-import br.com.hbsis.controlechamados.atendimentocolaborador.arquivo.ArquivoService;
+import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
+import br.com.hbsis.controlechamados.chamados.arquivo.ArquivoDTO;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ChamadosService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChamadosService.class);
     private final IChamadosRepository iChamadosRepository;
@@ -42,8 +44,10 @@ public class ChamadosService {
         chamados.setArquivoList(parseArquivos(chamadosDTO.getArquivoDTOS(), chamados));
 
         for (Arquivo arquivo : chamados.getArquivoList()){
+
         }
 
+        return ChamadosDTO.of(chamados);
     }
 
     public Chamados findById(Long id) {
@@ -64,5 +68,9 @@ public class ChamadosService {
             arquivoList.add(arquivo);
         }
         return arquivoList;
+    }
+
+    public void saveMultipartFiles(List<MultipartFile> multipartFiles){
+
     }
 }

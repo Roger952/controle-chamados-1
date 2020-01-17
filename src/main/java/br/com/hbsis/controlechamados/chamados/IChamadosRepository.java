@@ -1,4 +1,4 @@
-package br.com.hbsis.controlechamados.atendimentocolaborador;
+package br.com.hbsis.controlechamados.chamados;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

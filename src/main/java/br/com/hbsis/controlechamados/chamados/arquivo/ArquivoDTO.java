@@ -1,26 +1,30 @@
-package br.com.hbsis.controlechamados.atendimentocolaborador.arquivo;
+package br.com.hbsis.controlechamados.chamados.arquivo;
 
-import br.com.hbsis.controlechamados.atendimentocolaborador.Chamados;
+public class ArquivoDTO {
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "seg_arquivos")
-public class Arquivo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "nome_arquivo", nullable = false, length = 200)
     private String nomeArquivo;
-
-    @ManyToOne
-    @JoinColumn(name = "id_chamados", referencedColumnName = "id")
-    private Chamados idChamados;
-
-    @Column(name = "arquivo")
+    private Long idChamados;
     private Byte arquivo;
+
+    public ArquivoDTO() {
+    }
+
+    public ArquivoDTO(Long id, String nomeArquivo, Long idChamados, Byte arquivo) {
+        this.id = id;
+        this.nomeArquivo = nomeArquivo;
+        this.idChamados = idChamados;
+        this.arquivo = arquivo;
+    }
+
+    public static ArquivoDTO of(Arquivo arquivo) {
+        return new ArquivoDTO(
+                arquivo.getId(),
+                arquivo.getNomeArquivo(),
+                arquivo.getIdChamados().getId(),
+                arquivo.getArquivo()
+        );
+    }
 
     public Long getId() {
         return id;
@@ -38,11 +42,11 @@ public class Arquivo {
         this.nomeArquivo = nomeArquivo;
     }
 
-    public Chamados getIdChamados() {
+    public Long getIdChamados() {
         return idChamados;
     }
 
-    public void setIdChamados(Chamados idChamados) {
+    public void setIdChamados(Long idChamados) {
         this.idChamados = idChamados;
     }
 
@@ -56,7 +60,7 @@ public class Arquivo {
 
     @Override
     public String toString() {
-        return "Arquivo{" +
+        return "ArquivoDTO{" +
                 "id=" + id +
                 ", nomeArquivo='" + nomeArquivo + '\'' +
                 ", idChamados=" + idChamados +

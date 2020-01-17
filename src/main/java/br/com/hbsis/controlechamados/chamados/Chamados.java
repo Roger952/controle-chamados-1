@@ -1,12 +1,11 @@
-package br.com.hbsis.controlechamados.atendimentocolaborador;
+package br.com.hbsis.controlechamados.chamados;
 
 
-import br.com.hbsis.controlechamados.atendimentocolaborador.arquivo.Arquivo;
+import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
 import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.utils.entity.AbstractEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package br.com.hbsis.controlechamados.atendimentocolaborador.arquivo;
+package br.com.hbsis.controlechamados.chamados.arquivo;
 
 
-import br.com.hbsis.controlechamados.atendimentocolaborador.ChamadosService;
+import br.com.hbsis.controlechamados.chamados.ChamadosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
