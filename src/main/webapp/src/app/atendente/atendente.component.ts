@@ -4,7 +4,6 @@ import { Atendente } from '../atendente';
 import { AtendenteService } from '../atendente.service';
 import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-atendente',
@@ -30,7 +29,6 @@ export class AtendenteComponent implements OnInit {
   msgSucesso: string;
   erro = false;
   sucesso = false;
-
 
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
@@ -63,31 +61,30 @@ export class AtendenteComponent implements OnInit {
     if(this.atendente.foto != null){
         this.atendente.foto = this.atendente.foto.substring(12);
     }
-    if(this.confirmacaoSenha()){
+
+    if (this.confirmacaoSenha()) {
       this.msgErro = 'As senhas não correspondem';
       this.erro = true;
       this.sucesso = false;
       console.log('Deu ruim!!!');
 
     } else {
-    this.atendenteService.createAtendente(this.atendente).subscribe(
-      (data) => {
-      this.msgSucesso = 'Cadastro realizado com sucesso!';
-      this.erro = false;
-      this.sucesso = true;
-      console.log(this.msgSucesso);
-      this.limpar();
-  },
-    (error) => {
-      this.msgErro = error.error[0].mensagemDesenvolvedor;
-      this.erro = true;
-      this.sucesso = false;
-      console.log(this.msgErro);
-  });
+      this.atendenteService.createAtendente(this.atendente).subscribe(
+        (data) => {
+          this.msgSucesso = 'Cadastro realizado com sucesso!';
+          this.erro = false;
+          this.sucesso = true;
+          console.log(this.msgSucesso);
+          this.limpar();
 
-
-  }
-
+        },
+        (error) => {
+          this.msgErro = error.error[0].mensagemDesenvolvedor;
+          this.erro = true;
+          this.sucesso = false;
+          console.log(this.msgErro);
+        });
+    }
   }
 
   onSubmit() {
@@ -96,9 +93,6 @@ export class AtendenteComponent implements OnInit {
 
     this.currentFileUpload = this.selectedFiles.item(0);
     this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
-
-    console.log("Arquivo (file): "+this.currentFileUpload);
-    console.log("Atendente: "+this.atendente);
   }
 
   /* LIMPAR OS CAMPOS APÓS CADASTRO */
@@ -108,24 +102,12 @@ export class AtendenteComponent implements OnInit {
     this.atendente.senha = '';
     this.atendente.produtoList = [];
     (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
-
-    this.atendente.foto = "C:/fakepath/default-person.png";
-    this.filename = ''
+    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+    this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.filename = '';
   }
 
-  confirmacaoSenha(): boolean{
-     const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
-
-console.log(senhaConfirmacao);
-    if(this.atendente.senha != senhaConfirmacao){
-
-      this.erro = true;
-      this.sucesso = false;
-      return this.erro;
-    }
-  }
-
-  selectClick(produtos) {
+  selectClick(produtos){
 
     const index = this.atendente.produtoList.indexOf(produtos, 0);
     if(index > -1){
@@ -133,6 +115,17 @@ console.log(senhaConfirmacao);
       this.atendente.produtoList.push(produtos);
     }
     console.log(this.atendente.produtoList);
+  }
+
+  confirmacaoSenha(): boolean {
+    const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
+
+    if (this.atendente.senha != senhaConfirmacao) {
+
+      this.erro = true;
+      this.sucesso = false;
+      return this.erro;
+    }
   }
 
 }

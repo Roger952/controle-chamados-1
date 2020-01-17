@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Optional;
+
 @Service
 public class EmpresaService {
 
@@ -87,6 +89,16 @@ public class EmpresaService {
         if(this.iEmpresaRepository.existsByCnpj(empresaDTO.getCnpj())){
             throw new IllegalArgumentException("CNPJ já cadastrado!");
         }
+    }
+
+    public Optional<Empresa> findByIdOptional(Long id){
+        Optional<Empresa> empresaOptional = this.iEmpresaRepository.findById(id);
+
+        if(empresaOptional.isPresent()){
+            return empresaOptional;
+        }
+
+        throw new IllegalArgumentException(String.format("Empresa de ID: %s, não existe.", id));
     }
 
     public EmpresaDTO save(EmpresaDTO empresaDTO) {

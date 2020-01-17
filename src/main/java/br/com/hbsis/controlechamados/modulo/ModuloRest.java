@@ -22,7 +22,7 @@ public class ModuloRest {
     @PostMapping("/import")
     public void save(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
-        moduloService.saveImports(multipartFile);
+        moduloService.saveAndImports(multipartFile);
 
         message = moduloService.messageCaseErr;
     }

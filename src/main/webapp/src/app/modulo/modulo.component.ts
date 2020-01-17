@@ -1,13 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ProdutosService } from '../produtos.service';
-import { Produtos } from '../produtos';
-import { Modulo } from '../modulo';
-import { ModuloService } from '../modulo.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { saveAs } from 'file-saver';
-import { Observable } from 'rxjs';
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Modulo} from '../modulo';
+import {ModuloService} from '../modulo.service';
+import {saveAs} from 'file-saver';
 
 
 @Component({
@@ -17,44 +11,76 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 })
 export class ModuloComponent implements OnInit {
 
-
-  constructor(private moduloService: ModuloService, private produtoService: ProdutosService, private sanitizer: DomSanitizer) { }
-
-  toppings = new FormControl();
-  toppingList: Produtos[];
   userFile: any = File;
   modulo = new Modulo;
-  fileUrl;
+  /* RETORNO DE ERROS AO USER */
+  msgErro: string;
+  msgSucesso: string;
+  erro = false;
+  sucesso = false;
+  selectedFiles: FileList;
+  filename: string;
+
+  constructor(private moduloService: ModuloService) {
+  }
 
   ngOnInit() {
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+
+  onChange(event) {
+    this.filename = event.srcElement.files[0].name;
+    this.filename = this.filename.substring(this.filename.length - 20);
   }
 
   onSelectFile(event) {
     const file = event.target.files[0];
     this.userFile = file;
-
-    console.log(this.userFile)
-
   }
+
   onSubmit() {
 
     const formData = new FormData();
-
     formData.append('file', this.userFile)
 
-    this.moduloService.createModulo(formData).subscribe(data => this.downloadFile(), error => alert("Deu erro"));
+    this.moduloService.createModulo(formData).subscribe(
+      (data) => {
+        this.msgSucesso = 'Cadastro realizado com sucesso!';
+        this.erro = false;
+        this.sucesso = true;
+        this.downloadFile();
+        this.limpar();
+      },
+      (error) => {
+        this.msgErro = 'Selecione um arquivo CSV!';
+        this.erro = true;
+        this.sucesso = false;
+      });
 
   }
 
   downloadFile() {
 
     this.moduloService.downloadFile().subscribe(data => {
-      alert('Confirme para exibir o relatorio do cadastro');
+      this.msgSucesso = 'Baixando as inconsistências encontradas';
+      this.erro = false;
+      this.sucesso = true;
 
-      console.log("Passou opor aqui");
+      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.csv');
 
-      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'error.txt');
-
+    }, (error) => {
+      this.msgErro = 'Nenhuma inconsistência encontrada, upload concluido com sucesso!';
+      this.erro = true;
+      this.sucesso = false;
     });
+  }
+
+  limpar() {
+    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+    this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.filename = '';
   }
 }
