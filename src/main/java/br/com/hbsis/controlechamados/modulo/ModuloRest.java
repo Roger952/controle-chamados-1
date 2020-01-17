@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/modulos")
 public class ModuloRest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuloRest.class);
