@@ -38,15 +38,5 @@ export class LoginAdminComponent implements OnInit {
   }
   ngOnInit() {
 
-    if (this.auth.isAccessTokenInvalido()) {
-      console.log('Access token inválido. Obtendo novo token...');
-
-      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
-        .then(() => {
-          this.router.navigate(['/inicio']);
-        })
-        .catch(erro => console.error(erro));
-    }
-    this.router.navigate(['/inicio']);
   }
 }

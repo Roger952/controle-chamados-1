@@ -17,14 +17,18 @@ public class ColaboradorService {
     private final IColaboradorRepository iColaboradorRepository;
     private final EmpresaService empresaService;
 
+    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
+    private final String msgVazio = " não pode estar vazio!";
+
     public ColaboradorService(IColaboradorRepository iColaboradorRepository, EmpresaService empresaService) {
         this.iColaboradorRepository = iColaboradorRepository;
         this.empresaService = empresaService;
     }
 
     private void validate(ColaboradorDTO colaboradorDTO){
+
         LOGGER.info("Validando colaborador...");
-        LOGGER.info("colaborador" + colaboradorDTO);
+
         if(colaboradorDTO == null){
             throw new IllegalArgumentException("Colaborador DTO vazio.");
         }
@@ -35,28 +39,31 @@ public class ColaboradorService {
 
         validarSenha(colaboradorDTO.getSenha());
 
-        if(colaboradorDTO.getEmpresa() == null){
-            throw new IllegalArgumentException("Uma empresa precisa ser selecionada!");
-        }
-
         if(colaboradorDTO.getProdutoList() == null){
             throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
         }
+
+        if(colaboradorDTO.getEmpresa() == 0){
+            throw new IllegalArgumentException("Favor selecionar no mínimo uma empresa!");
+        }
+
     }
 
     private void validarNome(String nome) {
+
         if(StringUtils.isBlank(nome)){
-            throw new IllegalArgumentException("O campo nome não pode estar vazio!");
+            throw new IllegalArgumentException("Nome"+msgVazio);
         }
 
         if(nome.length() > 100){
-            throw new IllegalArgumentException("O nome não pode ser maior que 100 caracteres.");
+            throw new IllegalArgumentException("Nome deve conter no máximo 100 digitos!");
         }
     }
 
     private void validarEmail(String email) {
+
         if(StringUtils.isBlank(email)){
-            throw new IllegalArgumentException("O campo e-mail não pode estar vazio!");
+            throw new IllegalArgumentException("E-mail"+msgVazio);
         }
 
         if(!ValidatorEmail.isValidEmail(email)){
@@ -64,27 +71,29 @@ public class ColaboradorService {
         }
 
         if(email.length() > 100){
-            throw new IllegalArgumentException("O e-mail não pode ser maior que 100 caracteres.");
+            throw new IllegalArgumentException("E-mail deve conter no máximo 100 digitos!");
         }
     }
 
     private void validarExistenciaEmail(String email) {
+
         if(this.iColaboradorRepository.existsByEmail(email)){
             throw new IllegalArgumentException("E-mail já cadastrado!");
         }
     }
 
     private void validarSenha(String senha) {
+
         if(StringUtils.isBlank(senha)){
-            throw new IllegalArgumentException("O campo senha não pode estar vazio!");
+            throw new IllegalArgumentException("Senha"+msgVazio);
         }
 
         if(senha.length() < 8){
-            throw new IllegalArgumentException("A senha deve ter no mínimo 8 caracteres.");
+            throw new IllegalArgumentException("Senha deve ter no mínimo 8 digitos.");
         }
 
         if(senha.length() > 100){
-            throw new IllegalArgumentException("A senha não pode ser maior que 100 caracteres.");
+            throw new IllegalArgumentException("Senha deve conter no máximo 100 digitos!");
         }
     }
 
@@ -105,12 +114,6 @@ public class ColaboradorService {
     }
 
     public ColaboradorDTO save(ColaboradorDTO colaboradorDTO){
-
-        LOGGER.info("ColaboradorEmpresaID" + colaboradorDTO.getEmpresa());
-        LOGGER.info("email" + colaboradorDTO.getEmail());
-        LOGGER.info("senha" + colaboradorDTO.getSenha());
-        LOGGER.info("nome" + colaboradorDTO.getNome());
-        LOGGER.info("list prod" + colaboradorDTO.getProdutoList());
 
         validate(colaboradorDTO);
         validarExistenciaEmail(colaboradorDTO.getEmail());
