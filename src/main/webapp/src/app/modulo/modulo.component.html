@@ -6,6 +6,7 @@
     <div class="col-12">
       <h1>Cadastro de Módulo</h1>
     </div>
+
   </div>
 
   <div class="row">
@@ -18,27 +19,41 @@
         <div class="row">
           <div class="col-md-12">
 
-            <div>
-              <h6 id="h6Csv" pattern=".+">Selecione um arquivo CSV</h6>
+            <div class="row">
+              <div class="col-12">
+                <h6 id="h6Csv" pattern=".+">Selecione um arquivo CSV</h6>
+              </div>
             </div>
 
-            <div class="custom-file">
-              <input title="{{filename}}" type="file" id="file" accept=".csv" class="form-control"
-                     class="custom-file-input" id="validatedCustomFile"
-                     (change)="onSelectFile($event)" (change)="onChange($event)" (change)="selectFile($event)">
-              <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
+            <div class="row" id="linhaFile">
+              <div class="col-6 ">
+                <div class="custom-file">
+
+                  <input title="{{filename}}" type="file" id="file" accept=".csv" class="form-control"
+                         class="custom-file-input" id="validatedCustomFile"
+                         (change)="onSelectFile($event)" (change)="onChange($event)" (change)="selectFile($event)">
+                  <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
+                </div>
+              </div>
+
+              <div class="col-6 ">
+                <button class="btn btn-secondary" (click)="exportModel()">Baixar modelo de importação</button>
+              </div>
+
             </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-12">
-            <button class="btn btn-dark">Cadastrar Módulo</button>
+            <button class="btn btn-dark" (click)="upload()">Cadastrar Módulo</button>
           </div>
         </div>
+
 
       </form><!-- FORMULÁRIO -->
     </div>
   </div>
 
 </div>
+
