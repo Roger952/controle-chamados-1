@@ -32,7 +32,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret("$2a$10$qtyzLJU1.rfWCWF5ffVIN.QiWd.CE9TFEjxq/Vb/baqPLU/lzDRRu")
                 .scopes("read", "write")
                 .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(3600 * 3600)
+                .accessTokenValiditySeconds(20)
                 .refreshTokenValiditySeconds(3600 * 24);
     }
 

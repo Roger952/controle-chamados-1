@@ -12,12 +12,12 @@ public class ColaboradorDTO {
     private Long empresa;
     private List<Produto> produtoList;
 
-    public ColaboradorDTO(Long id, String nome, String email, String senha, Long id_empresa, List<Produto> produtoList) {
+    public ColaboradorDTO(Long id, String nome, String email, String senha, Long empresaId, List<Produto> produtoList) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.empresa = id_empresa;
+        this.empresa = empresaId;
         this.produtoList = produtoList;
     }
 
@@ -87,7 +87,7 @@ public class ColaboradorDTO {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", id_empresa=" + empresa +
+                ", empresa=" + empresa +
                 ", produtoList=" + produtoList +
                 '}';
     }

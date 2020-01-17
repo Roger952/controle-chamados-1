@@ -33,6 +33,6 @@ public class ModuloRest {
         if (!message.isEmpty()) {
             return message;
         }
-        throw new IllegalArgumentException("Esta enviando uma mensagem vazia");
+        throw new IllegalArgumentException("Está enviando uma mensagem vazia!");
     }
 }

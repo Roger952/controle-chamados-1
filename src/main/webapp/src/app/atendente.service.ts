@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-import { HttpHeaders }    from '@angular/common/http';
 import { Atendente } from './atendente';
-
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +19,7 @@ export class AtendenteService {
   createAtendente(atendente: Object): Observable<Object> {
 
     console.log("Atendente: "+ atendente);
-
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl+'/save'}`, atendente, { headers });
+    return this.http.post(`${this.baseUrl+'/save'}`, atendente);
   }
 
   // updateAtendente(id: number, value: any): Observable<Object> {
@@ -46,12 +42,10 @@ export class AtendenteService {
     let url = this.baseUrl + '/saveImagem';
     let formData: FormData = new FormData();
     formData.append('file', file);
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(url, formData, { headers });
+    return this.http.post(url, formData);
   }
 
   getAtendenteList(): Observable<Atendente[]> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl+'/findAll'}`, {headers} );
+    return this.http.get(`${this.baseUrl+'/findAll'}`);
   }
 }
