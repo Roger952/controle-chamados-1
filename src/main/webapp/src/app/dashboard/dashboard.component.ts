@@ -1,6 +1,8 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { LogoutService } from '../seguranca/logout.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../seguranca/auth.service';
+import { ControleHttp } from '../seguranca/Controle-http';
 
 
 @Component({
@@ -12,11 +14,79 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private logoutService : LogoutService,
-    private router: Router
-  ) { }
+    private logoutService: LogoutService,
+    private router: Router,
+    private auth: AuthService,
+    private http: ControleHttp,
+  ) {
+  }
 
   ngOnInit() {
+  }
+
+  tokenInicio() {
+    if (this.auth.isAccessTokenInvalido()) {
+      console.log('Access token inválido. Obtendo novo token...');
+
+      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+        .then(() => {
+          this.router.navigate(['/inicio']);
+        })
+        .catch(erro => console.error(erro));
+    }
+    this.router.navigate(['/inicio']);
+  }
+
+  tokenEmpresa() {
+    if (this.auth.isAccessTokenInvalido()) {
+      console.log('Access token inválido. Obtendo novo token...');
+
+      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+        .then(() => {
+          this.router.navigate(['/empresa']);
+        })
+        .catch(erro => console.error(erro));
+    }
+    this.router.navigate(['/empresa']);
+  }
+
+  tokenAtendente() {
+    if (this.auth.isAccessTokenInvalido()) {
+      console.log('Access token inválido. Obtendo novo token...');
+
+      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+        .then(() => {
+          this.router.navigate(['/atendente']);
+        })
+        .catch(erro => console.error(erro));
+    }
+    this.router.navigate(['/atendente']);
+  }
+
+  tokenProduto() {
+    if (this.auth.isAccessTokenInvalido()) {
+      console.log('Access token inválido. Obtendo novo token...');
+
+      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+        .then(() => {
+          this.router.navigate(['/produtos']);
+        })
+        .catch(erro => console.error(erro));
+    }
+    this.router.navigate(['/produtos']);
+  }
+
+  tokenModulo() {
+    if (this.auth.isAccessTokenInvalido()) {
+      console.log('Access token inválido. Obtendo novo token...');
+
+      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+        .then(() => {
+          this.router.navigate(['/modulo']);
+        })
+        .catch(erro => console.error(erro));
+    }
+    this.router.navigate(['/modulo']);
   }
 
   logout() {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Empresa } from './empresa';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-import { HttpHeaders, HttpClient }    from '@angular/common/http';
+import { HttpHeaders }    from '@angular/common/http';
 
 
 @Injectable({
@@ -12,16 +12,14 @@ export class EmpresaService {
 
   private baseUrl = 'http://localhost:8080/empresa';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: ControleHttp) { }
 
   getEmpresa(id: number): Observable<any> {
-    let headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl+'/findById'}/${id}`, {headers});
+    return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
   }
 
   createEmpresa(empresa: Object): Observable<Object> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl+'/save'}`, empresa, {headers});
+    return this.http.post(`${this.baseUrl+'/save'}`, empresa);
   }
 
   updateEmpresa(id: number, value: any): Observable<Object> {
@@ -30,13 +28,11 @@ export class EmpresaService {
   }
 
   deleteEmpresa(id: number): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' }); // setar headers
+    return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
   }
 
   getEmpresaList(): Observable<Empresa[]> {
-    let headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get<Empresa[]>(`${this.baseUrl+'/findAll'}`, {headers});
+    return this.http.get<Empresa[]>(`${this.baseUrl+'/findAll'}`);
   }
 
 }

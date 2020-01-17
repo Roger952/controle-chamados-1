@@ -19,11 +19,13 @@ export class AuthGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-        if (this.authService.isAccessTokenInvalido() || (localStorage.getItem('')) ) {
+        if (this.authService.isAccessTokenInvalido() || (localStorage.getItem(''))) {
 
             this.router.navigate(['/login-admin']);
             return false;
         }
+
         return true;
     }
+
 }
