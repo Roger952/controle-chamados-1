@@ -1,5 +1,6 @@
 package br.com.hbsis.controlechamados.modulo;
 
+import br.com.hbsis.controlechamados.utils.exportAndImport.Export;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +23,8 @@ public class ModuloRest {
     @PostMapping("/import")
     public void save(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
+        LOGGER.info("Importando os modulos....");
+
         moduloService.saveAndImports(multipartFile);
 
         message = moduloService.messageCaseErr;
@@ -31,8 +34,16 @@ public class ModuloRest {
     @PreAuthorize("hasRole('ROLE_EXPORT_MODULO')")
     public String exportMessage() {
         if (!message.isEmpty()) {
+            LOGGER.info("Enviando a mensagem contendo as inconsistências");
             return message;
         }
-        throw new IllegalArgumentException("Está enviando uma mensagem vazia!");
+        LOGGER.error("Nenhuma Inconsistência en");
+        throw new IllegalArgumentException("Esta enviando uma mensagem vazia");
+    }
+
+    @GetMapping("/export-formatted")
+    @PreAuthorize("hasRole('ROLE_EXPORT_FORMATTED_CSV_MODULO')")
+    public String exportModule(){
+        return Export.exportModuloFormattedInCsv();
     }
 }
