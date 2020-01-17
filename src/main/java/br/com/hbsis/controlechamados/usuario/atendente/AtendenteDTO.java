@@ -42,10 +42,11 @@ public class AtendenteDTO {
                 atendente.getEmail(),
                 produtoList,
                 atendente.getSenha()
+
         );
     }
-
     /** GETTER & SETTER */
+
     public Long getId() {
         return id;
     }

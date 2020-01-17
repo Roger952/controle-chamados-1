@@ -11,12 +11,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 
+import { AuthService } from './seguranca/auth.service';
+import { ColaboradorComponent } from './colaborador/colaborador.component';
+
 const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
   { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
   { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard] },
+  { path: 'colaborador', component: ColaboradorComponent, canActivate:[AuthGuard] },
   { path: 'modulo', component: ModuloComponent, canActivate:[AuthGuard] },
   { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
 

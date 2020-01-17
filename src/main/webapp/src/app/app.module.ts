@@ -24,7 +24,11 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { LogoutService } from '../app/seguranca/logout.service'
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
+
+import { ColaboradorComponent } from './colaborador/colaborador.component';
+
 import { environment } from 'src/environments/environment';
+
 
 
 export function tokenGetter() {
@@ -40,10 +44,10 @@ export function tokenGetter() {
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
-
     EmpresaListComponent,
     InicioComponent,
-    ModuloComponent
+    ModuloComponent,
+    ColaboradorComponent
   ],
   imports: [
     BrowserModule,

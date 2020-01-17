@@ -10,7 +10,3 @@ public class GeradorSenha {
     }
 
 }
-
-//adm
-//squad2
-//@ngul@r0
