@@ -14,6 +14,9 @@ import { ProdutosService } from '../produtos.service';
 })
 export class ColaboradorComponent implements OnInit {
 
+  /* LISTAR E EDITAR COLABORADORES */
+  colaboradores: Colaborador[];
+
   colaborador: Colaborador = new Colaborador();
   submitted = false;
 
@@ -35,7 +38,9 @@ export class ColaboradorComponent implements OnInit {
   erro = false;
   sucesso = false;
 
-  constructor(private colaboradorService : ColaboradorService, private produtoService: ProdutosService, private empresaService: EmpresaService) { }
+  constructor(private colaboradorService : ColaboradorService, 
+    private produtoService: ProdutosService, 
+    private empresaService: EmpresaService) { }
 
   ngOnInit() {
     this.produtoService.getProdutosList().subscribe(
@@ -51,6 +56,8 @@ export class ColaboradorComponent implements OnInit {
     }, error => {
       console.log(error)
     });
+
+    this.colaboradorService.getColaboradorList().subscribe(data => { this.colaboradores = data; }, error => { console.log(error); });
 
   }
 
@@ -75,6 +82,8 @@ export class ColaboradorComponent implements OnInit {
       this.sucesso = true;
       console.log(this.msgSucesso);
       this.limpar();
+      this.colaboradorService.getColaboradorList().subscribe(data => { this.colaboradores = data; }, error => { console.log(error); });
+
   },
     (error) => {
       this.msgErro = error.error[0].mensagemDesenvolvedor;
@@ -99,7 +108,7 @@ export class ColaboradorComponent implements OnInit {
     this.colaborador.email = '';
     this.colaborador.senha = '';
     this.colaborador.produtoList = [];
-    this.colaborador.empresaId = 1;
+    this.colaborador.empresaId = null;
 
     (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
 
