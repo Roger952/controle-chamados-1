@@ -6,6 +6,7 @@ import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
 import { HttpHeaders } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-atendente',
   templateUrl: './atendente.component.html',
@@ -58,11 +59,9 @@ export class AtendenteComponent implements OnInit {
 
   verificarFile() {
 
-    console.log(this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.jpg')
-
     let formData: FormData = new FormData();
 
-    if(this.selectedFiles[0] != undefined) {
+    if(this.selectedFiles != undefined) {
       if (this.selectedFiles[0].size > 1000 * 1000 * 2) {
         (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
         this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;

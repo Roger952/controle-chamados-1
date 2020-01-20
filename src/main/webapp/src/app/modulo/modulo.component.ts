@@ -29,6 +29,8 @@ export class ModuloComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+
+    this.validarArquivoCSV();
   }
 
   onChange(event) {
@@ -42,6 +44,8 @@ export class ModuloComponent implements OnInit {
   }
 
   onSubmit() {
+
+    this.validarArquivoCSV();
 
     const formData = new FormData();
     formData.append('file', this.userFile)
@@ -76,6 +80,24 @@ export class ModuloComponent implements OnInit {
       this.erro = true;
       this.sucesso = false;
     });
+  }
+
+  validarArquivoCSV(){
+    if(this.selectedFiles != undefined) {
+    if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.csv') {
+      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+        this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
+        this.filename = '';
+        this.msgErro = "Arquivo não é esperado, por favor selecione outro";
+        this.erro = true;
+
+        console.log(this.modulo.nomeProduto)
+      }else{
+        this.erro = false;
+      }
+    }else{
+      this.erro = false;
+    }
   }
 
   limpar() {
