@@ -27,6 +27,7 @@
     "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
+    "ng-bootstrap": "^1.6.3",
     "ngx-mask": "^8.1.7",
     "primeng": "^9.0.0-rc.2",
     "rxjs": "~6.4.0",

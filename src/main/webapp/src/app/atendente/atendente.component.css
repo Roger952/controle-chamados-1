@@ -49,6 +49,7 @@
 .info{
     float: right;
     margin-bottom: 0;
+    cursor: help;
 }
 
 .input:valid + .label,

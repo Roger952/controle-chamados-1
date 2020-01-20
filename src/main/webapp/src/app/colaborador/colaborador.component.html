@@ -49,11 +49,11 @@
                                     pattern=".+" required [(ngModel)]="colaborador.senha" name="senha" maxlength="30" />
                                 <label class="label" for="senha">Senha</label>
 
-                                <button class="btn info text-center"
+                                <i class="btn info text-center"
                                     ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
                                     triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
                                     <img src="../../assets/info-icon.png" width="20" height="20">
-                                </button>
+                                </i>
 
                                 <div class="underDiv">
                                     <div class="underDivLeft"></div>
@@ -129,6 +129,17 @@
             <div class="row titulo">
                 <div class="col-12">
                     <h1>Colaboradores Cadastrados</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="form-group input-group" id="searchBar">
+                        <div class="input-group-text"><img src="../../assets/loupe.png" width="20px" height="20px"></div>
+                        <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                    </div>
+
                 </div>
             </div>
 

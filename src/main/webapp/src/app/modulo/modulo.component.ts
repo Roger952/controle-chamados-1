@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Modulo} from '../modulo';
 import {ModuloService} from '../modulo.service';
 import {saveAs} from 'file-saver';
+import { AnimationDurations } from '@angular/material/core';
+import { animate } from '@angular/animations';
 
 
 @Component({
@@ -95,7 +97,6 @@ export class ModuloComponent implements OnInit {
       this.sucesso = true;
 
       saveAs(new Blob([data], {type: 'multipart/form-data'}), 'model.csv');
-
     });
   }
 

@@ -47,14 +47,14 @@
                     <div class="col-12">
                         <input autocomplete="off" [value]="senha" id="senha" class="input" type="password" pattern=".+"
                             required [(ngModel)]="atendente.senha" name="senha" maxlength="30" />
-                            
+
                         <label class="label" for="senha">Senha</label>
 
-                        <button class="btn info text-center"
+                        <i class="btn info text-center"
                             ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
                             triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
                             <img src="../../assets/info-icon.png" width="20" height="20">
-                        </button>
+                        </i>
 
                         <div class="underDiv">
                             <div class="underDivLeft"></div>

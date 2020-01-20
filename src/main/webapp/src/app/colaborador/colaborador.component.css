@@ -159,4 +159,16 @@ table{
 .info{
     float: right;
     margin-bottom: 0;
+    cursor: help;
+}
+
+#searchBar{
+    border-radius: 10px;
+    outline: none;
+}
+
+#txt_consulta{
+    outline: none;
+    box-shadow: none;
+    
 }
