@@ -26,9 +26,7 @@ public class ChamadosService {
         this.produtoService = produtoService;
     }
 
-
     public ChamadosDTO save(ChamadosDTO chamadosDTO) {
-
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         LOGGER.info("Cadastrando novo atendimento '{}'...", chamadosDTO.getTitulo());
