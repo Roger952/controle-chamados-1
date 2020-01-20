@@ -2,6 +2,7 @@ package br.com.hbsis.controlechamados.chamados;
 
 import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
 import br.com.hbsis.controlechamados.chamados.arquivo.ArquivoDTO;
+import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,11 +44,11 @@ public class ChamadosService {
         chamados.setDataHoraRegistro(new Date());
         chamados.setStatus(chamadosDTO.getStatus());
         chamados.setTitulo(chamadosDTO.getTitulo());
-        chamados.setProduto(produtoService.findByIdProduto(chamadosDTO.getProdutoId()));
+        chamados.setProduto(findByProdutoId(chamadosDTO.getProdutoId()));
         chamados = iChamadosRepository.save(chamados);
         chamados.setArquivoList(parseArquivos(chamadosDTO.getArquivoDTOS(), chamados));
 
-        for (Arquivo arquivo : chamados.getArquivoList()){
+        for (Arquivo arquivo : chamados.getArquivoList()) {
 
         }
 
@@ -60,7 +65,7 @@ public class ChamadosService {
 
     public List<Arquivo> parseArquivos(List<ArquivoDTO> arquivoDTOS, Chamados chamados) {
         List<Arquivo> arquivoList = new ArrayList<>();
-        for (ArquivoDTO arquivoDTO : arquivoDTOS){
+        for (ArquivoDTO arquivoDTO : arquivoDTOS) {
             Arquivo arquivo = new Arquivo();
             arquivo.setArquivo(arquivoDTO.getArquivo());
             arquivo.setNomeArquivo(arquivoDTO.getNomeArquivo());
@@ -70,7 +75,18 @@ public class ChamadosService {
         return arquivoList;
     }
 
-    public void saveMultipartFiles(List<MultipartFile> multipartFiles){
+    public Produto findByProdutoId(Long id) {
+        return produtoService.findByIdProduto(id).get();
+    }
 
+    public void saveMultipartFiles(List<MultipartFile> multipartFiles) throws IOException {
+        List<Arquivo> arquivoList = new ArrayList<>();
+        for (int i = 0; i < multipartFiles.size(); i++) {
+            byte[] byteArr = multipartFiles.get(i).getBytes();
+            InputStream inputStream = new ByteArrayInputStream(byteArr);
+            Arquivo arq = new Arquivo();
+            arq.setArquivo(byteArr[i]);
+
+        }
     }
 }

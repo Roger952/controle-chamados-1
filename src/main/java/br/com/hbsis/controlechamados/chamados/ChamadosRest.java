@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -28,8 +29,7 @@ public class ChamadosRest {
 
     @PostMapping("/saveFiles")
     @PreAuthorize("hasRole('ROLE_CADASTER_FILES_CHAMADOS')")
-    public void saveFilesOfChamados(@RequestBody List<MultipartFile> multipartFiles){
-//        this.chamadosService
+    public void saveFilesOfChamados(@RequestBody List<MultipartFile> multipartFiles) throws IOException { this.chamadosService.saveMultipartFiles(multipartFiles);
     }
 
 }
