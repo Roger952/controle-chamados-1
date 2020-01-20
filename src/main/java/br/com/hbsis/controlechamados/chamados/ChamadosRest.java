@@ -26,7 +26,7 @@ public class ChamadosRest {
         return this.chamadosService.save(chamadosDTO);
     }
 
-    @PostMapping("/save-Multipartfile")
+    @PostMapping("/saveFiles")
     @PreAuthorize("hasRole('ROLE_CADASTER_FILES_CHAMADOS')")
     public void saveFilesOfChamados(@RequestBody List<MultipartFile> multipartFiles){
 //        this.chamadosService

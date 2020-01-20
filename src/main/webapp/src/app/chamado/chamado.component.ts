@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Chamado } from '../chamado';
 import { Produtos} from '../produtos'; 
 import { ChamadoService } from '../chamado.service';
-import { EmpresaService } from '../empresa.service';
 import { ProdutosService } from '../produtos.service';
 import { FormControl } from '@angular/forms';
 
@@ -54,8 +53,8 @@ export class ChamadoComponent implements OnInit {
  
 save() {
 
-  if(this.chamado.arquivo != null){
-        this.chamado.arquivo = this.chamado.arquivo.substring(12);
+  if(this.chamado.nome_arquivo != null){
+        this.chamado.nome_arquivo = this.chamado.nome_arquivo.substring(12);
     }
     
   this.chamadoService.createChamado(this.chamado).subscribe(
@@ -93,7 +92,7 @@ limpar() {
   this.chamado.descricao = '';
   this.chamado.produtoList = [];
   (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-  this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
+  this.chamado.nome_arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
   this.filename = '';
  }
 
@@ -112,25 +111,14 @@ verificarFile() {
   if(this.selectedFiles != undefined) {
     if (this.selectedFiles[0].size > (1000 * 1000 * 2)* 10) {
       (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-      this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
+      this.chamado.nome_arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
       this.filename = '';
       this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
       this.erro = true;
-      console.log(this.chamado.arquivo)
+      console.log(this.chamado.nome_arquivo)
     } else{
       this.erro = false;
     }
-
-   {
-      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-      this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
-      this.filename = '';
-      this.msgErro = "Arquivo não é esperado, por favor selecione outro";
-      this.erro = true;
-
-      console.log(this.chamado.arquivo)
-
-   }
   }else{
     this.erro = false;
   }
