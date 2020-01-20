@@ -29,6 +29,7 @@ import { ColaboradorComponent } from './colaborador/colaborador.component';
 
 import { environment } from 'src/environments/environment';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ChamadoComponent } from './chamado/chamado.component';
 
 
 export function tokenGetter() {
@@ -47,7 +48,8 @@ export function tokenGetter() {
     EmpresaListComponent,
     InicioComponent,
     ModuloComponent,
-    ColaboradorComponent
+    ColaboradorComponent,
+    ChamadoComponent
   ],
   imports: [
     BrowserModule,

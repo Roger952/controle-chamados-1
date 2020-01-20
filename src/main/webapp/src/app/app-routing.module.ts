@@ -14,6 +14,7 @@ import { ModuloComponent } from './modulo/modulo.component';
 import { AuthService } from './seguranca/auth.service';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { AuthGuard2 } from './seguranca/auth.guard2';
+import { ChamadoComponent } from './chamado/chamado.component';
 
 const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent, canActivate: [AuthGuard2]},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'colaborador', component: ColaboradorComponent, canActivate:[AuthGuard] },
   { path: 'modulo', component: ModuloComponent, canActivate:[AuthGuard] },
   { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
+  { path: 'chamado', component: ChamadoComponent, canActivate:[AuthGuard] },
 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
