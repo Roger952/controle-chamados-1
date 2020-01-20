@@ -49,7 +49,7 @@
     background-color: #1D285A;
 }
 
-.btn{
+.cadastrar{
     width: 100%;
 }
 
@@ -156,4 +156,7 @@ table{
     text-align: center;
 }
 
-
+.info{
+    float: right;
+    margin-bottom: 0;
+}

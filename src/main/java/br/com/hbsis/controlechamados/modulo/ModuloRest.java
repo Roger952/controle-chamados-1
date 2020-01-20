@@ -37,7 +37,7 @@ public class ModuloRest {
             LOGGER.info("Enviando a mensagem contendo as inconsistências");
             return message;
         }
-        LOGGER.error("Nenhuma Inconsistência en");
+        LOGGER.error("Nenhuma Inconsistência em");
         throw new IllegalArgumentException("Esta enviando uma mensagem vazia");
     }
 

@@ -11,20 +11,24 @@ import { EmpresaComponent } from './empresa/empresa.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './seguranca/auth.service';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-import {ProdutosService} from './produtos.service';
+import { ProdutosService } from './produtos.service';
+
 import { HttpClientModule } from '@angular/common/http';
+
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { LogoutService } from '../app/seguranca/logout.service'
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
-import { ColaboradorComponent } from './colaborador/colaborador.component';
-import { environment } from 'src/environments/environment';
 
+import { ColaboradorComponent } from './colaborador/colaborador.component';
+
+import { environment } from 'src/environments/environment';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 export function tokenGetter() {
@@ -55,12 +59,13 @@ export function tokenGetter() {
     FormsModule,
     HttpClientModule,
     MatSelectModule,
+    NgbModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: environment.tokenWhitelistedDomains,
         blacklistedRoutes: environment.tokenBlacklistedRoutes,
-}
+      }
     })
   ]
   ,

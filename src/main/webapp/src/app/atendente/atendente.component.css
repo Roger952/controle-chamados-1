@@ -42,8 +42,13 @@
     background-color: #1D285A;
 }
 
-.btn{
+.cadastrar{
     width: 100%;
+}
+
+.info{
+    float: right;
+    margin-bottom: 0;
 }
 
 .input:valid + .label,
