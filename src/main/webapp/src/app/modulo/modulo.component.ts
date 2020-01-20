@@ -39,16 +39,39 @@ export class ModuloComponent implements OnInit {
   }
 
   onSelectFile(event) {
-    const file = event.target.files[0];
-    this.userFile = file;
+    this.userFile = event.target.files[0];
   }
 
   onSubmit() {
 
-    this.validarArquivoCSV();
+  this.validarArquivoCSV();
+  }
 
+  downloadFile() {
+
+    this.moduloService.downloadFile().subscribe(data => {
+      this.msgErro = 'Inconsistências encontradas, verifique no arquivo abaixo';
+      this.erro = true;
+      this.sucesso = false;
+
+      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.txt');
+
+    }, (error) => {
+      this.msgSucesso = 'Nenhuma inconsistência encontrada ';
+      this.erro = false;
+      this.sucesso = true;
+    });
+  }
+
+  clear() {
+    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+    this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.filename = '';
+  }
+
+  upload() {
     const formData = new FormData();
-    formData.append('file', this.userFile)
+    formData.append('file', this.userFile);
 
     this.moduloService.createModulo(formData).subscribe(
       (data) => {
@@ -56,29 +79,23 @@ export class ModuloComponent implements OnInit {
         this.erro = false;
         this.sucesso = true;
         this.downloadFile();
-        this.limpar();
+        this.clear();
       },
       (error) => {
-        this.msgErro = 'Selecione um arquivo CSV!';
+        this.msgErro = 'Não foi possivel fazer o upload do arquivo selecionado';
         this.erro = true;
         this.sucesso = false;
       });
-
   }
 
-  downloadFile() {
-
+  exportModel() {
     this.moduloService.downloadFile().subscribe(data => {
-      this.msgSucesso = 'Baixando as inconsistências encontradas';
+      this.msgSucesso = 'Siga o modelo esperado na importação';
       this.erro = false;
       this.sucesso = true;
 
-      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.csv');
+      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'model.csv');
 
-    }, (error) => {
-      this.msgErro = 'Nenhuma inconsistência encontrada, upload concluido com sucesso!';
-      this.erro = true;
-      this.sucesso = false;
     });
   }
 
@@ -98,11 +115,5 @@ export class ModuloComponent implements OnInit {
     }else{
       this.erro = false;
     }
-  }
-
-  limpar() {
-    (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-    this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
-    this.filename = '';
   }
 }
