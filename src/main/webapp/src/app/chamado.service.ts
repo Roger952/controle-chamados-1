@@ -53,5 +53,4 @@ uploadFile(file: File): Observable<any>{
   return this.http.post(url, formData);
 }
 
-
 }

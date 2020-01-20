@@ -21,7 +21,7 @@ public class ChamadosRest {
 
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_CADASTRAR_COLABORADOR')")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_CHAMADOS')")
     public ChamadosDTO save(@RequestBody ChamadosDTO chamadosDTO){
         return this.chamadosService.save(chamadosDTO);
     }

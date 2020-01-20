@@ -1,1 +1,0 @@
-INSERT INTO permissao (id, descricao) values (14, 'ROLE_EXPORT_MODULO');

@@ -53,10 +53,10 @@ export class ChamadoComponent implements OnInit {
  
 save() {
 
-  if(this.chamado.arquivoDTOS != null){
-        this.chamado.arquivoDTOS = this.chamado.arquivoDTOS.substring(12);
-    }
-    
+  if (this.chamado.arquivoDTOS != null || this.chamado.arquivoDTOS === '') {
+    this.chamado.arquivoDTOS = this.chamado.arquivoDTOS.substring(12);
+  }
+    console.log(this.produtoList)
   this.chamadoService.createChamado(this.chamado).subscribe(
     (data) => {
     this.msgSucesso = 'Cadastro realizado com sucesso!';
@@ -74,15 +74,14 @@ save() {
 
  }
 
-onSubmit() {
-  
+ onSubmit() {
+
   this.verificarFile();
   this.submitted = true;
   this.save();
 
   this.currentFileUpload = this.selectedFiles.item(0);
   this.chamadoService.uploadFile(this.currentFileUpload).subscribe();
-
 
 }
 

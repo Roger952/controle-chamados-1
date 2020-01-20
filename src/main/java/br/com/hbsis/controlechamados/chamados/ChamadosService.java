@@ -21,13 +21,42 @@ public class ChamadosService {
     private final IChamadosRepository iChamadosRepository;
     private final ProdutoService produtoService;
 
+
+    /**
+     * MENSAGEM PADRÃO DE CAMPO EM BRANCO
+     */
+    private final String msgVazio = " não pode estar vazio!";
+
     public ChamadosService(IChamadosRepository iChamadosRepository, ProdutoService produtoService) {
         this.iChamadosRepository = iChamadosRepository;
         this.produtoService = produtoService;
     }
 
+    private void validate(ChamadosDTO chamadosDTO) {
+
+        LOGGER.info("Validando colaborador...");
+
+        if (chamadosDTO == null) {
+            throw new IllegalArgumentException("Colaborador DTO vazio.");
+        }
+
+        if (chamadosDTO.getProdutoId() == 0) {
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
+        }
+
+        if (chamadosDTO.getTitulo() == null) {
+            throw new IllegalArgumentException("Título" + msgVazio);
+        }
+
+        if (chamadosDTO.getDescricao() == null) {
+            throw new IllegalArgumentException("Descrição" + msgVazio);
+        }
+
+    }
+
     public ChamadosDTO save(ChamadosDTO chamadosDTO) {
 
+        validate(chamadosDTO);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         LOGGER.info("Cadastrando novo atendimento '{}'...", chamadosDTO.getTitulo());
 
