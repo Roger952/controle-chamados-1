@@ -54,8 +54,8 @@ export class ChamadoComponent implements OnInit {
  
 save() {
 
-  if(this.chamado.foto != null){
-        this.chamado.foto = this.chamado.foto.substring(12);
+  if(this.chamado.arquivo != null){
+        this.chamado.arquivo = this.chamado.arquivo.substring(12);
     }
     
   this.chamadoService.createChamado(this.chamado).subscribe(
@@ -76,8 +76,15 @@ save() {
  }
 
 onSubmit() {
+  
+  this.verificarFile();
   this.submitted = true;
   this.save();
+
+  this.currentFileUpload = this.selectedFiles.item(0);
+  this.chamadoService.uploadFile(this.currentFileUpload).subscribe();
+
+
 }
 
 /* LIMPAR OS CAMPOS APÓS CADASTRO */
@@ -86,11 +93,11 @@ limpar() {
   this.chamado.descricao = '';
   this.chamado.produtoList = [];
   (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-  this.chamado.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
+  this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
   this.filename = '';
  }
 
- selectClickProduto(produtos) {
+ selectClickProdutos(produtos) {
 
   const index = this.chamado.produtoList.indexOf(produtos, 0);
   if(index > -1){
@@ -99,4 +106,35 @@ limpar() {
   }
   console.log(this.chamado.produtoList);
 }
+
+verificarFile() {
+
+  if(this.selectedFiles != undefined) {
+    if (this.selectedFiles[0].size > (1000 * 1000 * 2)* 10) {
+      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+      this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
+      this.filename = '';
+      this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
+      this.erro = true;
+      console.log(this.chamado.arquivo)
+    } else{
+      this.erro = false;
+    }
+
+   {
+      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+      this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
+      this.filename = '';
+      this.msgErro = "Arquivo não é esperado, por favor selecione outro";
+      this.erro = true;
+
+      console.log(this.chamado.arquivo)
+
+   }
+  }else{
+    this.erro = false;
+  }
+
+}
+
 }

@@ -40,4 +40,17 @@ export class ChamadoService {
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
     return this.http.get(`${this.baseUrl+'/findAll'}`, {headers} );
   }
+
+/* FILE-UPLOAD */
+uploadFile(file: File): Observable<any>{
+
+  console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
+
+  let url = this.baseUrl + '/saveFiles';
+  let formData: FormData = new FormData();
+  formData.append('file', file);
+  return this.http.post(url, formData);
+}
+
+
 }
