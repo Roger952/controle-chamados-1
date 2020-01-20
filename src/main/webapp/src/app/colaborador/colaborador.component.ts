@@ -67,14 +67,14 @@ export class ColaboradorComponent implements OnInit {
   }
 
   save() {
-
-  
-     if(this.confirmacaoSenha()){
+    
+    if(this.confirmacaoSenha()){
       this.msgErro = 'As senhas não correspondem';
       this.erro = true;
       this.sucesso = false;
-    
-    } else{
+      console.log('Deu ruim!!!');
+
+    } else {
     this.colaboradorService.createColaborador(this.colaborador).subscribe(
       (data) => {
       this.msgSucesso = 'Cadastro realizado com sucesso!';
@@ -90,8 +90,11 @@ export class ColaboradorComponent implements OnInit {
       this.erro = true;
       this.sucesso = false;
       console.log(this.msgErro);
-     });
-   }
+  });
+
+
+  }
+
   }
 
   onSubmit() {
@@ -105,7 +108,7 @@ export class ColaboradorComponent implements OnInit {
     this.colaborador.email = '';
     this.colaborador.senha = '';
     this.colaborador.produtoList = [];
-    this.colaborador.empresaId = null;
+    this.colaborador.empresaId = 1;
 
     (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
 
@@ -122,7 +125,8 @@ export class ColaboradorComponent implements OnInit {
   }
 
   selectEmpresa(){
-     console.log(this.colaborador.empresaId);
+    
+    console.log(this.colaborador.empresaId);
   }
 
 

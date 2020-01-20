@@ -40,16 +40,16 @@ export class ColaboradorService {
    }
 
   /* FILE-UPLOAD */
-   uploadImg(file: File): Observable<any>{
+//   uploadImg(file: File): Observable<any>{
 
-     console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
+//     console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
 
-    let url = this.baseUrl + '/saveImagem';
-    let formData: FormData = new FormData();
-     formData.append('file', file);
-   const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(url, formData, { headers });
-  }
+//     let url = this.baseUrl + '/saveImagem';
+//     let formData: FormData = new FormData();
+//     formData.append('file', file);
+//     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+//     return this.http.post(url, formData, { headers });
+//   }
 
   getColaboradorList(): Observable<Colaborador[]> {
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));

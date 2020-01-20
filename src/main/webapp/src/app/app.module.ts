@@ -24,7 +24,6 @@ import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { environment } from 'src/environments/environment';
-import { ChamadoComponent } from './chamado/chamado.component';
 
 
 
@@ -44,8 +43,7 @@ export function tokenGetter() {
     EmpresaListComponent,
     InicioComponent,
     ModuloComponent,
-    ColaboradorComponent,
-    ChamadoComponent
+    ColaboradorComponent
   ],
   imports: [
     BrowserModule,
