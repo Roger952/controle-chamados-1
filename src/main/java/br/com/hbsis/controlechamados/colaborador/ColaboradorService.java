@@ -17,7 +17,9 @@ public class ColaboradorService {
     private final IColaboradorRepository iColaboradorRepository;
     private final EmpresaService empresaService;
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
+    /**
+     * MENSAGEM PADRÃO DE CAMPO EM BRANCO
+     */
     private final String msgVazio = " não pode estar vazio!";
 
     public ColaboradorService(IColaboradorRepository iColaboradorRepository, EmpresaService empresaService) {
@@ -25,11 +27,11 @@ public class ColaboradorService {
         this.empresaService = empresaService;
     }
 
-    private void validate(ColaboradorDTO colaboradorDTO){
+    private void validate(ColaboradorDTO colaboradorDTO) {
 
         LOGGER.info("Validando colaborador...");
 
-        if(colaboradorDTO == null){
+        if (colaboradorDTO == null) {
             throw new IllegalArgumentException("Colaborador DTO vazio.");
         }
 
@@ -39,81 +41,81 @@ public class ColaboradorService {
 
         validarSenha(colaboradorDTO.getSenha());
 
-        if(colaboradorDTO.getProdutoList() == null || colaboradorDTO.getProdutoList().size() == 0){
+        if (colaboradorDTO.getProdutoList() == null) {
             throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
         }
 
-        if(colaboradorDTO.getEmpresa() == null){
-            throw new IllegalArgumentException("Favor selecionar uma empresa!");
+        if (colaboradorDTO.getEmpresa() == 0) {
+            throw new IllegalArgumentException("Favor selecionar no mínimo uma empresa!");
         }
 
     }
 
     private void validarNome(String nome) {
 
-        if(StringUtils.isBlank(nome)){
-            throw new IllegalArgumentException("Nome"+msgVazio);
+        if (StringUtils.isBlank(nome)) {
+            throw new IllegalArgumentException("Nome" + msgVazio);
         }
 
-        if(nome.length() > 100){
+        if (nome.length() > 100) {
             throw new IllegalArgumentException("Nome deve conter no máximo 100 digitos!");
         }
     }
 
     private void validarEmail(String email) {
 
-        if(StringUtils.isBlank(email)){
-            throw new IllegalArgumentException("E-mail"+msgVazio);
+        if (StringUtils.isBlank(email)) {
+            throw new IllegalArgumentException("E-mail" + msgVazio);
         }
 
-        if(!ValidatorEmail.isValidEmail(email)){
+        if (!ValidatorEmail.isValidEmail(email)) {
             throw new IllegalArgumentException("Padrão de e-mail inválido!");
         }
 
-        if(email.length() > 100){
+        if (email.length() > 100) {
             throw new IllegalArgumentException("E-mail deve conter no máximo 100 digitos!");
         }
     }
 
     private void validarExistenciaEmail(String email) {
 
-        if(this.iColaboradorRepository.existsByEmail(email)){
+        if (this.iColaboradorRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("E-mail já cadastrado!");
         }
     }
 
     private void validarSenha(String senha) {
 
-        if(StringUtils.isBlank(senha)){
-            throw new IllegalArgumentException("Senha"+msgVazio);
+        if (StringUtils.isBlank(senha)) {
+            throw new IllegalArgumentException("Senha" + msgVazio);
         }
 
-        if(senha.length() < 8){
+        if (senha.length() < 8) {
             throw new IllegalArgumentException("Senha deve ter no mínimo 8 digitos.");
         }
 
-        if(senha.length() > 100){
+        if (senha.length() > 100) {
             throw new IllegalArgumentException("Senha deve conter no máximo 100 digitos!");
         }
     }
 
-    private Empresa findEmpresa(Long id){
+    private Empresa findEmpresa(Long id) {
         Optional<Empresa> empresaOptional = this.empresaService.findByIdOptional(id);
 
         return empresaOptional.get();
     }
 
-    private Colaborador findColaboradorExistente(Long id){
+    private Colaborador findColaboradorExistente(Long id) {
         Optional<Colaborador> colaboradorOptional = this.iColaboradorRepository.findById(id);
 
-        if(colaboradorOptional.isPresent()){
+        if (colaboradorOptional.isPresent()) {
             return colaboradorOptional.get();
         }
 
         throw new IllegalArgumentException("Colaborador não encontrado.");
     }
 
-    public ColaboradorDTO save(ColaboradorDTO colaboradorDTO){
+    public ColaboradorDTO save(ColaboradorDTO colaboradorDTO) {
 
         validate(colaboradorDTO);
         validarExistenciaEmail(colaboradorDTO.getEmail());
@@ -133,7 +135,7 @@ public class ColaboradorService {
         return ColaboradorDTO.of(colaborador);
     }
 
-    public ColaboradorDTO update(ColaboradorDTO colaboradorDTO){
+    public ColaboradorDTO update(ColaboradorDTO colaboradorDTO) {
         validate(colaboradorDTO);
 
         Colaborador colaboradorAtualizado = this.findColaboradorExistente(colaboradorDTO.getId());
@@ -148,11 +150,23 @@ public class ColaboradorService {
         return ColaboradorDTO.of(colaboradorAtualizado);
     }
 
-    public List<Colaborador> findAll(){
+    public List<Colaborador> findAll() {
         return this.iColaboradorRepository.findAll();
     }
 
-    public List<Colaborador> LikeAs(String nome){
+    public List<Colaborador> LikeAs(String nome) {
         return iColaboradorRepository.findByNomeContaining(nome);
+    }
+
+    public ColaboradorDTO findById(Long id) {
+        Optional<Colaborador> colaboradorOptional = iColaboradorRepository.findById(id);
+
+        if (colaboradorOptional.isPresent()) {
+            LOGGER.info("Colaborador Eencontrado");
+
+            return ColaboradorDTO.of(colaboradorOptional.get());
+        }
+
+        throw new IllegalArgumentException("Não foi encontrado nenhum colaborador com o Id ..." + id);
     }
 }

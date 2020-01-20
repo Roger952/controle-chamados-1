@@ -41,4 +41,9 @@ public class ColaboradorRest {
         return this.colaboradorService.LikeAs(nome);
     }
 
+    @GetMapping("/findById/{id}")
+    @PreAuthorize("hasRole('ROLE_LIST_FIND_BY_ID')")
+    public ColaboradorDTO findById(@PathVariable("id") Long id){
+        return this.colaboradorService.findById(id);
+    }
 }
