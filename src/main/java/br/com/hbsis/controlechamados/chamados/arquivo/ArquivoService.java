@@ -4,9 +4,11 @@ package br.com.hbsis.controlechamados.chamados.arquivo;
 import br.com.hbsis.controlechamados.chamados.ChamadosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class ArquivoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ArquivoService.class);
     private final IArquivoRepository iArquivoRepository;

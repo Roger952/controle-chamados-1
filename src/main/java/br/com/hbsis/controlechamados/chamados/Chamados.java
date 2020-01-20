@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "seg_chamados")
 public class Chamados extends AbstractEntity {
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
 
@@ -23,7 +23,7 @@ public class Chamados extends AbstractEntity {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @OneToMany(mappedBy = "id_chamados")
+    @OneToMany(mappedBy = "idChamados")
     private List<Arquivo> arquivoList;
 
     @Column(name = "status", nullable = false)
