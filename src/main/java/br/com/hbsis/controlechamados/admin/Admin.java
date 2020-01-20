@@ -12,6 +12,7 @@ public class Admin extends AbstractEntity {
 
     @Column(name = "login", unique = true, nullable = false)
     private String login;
+
     @Column(name = "senha", nullable = false)
     private String senha;
 
@@ -19,6 +20,7 @@ public class Admin extends AbstractEntity {
     @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "codigo_usuario")
             , inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
     private List<Permissao> permissoes;
+
 
     public String getLogin() {
         return login;
@@ -49,6 +51,7 @@ public class Admin extends AbstractEntity {
         return "Admin{" +
                 "login='" + login + '\'' +
                 ", senha='" + senha + '\'' +
+
                 ", permissoes=" + permissoes +
                 '}';
     }

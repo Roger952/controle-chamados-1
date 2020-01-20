@@ -34,7 +34,9 @@ public class Atendente {
             inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
 
+
     /** GETTER & SETTER */
+
     public Long getId() {
         return id;
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/colaboradores")
+@RequestMapping("/colaborador")
 public class ColaboradorRest {
     private final ColaboradorService colaboradorService;
 
@@ -34,4 +34,11 @@ public class ColaboradorRest {
     public List<Colaborador> findAll(){
         return this.colaboradorService.findAll();
     }
+
+    @GetMapping("/findByNome/{nome}")
+    @PreAuthorize("hasRole('ROLE_LIST_LIKE_NOME_COLABORADOR')")
+    public  List<Colaborador> findByLikeNome(@PathVariable("nome") String nome){
+        return this.colaboradorService.LikeAs(nome);
+    }
+
 }

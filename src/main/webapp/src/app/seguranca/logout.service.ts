@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { AuthService } from './auth.service';
 import { ControleHttp } from './Controle-http';
-import { HttpHeaders }    from '@angular/common/http';
 
 @Injectable()
 export class LogoutService {
@@ -17,8 +16,7 @@ export class LogoutService {
   }
 
   logout() {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.delete(this.tokensRevokeUrl, {headers})
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
       .toPromise()
       .then(() => {
         this.auth.limparAccessToken();

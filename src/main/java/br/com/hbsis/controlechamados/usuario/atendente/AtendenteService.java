@@ -6,6 +6,7 @@ import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
+import br.com.hbsis.controlechamados.utils.exportAndImport.Export;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -126,6 +129,10 @@ public class AtendenteService {
             throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
         }
 
+        if(atendenteDTO.getProdutoList().size() == 0){
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
+        }
+
         if(StringUtils.isBlank(atendenteDTO.getFoto())){
             atendenteDTO.setFoto("default-person.png");
         }
@@ -158,3 +165,4 @@ public class AtendenteService {
         disco.salvarFoto(file);
     }
 }
+

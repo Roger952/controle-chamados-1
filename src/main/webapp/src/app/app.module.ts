@@ -25,10 +25,15 @@ import { LogoutService } from '../app/seguranca/logout.service'
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 
+import { ColaboradorComponent } from './colaborador/colaborador.component';
 
-/*export function tokenGetter() {
+import { environment } from 'src/environments/environment';
+
+
+
+export function tokenGetter() {
   return localStorage.getItem('token');
-}*/
+}
 
 @NgModule({
   declarations: [
@@ -39,10 +44,10 @@ import { ModuloComponent } from './modulo/modulo.component';
     ProdutosComponent,
     EmpresaComponent,
     AtendenteComponent,
-
     EmpresaListComponent,
     InicioComponent,
-    ModuloComponent
+    ModuloComponent,
+    ColaboradorComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +61,9 @@ import { ModuloComponent } from './modulo/modulo.component';
     MatSelectModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return '';
-        },
+        tokenGetter: tokenGetter,
+        whitelistedDomains: environment.tokenWhitelistedDomains,
+        blacklistedRoutes: environment.tokenBlacklistedRoutes,
 }
     })
   ]

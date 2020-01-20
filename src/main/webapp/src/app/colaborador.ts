@@ -1,10 +1,10 @@
 import { Produtos } from './produtos';
 
-export class Atendente {
+export class Colaborador {
     id: number;
     nome: string;
     email: string;
     senha: string;
-    foto: string;
+    empresaId: number;
     produtoList: Produtos[];
 }
