@@ -16,11 +16,14 @@ public class Admin extends AbstractEntity {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "role")
+    private EnumRoles roles;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "codigo_usuario")
             , inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
     private List<Permissao> permissoes;
-
 
     public String getLogin() {
         return login;
@@ -46,12 +49,19 @@ public class Admin extends AbstractEntity {
         this.permissoes = permissoes;
     }
 
+    public EnumRoles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(EnumRoles roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
                 "login='" + login + '\'' +
                 ", senha='" + senha + '\'' +
-
                 ", permissoes=" + permissoes +
                 '}';
     }

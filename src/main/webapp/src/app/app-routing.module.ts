@@ -11,21 +11,22 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 
-import { AuthService } from './seguranca/auth.service';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { AuthGuard2 } from './seguranca/auth.guard2';
+import { NaoAutorizadoComponent } from './page-not-found/nao-autorizado.component';
 
 const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent, canActivate: [AuthGuard2]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
-  { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard] },
-  { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard] },
-  { path: 'colaborador', component: ColaboradorComponent, canActivate:[AuthGuard] },
-  { path: 'modulo', component: ModuloComponent, canActivate:[AuthGuard] },
+  { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO']} },
+  { path: 'atendente', component: AtendenteComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_CADASTRAR_ATENDENTE']} },
+  { path: 'empresa', component: EmpresaComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_CADASTRAR_EMPRESA']} },
+  { path: 'colaborador', component: ColaboradorComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_CADASTRAR_COLABORADOR']} },
+  { path: 'modulo', component: ModuloComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_CADASTRAR_MODULO']} },
   { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
+  { path: 'nao-autorizado', component: NaoAutorizadoComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

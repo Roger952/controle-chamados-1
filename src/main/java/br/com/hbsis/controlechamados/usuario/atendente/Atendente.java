@@ -23,7 +23,7 @@ public class Atendente {
     @Column(name = "email", unique = true, nullable = false, length = 50)
     private String email;
 
-    @Column(name = "senha", unique = false, nullable = false, length = 30)
+    @Column(name = "senha", unique = false, nullable = false, length = 100)
     private String senha;
 
     /** MUITOS ATENDENTES PARA MUITOS PRODUTOS */

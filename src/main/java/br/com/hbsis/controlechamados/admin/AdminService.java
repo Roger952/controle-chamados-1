@@ -1,81 +1,22 @@
-/*
+
 package br.com.hbsis.controlechamados.admin;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
-    public class AdminService {
-        private static final Logger LOGGER = LoggerFactory.getLogger(AdminService.class);
-        private final IAdminRepository iAdminRepository;
+public class AdminService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminService.class);
+    private final IAdminRepository iAdminRepository;
 
-        public AdminService(IAdminRepository iAdminRepository) {
-            this.iAdminRepository = iAdminRepository;
+    public AdminService(IAdminRepository iAdminRepository) {
+        this.iAdminRepository = iAdminRepository;
 
-        }
-
-        public Admin loginAdmin(AdminDTO adminDTO) {
-            LOGGER.info("Logando admin");
-
-            Admin admin = new Admin();
-            */
-/*validate(adminDTO);*//*
-
-
-            return admin;
-        }
-
-*/
-/*        private Admin validate(AdminDTO adminDTO) {
-            LOGGER.info("Validando o Admin");
-
-            if (StringUtils.isBlank(adminDTO.getLogin())) {
-                throw new IllegalArgumentException("O login do Admin  não pode ser vazio/nulo");
-            }
-
-            if (StringUtils.isBlank(adminDTO.getSenha())) {
-                throw new IllegalArgumentException("A senha do admin não pode ser vazia/nulo");
-            }
-            Optional<Admin> adminOptional = existsUser(adminDTO.getLogin(), adminDTO.getSenha());
-
-            if (adminOptional.isPresent()) {
-                return adminOptional.get();
-            }
-
-            throw new IllegalArgumentException("Login ou Senha do Usuario errado");
-        }*//*
-
-
-*/
-/*    public Optional<Admin> existsUser(String login, String senha){
-        Optional<Admin> adminOptional = iAdminRepository.findByLoginAndSenha(login, senha);
-
-        if (adminOptional.isPresent()){
-            return adminOptional;
-        }
-
-        throw new IllegalArgumentException("Login ou Senha do Usuario errado");
-    }*//*
-
-
-    public List<Admin> listar() {
-
-        List<Admin> admin;
-        admin = this.iAdminRepository.findAll();
-
-        return admin;
-    }
-
-    public AdminDTO findById(Long id) {
-        Optional<Admin> adminOptional = this.iAdminRepository.findById(id);
-        if (adminOptional.isPresent()) {
-            return AdminDTO.of(adminOptional.get());
-        }
-        throw new IllegalArgumentException(String.format("ID %s não existe", id));
     }
 
     public AdminDTO update(AdminDTO adminDTO, Long id) {
@@ -84,22 +25,33 @@ import java.util.Optional;
         if (adminOptional.isPresent()) {
             Admin adminExistente = adminOptional.get();
 
-            validate(adminDTO);
-
             LOGGER.info("Atualizando a linha... id:{}", adminExistente.getId());
             LOGGER.debug("Payload: {}", adminDTO);
             LOGGER.debug("Linha existente: {}", adminExistente);
 
             adminExistente.setSenha(adminDTO.getSenha());
             adminExistente.setLogin(adminDTO.getLogin());
+            adminExistente.setRoles(adminDTO.getRole());
 
             return adminDTO.of(adminExistente);
         }
-        throw new IllegalArgumentException(String.format("ID %S NAO EXISTE " ,  id));
+        throw new IllegalArgumentException(String.format("ID %S NAO EXISTE ", id));
     }
 
-        public void delete (Long id){
-            LOGGER.info("Executando delete para adim de ID [{}]", id);
-            this.iAdminRepository.deleteById(id);
-        }
-    }*/
+    public AdminDTO save(AdminDTO adminDTO){
+
+        Admin admin = new Admin();
+        admin.setLogin(adminDTO.getLogin());
+        admin.setSenha(adminDTO.getSenha());
+        admin.setRoles(adminDTO.getRole());
+
+        admin = this.iAdminRepository.save(admin);
+
+        return AdminDTO.of(admin);
+    }
+
+    public void delete(Long id) {
+        LOGGER.info("Executando delete para adim de ID [{}]", id);
+        this.iAdminRepository.deleteById(id);
+    }
+}

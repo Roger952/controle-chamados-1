@@ -1,8 +1,9 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
+import br.com.hbsis.controlechamados.admin.AdminDTO;
+import br.com.hbsis.controlechamados.admin.AdminService;
+import br.com.hbsis.controlechamados.admin.EnumRoles;
 import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoService;
-import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
@@ -10,11 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,16 +25,20 @@ public class AtendenteService {
     private final AtendenteProdutoService atendenteProdutoService;
     private final ProdutoService produtoService;
     private final Disco disco;
+    private final PasswordEncoder passwordEncoder;
+    private final AdminService adminService;
 
     /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
     @Autowired /** CONSTRUTOR */
-    public AtendenteService(IAtendenteRepository iAtendenteRepository, AtendenteProdutoService atendenteProdutoService, ProdutoService produtoService, Disco disco) {
+    public AtendenteService(IAtendenteRepository iAtendenteRepository, AtendenteProdutoService atendenteProdutoService, ProdutoService produtoService, Disco disco, PasswordEncoder passwordEncoder, AdminService adminService) {
         this.iAtendenteRepository = iAtendenteRepository;
         this.atendenteProdutoService = atendenteProdutoService;
         this.produtoService = produtoService;
         this.disco = disco;
+        this.passwordEncoder = passwordEncoder;
+        this.adminService = adminService;
     }
 
     /** MÉTODOS DE CRUD */
@@ -48,12 +52,18 @@ public class AtendenteService {
         Atendente atendente = new Atendente();
         atendente.setNome(atendenteDTO.getNome());
         atendente.setEmail(atendenteDTO.getEmail());
-        atendente.setSenha(atendenteDTO.getSenha());
+        atendente.setSenha(passwordEncoder.encode(atendenteDTO.getSenha()));
         atendente.setFoto(atendenteDTO.getFoto());
         atendente.setProdutoList(atendenteDTO.getProdutoList());
 
+        AdminDTO usuario = new AdminDTO();
+        usuario.setLogin(atendente.getEmail());
+        usuario.setSenha(atendente.getSenha());
+        usuario.setRole(EnumRoles.ROLE_ATENDENTE);
+
         LOGGER.info("Executando save do atendente!");
         atendente = this.iAtendenteRepository.save(atendente);
+        usuario = this.adminService.save(usuario);
 
         LOGGER.info("Finalizando save do atendente!");
         return AtendenteDTO.of(atendente);

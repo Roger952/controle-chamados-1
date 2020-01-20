@@ -1,11 +1,16 @@
 package br.com.hbsis.controlechamados.colaborador;
 
+import br.com.hbsis.controlechamados.admin.Admin;
+import br.com.hbsis.controlechamados.admin.AdminDTO;
+import br.com.hbsis.controlechamados.admin.AdminService;
+import br.com.hbsis.controlechamados.admin.EnumRoles;
 import br.com.hbsis.controlechamados.empresa.Empresa;
 import br.com.hbsis.controlechamados.empresa.EmpresaService;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +21,17 @@ public class ColaboradorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ColaboradorService.class);
     private final IColaboradorRepository iColaboradorRepository;
     private final EmpresaService empresaService;
+    private final PasswordEncoder passwordEncoder;
+    private final AdminService adminService;
 
     /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
-    public ColaboradorService(IColaboradorRepository iColaboradorRepository, EmpresaService empresaService) {
+    public ColaboradorService(IColaboradorRepository iColaboradorRepository, EmpresaService empresaService, PasswordEncoder passwordEncoder, AdminService adminService) {
         this.iColaboradorRepository = iColaboradorRepository;
         this.empresaService = empresaService;
+        this.passwordEncoder = passwordEncoder;
+        this.adminService = adminService;
     }
 
     private void validate(ColaboradorDTO colaboradorDTO){
@@ -123,12 +132,18 @@ public class ColaboradorService {
         Colaborador colaborador = new Colaborador(
                 colaboradorDTO.getNome(),
                 colaboradorDTO.getEmail(),
-                colaboradorDTO.getSenha(),
+                passwordEncoder.encode(colaboradorDTO.getSenha()),
                 findEmpresa(colaboradorDTO.getEmpresa()),
                 colaboradorDTO.getProdutoList()
         );
 
+        AdminDTO usuario = new AdminDTO();
+        usuario.setLogin(colaborador.getEmail());
+        usuario.setSenha(colaborador.getSenha());
+        usuario.setRole(EnumRoles.ROLE_USER);
+
         colaborador = this.iColaboradorRepository.save(colaborador);
+        usuario = this.adminService.save(usuario);
 
         return ColaboradorDTO.of(colaborador);
     }
@@ -137,16 +152,15 @@ public class ColaboradorService {
         validate(colaboradorDTO);
 
         Colaborador colaboradorAtualizado = this.findColaboradorExistente(colaboradorDTO.getId());
-
         colaboradorAtualizado.setEmail(colaboradorDTO.getEmail());
-        colaboradorAtualizado.setSenha(colaboradorDTO.getSenha());
+        colaboradorAtualizado.setSenha(passwordEncoder.encode(colaboradorDTO.getSenha()));
         colaboradorAtualizado.setEmpresa(this.findEmpresa(colaboradorDTO.getEmpresa()));
         colaboradorAtualizado.setProdutoList(colaboradorDTO.getProdutoList());
 
         colaboradorAtualizado = this.iColaboradorRepository.save(colaboradorAtualizado);
 
         return ColaboradorDTO.of(colaboradorAtualizado);
-    }
+    } //Precisa atualizar login e senha na tabela login_admin
 
     public List<Colaborador> findAll(){
         return this.iColaboradorRepository.findAll();
