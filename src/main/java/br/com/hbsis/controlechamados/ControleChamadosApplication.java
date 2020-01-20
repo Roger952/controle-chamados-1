@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ControleChamadosApplication {
 
         public static void main(String[] args) {
+
             SpringApplication.run(ControleChamadosApplication.class, args);
 
         }
