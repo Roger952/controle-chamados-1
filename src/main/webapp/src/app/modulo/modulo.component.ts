@@ -89,7 +89,7 @@ export class ModuloComponent implements OnInit {
   }
 
   exportModel() {
-    this.moduloService.downloadFile().subscribe(data => {
+    this.moduloService.downloadModule().subscribe(data => {
       this.msgSucesso = 'Siga o modelo esperado na importação';
       this.erro = false;
       this.sucesso = true;
