@@ -121,7 +121,7 @@ export class ColaboradorComponent implements OnInit {
   }
 
   selectEmpresa() {
-    
+
     console.log(this.colaborador.empresaId);
   }
 
@@ -135,5 +135,4 @@ export class ColaboradorComponent implements OnInit {
     }
     console.log(this.colaborador.produtoList);
   }
-
 }
