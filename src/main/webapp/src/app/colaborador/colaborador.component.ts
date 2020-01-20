@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Empresa } from '../empresa';
 import { Colaborador } from '../colaborador';
-import { Produtos} from '../produtos'; 
+import { Produtos} from '../produtos';
 import { ColaboradorService } from '../colaborador.service';
 import { EmpresaService } from '../empresa.service';
 import { ProdutosService } from '../produtos.service';
@@ -38,8 +38,8 @@ export class ColaboradorComponent implements OnInit {
   erro = false;
   sucesso = false;
 
-  constructor(private colaboradorService : ColaboradorService, 
-    private produtoService: ProdutosService, 
+  constructor(private colaboradorService : ColaboradorService,
+    private produtoService: ProdutosService,
     private empresaService: EmpresaService) { }
 
   ngOnInit() {
@@ -67,12 +67,11 @@ export class ColaboradorComponent implements OnInit {
   }
 
   save() {
-    
+
     if(this.confirmacaoSenha()){
       this.msgErro = 'As senhas não correspondem';
       this.erro = true;
       this.sucesso = false;
-      console.log('Deu ruim!!!');
 
     } else {
     this.colaboradorService.createColaborador(this.colaborador).subscribe(
@@ -89,9 +88,7 @@ export class ColaboradorComponent implements OnInit {
       this.msgErro = error.error[0].mensagemDesenvolvedor;
       this.erro = true;
       this.sucesso = false;
-      console.log(this.msgErro);
   });
-
 
   }
 
@@ -125,7 +122,7 @@ export class ColaboradorComponent implements OnInit {
   }
 
   selectEmpresa(){
-    
+
     console.log(this.colaborador.empresaId);
   }
 

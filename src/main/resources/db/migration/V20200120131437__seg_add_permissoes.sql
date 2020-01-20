@@ -1,1 +1,0 @@
-INSERT INTO permissao (id, descricao) values (15, 'ROLE_LIST_FIND_BY_ID');

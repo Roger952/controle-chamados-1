@@ -38,8 +38,6 @@ export class AtendenteComponent implements OnInit {
   selectFile(event) {
     this.selectedFiles = event.target.files;
 
-    console.log(this.selectedFiles[0].size)
-    console.log(this.selectedFiles[0].name)
     this.verificarFile();
   }
 
@@ -68,7 +66,6 @@ export class AtendenteComponent implements OnInit {
         this.filename = '';
         this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
         this.erro = true;
-        console.log(this.atendente.foto)
       } else{
         this.erro = false;
       }
@@ -83,9 +80,8 @@ export class AtendenteComponent implements OnInit {
         this.msgErro = "Arquivo não é esperado, por favor selecione outro";
         this.erro = true;
 
-        console.log(this.atendente.foto)
       }else{
-        
+
       }
     }else{
       this.erro = false;
@@ -124,7 +120,6 @@ export class AtendenteComponent implements OnInit {
           this.msgErro = error.error[0].mensagemDesenvolvedor;
           this.erro = true;
           this.sucesso = false;
-          console.log(this.msgErro);
         });
     }
   }
@@ -137,7 +132,6 @@ export class AtendenteComponent implements OnInit {
 
     this.currentFileUpload = this.selectedFiles.item(0);
     this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
-
 
   }
 
@@ -160,7 +154,6 @@ export class AtendenteComponent implements OnInit {
       this.atendente.produtoList.splice(index, 1);
       this.atendente.produtoList.push(produtos);
     }
-    console.log(this.atendente.produtoList);
   }
 
   confirmacaoSenha(): boolean {

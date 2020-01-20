@@ -160,3 +160,14 @@ table{
     float: right;
     margin-bottom: 0;
 }
+
+#searchBar{
+    border-radius: 10px;
+    outline: none;
+}
+
+#txt_consulta{
+    outline: none;
+    box-shadow: none;
+
+}

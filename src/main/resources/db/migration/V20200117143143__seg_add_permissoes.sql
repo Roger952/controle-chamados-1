@@ -1,1 +1,0 @@
-INSERT INTO permissao (id, descricao) values (12, 'ROLE_EXPORT_FORMATTED_CSV_MODULO');
