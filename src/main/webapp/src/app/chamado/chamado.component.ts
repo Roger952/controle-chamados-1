@@ -18,9 +18,8 @@ export class ChamadoComponent implements OnInit {
   /* LISTA DE PRODUTOS */
   produtos = new FormControl();
   produtoList: Produtos[];
-  status: string;
 
-    /* FILE */
+  /* FILE */
     selectedFiles: FileList;
     currentFileUpload: File;
     filename: string;
@@ -117,16 +116,12 @@ verificarFile() {
       (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
       this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
       this.filename = '';
-      this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
+      this.msgErro = "Arquivo maior que o esperado, por favor, selecione outros";
       this.erro = true;
       console.log(this.chamado.arquivoDTOS)
     } else{
       this.erro = false;
     }
-  }else{
-    this.erro = false;
   }
-
 }
-
 }

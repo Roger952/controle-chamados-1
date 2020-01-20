@@ -79,7 +79,7 @@
                             <div class="col-6">
 
                                 <mat-form-field id="checkEscolha" color="accent">
-                                    <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                                    <mat-label id="labelEscolha">Selecione Produtos</mat-label>
                                     <mat-select [(ngModel)]="colaborador.produtoList" name="produtoList"
                                         [formControl]="produtos" multiple>
 
@@ -93,7 +93,7 @@
 
                             <div class="col-6">
                                 <mat-form-field id="checkEscolha" color="accent">
-                                    <mat-label id="labelEscolha">Selecione Empresas</mat-label>
+                                    <mat-label id="labelEscolha">Selecione Empresa</mat-label>
                                     <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId"
                                         [formControl]="empresas">
                                         <mat-option (click)="selectEmpresa()" *ngFor="let empresas of empresasList"

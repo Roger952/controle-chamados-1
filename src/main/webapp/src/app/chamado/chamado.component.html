@@ -60,7 +60,7 @@
                        
                         
                         <i class=" info text-center"
-                            ngbPopover="Você pode selecionar 10 arquivos de no máximo 2MB cada."
+                            ngbPopover="Você pode selecionar 10 arquivos de até 2MB cada."
                             triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
                             <img src="../../assets/info-icon.png" width="20" height="20">
                         </i>
@@ -68,8 +68,8 @@
                         
 
                         <div class="custom-file">
-                            <input type="file" accept="/*" class="custom-file-input" id="validatedCustomFile" required 
-                            name="foto" (change)="onChange($event)" (change)="selectFile($event)" onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
+                            <input type="file" accept="/*" class="custom-file-input" id="validatedCustomFile" required multiple
+                            name="arquivo" (change)="onChange($event)" (change)="selectFile($event)" onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
                             <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
                         </div>
 
