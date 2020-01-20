@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "seg_atendimento")
+@Table(name = "seg_chamados")
 public class Chamados extends AbstractEntity {
 
     @OneToMany
@@ -23,7 +23,7 @@ public class Chamados extends AbstractEntity {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @OneToMany(mappedBy = "idChamados")
+    @OneToMany(mappedBy = "id_chamados")
     private List<Arquivo> arquivoList;
 
     @Column(name = "status", nullable = false)
