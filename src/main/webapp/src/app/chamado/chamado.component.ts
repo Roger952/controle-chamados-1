@@ -18,6 +18,7 @@ export class ChamadoComponent implements OnInit {
   /* LISTA DE PRODUTOS */
   produtos = new FormControl();
   produtoList: Produtos[];
+  status: string;
 
     /* FILE */
     selectedFiles: FileList;
@@ -53,8 +54,8 @@ export class ChamadoComponent implements OnInit {
  
 save() {
 
-  if(this.chamado.nome_arquivo != null){
-        this.chamado.nome_arquivo = this.chamado.nome_arquivo.substring(12);
+  if(this.chamado.arquivoDTOS != null){
+        this.chamado.arquivoDTOS = this.chamado.arquivoDTOS.substring(12);
     }
     
   this.chamadoService.createChamado(this.chamado).subscribe(
@@ -92,7 +93,7 @@ limpar() {
   this.chamado.descricao = '';
   this.chamado.produtoList = [];
   (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-  this.chamado.nome_arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
+  this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
   this.filename = '';
  }
 
@@ -106,16 +107,19 @@ limpar() {
   console.log(this.chamado.produtoList);
 }
 
+selectStatus(status){
+}
+
 verificarFile() {
 
   if(this.selectedFiles != undefined) {
     if (this.selectedFiles[0].size > (1000 * 1000 * 2)* 10) {
       (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-      this.chamado.nome_arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
+      this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
       this.filename = '';
       this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
       this.erro = true;
-      console.log(this.chamado.nome_arquivo)
+      console.log(this.chamado.arquivoDTOS)
     } else{
       this.erro = false;
     }

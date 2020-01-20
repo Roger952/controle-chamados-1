@@ -79,14 +79,17 @@
                 </div>
 
                 <div class="row mb-3">
-                    <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
-
+                
                     <div class="col-6 col-file">
-                        <!-- LADO ESQUERDO -->
-
-                        <div>
-                            <h5 id="h3Foto" pattern=".+">Selecione foto (Opcional)</h5>
-                        </div>
+                
+         
+                            <i class=" info text-center"
+                            ngbPopover="Você pode selecionar um arquivo dos tipos /.jpg, /.jpeg, /.png, /.jfif 
+                            de no máximo 2MB"
+                            triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
+                            <img src="../../assets/info-icon.png" width="20" height="20">
+                        </i>
+                        <h6 id="h3Foto" class= "text-left" pattern=".+">Selecione foto (Opcional)</h6>
 
                         <div class="custom-file">
                             <input type="file" accept="image/jpg, image/jpeg, image/png, image/jfif"
@@ -96,19 +99,13 @@
                             <label class="custom-file-label" id="labelFile"
                                 for="validatedCustomFile">{{filename}}</label>
                         </div>
-
-                        <div class="text-center">
-                            <label class="labelFotoEspec">Tamanho máximo 2MB</label>
-                        </div>
-
                     </div>
 
                     <div class="col-6">
-                        <!-- LADO DIREITO -->
+           
 
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                            <!-- <mat-select [(ngModel)]="atendente.atendenteProdutoDTOList" name="atendenteProdutoDTOList" [formControl]="toppings" multiple> -->
                             <mat-select [(ngModel)]="atendente.produtoList" name="produtoList" [formControl]="produtos"
                                 multiple>
 
@@ -119,7 +116,6 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-
                 </div>
 
                 <div class="row">
@@ -128,7 +124,7 @@
                     </div>
                 </div>
 
-            </form><!-- FORMULÁRIO -->
+            </form>
         </div>
     </div>
 </div>

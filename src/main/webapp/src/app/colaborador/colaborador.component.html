@@ -12,7 +12,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+                    <form #colaboradorForm="ngForm" (ngSubmit)="onSubmit()">
 
                         <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
                         <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
@@ -137,7 +137,7 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Produto</th>
+                            <th>Colaborador</th>
                             <th>Alterar</th>
                         </tr>
                     </thead>

@@ -1,9 +1,10 @@
 <app-dashboard></app-dashboard>
 
 <div class="container rounded" >
+    <div class="row">
     <div class="col-12">
     <div class="row titulo">
-        <!--LINHA DO TÍTULO-->
+       
         <div class="col-12">
             <h1>Chamados</h1>
         </div>
@@ -11,25 +12,22 @@
 
     <div class="row">
         <div class="col-12">
-            <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
-                <!-- FORMULÁRIO -->
-
-                <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+            <form #chamadoForm="ngForm" (ngSubmit)="onSubmit()">
+                  <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
                 <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
-        <div class="row">
-                <div class="col-12">
+
+                <div class="row mb-3">
+                    <div class="col-12">
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                                <!-- <mat-select [(ngModel)]="colaborador.colaboradorProdutoList" name="colaboradorProdutoList" [formControl]="toppings" multiple> -->
                                 <mat-select [(ngModel)]="chamado.produtoList" name="produtoList" [formControl]="produtos" multiple>
-
                                 <mat-option (click)="selectClickProdutos(produtos)" id="optionEscolha" *ngFor="let produtos of produtoList" [value]="produtos">
                                     {{produtos.nome}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                    </div>
                 </div>
-            </div>
                 
                 <div class="row">
                     <div class="col-12">
@@ -59,9 +57,15 @@
 
                     <div class="col-12"><!-- LADO ESQUERDO -->
 
-                        <div >
-                            <h6 id="h3Foto" class= "text-left" pattern=".+">Anexar Arquivos</h6>
-                        </div>
+                       
+                        
+                        <i class=" info text-center"
+                            ngbPopover="Você pode selecionar 10 arquivos de no máximo 2MB cada."
+                            triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
+                            <img src="../../assets/info-icon.png" width="20" height="20">
+                        </i>
+                        <h6 id="h3Foto" class= "text-left" pattern=".+">Anexar Arquivos</h6>
+                        
 
                         <div class="custom-file">
                             <input type="file" accept="/*" class="custom-file-input" id="validatedCustomFile" required 
@@ -69,10 +73,7 @@
                             <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
                         </div>
 
-                        <div class="text-left">
-                            <label class="labelFotoEspec">*Selecione até 10 arquivos de 2MB cada</label>
-                        </div>
-                        <div class="underDiv">
+                         <div class="underDiv">
                             <div class="underDivLeft"></div>
                             <div class="underDivRight"></div>
                         </div>
@@ -80,7 +81,6 @@
                     </div>
 
                 </div>
-
                 <div class="row">
                     <div class="col-12">
                         <button class="btn btn-dark">Salvar</button>
@@ -90,5 +90,6 @@
             </form><!-- FORMULÁRIO -->
         </div>
     </div>
+</div>
 </div>
 </div>

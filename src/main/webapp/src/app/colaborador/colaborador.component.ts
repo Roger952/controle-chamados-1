@@ -92,7 +92,6 @@ export class ColaboradorComponent implements OnInit {
       console.log(this.msgErro);
   });
 
-
   }
 
   }
