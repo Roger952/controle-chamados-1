@@ -4,6 +4,6 @@ export class Chamado {
     id: number;
     titulo: string;
     descricao: string;
-    arquivo: string;
+    nome_arquivo: string;
     produtoList: Produtos[];
 }

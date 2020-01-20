@@ -21,6 +21,7 @@ export class ChamadoService {
   createChamado(chamado: Chamado): Observable<Object> {
 
     console.log("Chamado: "+ chamado.titulo);
+    console.log("Chamado: "+ chamado.nome_arquivo);
     console.log("Chamado: "+ chamado.descricao);
     console.log("Chamado: "+ chamado.produtoList);
 
