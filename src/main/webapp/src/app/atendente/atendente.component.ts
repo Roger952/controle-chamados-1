@@ -6,6 +6,7 @@ import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
 import { HttpHeaders } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-atendente',
   templateUrl: './atendente.component.html',

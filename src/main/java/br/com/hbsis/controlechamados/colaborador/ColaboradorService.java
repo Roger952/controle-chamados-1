@@ -39,12 +39,12 @@ public class ColaboradorService {
 
         validarSenha(colaboradorDTO.getSenha());
 
-        if(colaboradorDTO.getProdutoList() == null){
+        if(colaboradorDTO.getProdutoList() == null || colaboradorDTO.getProdutoList().size() == 0){
             throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
         }
 
-        if(colaboradorDTO.getEmpresa() == 0){
-            throw new IllegalArgumentException("Favor selecionar no mínimo uma empresa!");
+        if(colaboradorDTO.getEmpresa() == null){
+            throw new IllegalArgumentException("Favor selecionar uma empresa!");
         }
 
     }

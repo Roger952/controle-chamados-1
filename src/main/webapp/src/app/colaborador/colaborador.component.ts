@@ -108,7 +108,7 @@ export class ColaboradorComponent implements OnInit {
     this.colaborador.email = '';
     this.colaborador.senha = '';
     this.colaborador.produtoList = [];
-    this.colaborador.empresaId = 1;
+    this.colaborador.empresaId = null;
 
     (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
 

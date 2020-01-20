@@ -29,6 +29,8 @@ export class ModuloComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+
+    this.validarArquivoCSV();
   }
 
   onChange(event) {
@@ -41,6 +43,8 @@ export class ModuloComponent implements OnInit {
   }
 
   onSubmit() {
+
+  this.validarArquivoCSV();
   }
 
   downloadFile() {
@@ -85,7 +89,7 @@ export class ModuloComponent implements OnInit {
   }
 
   exportModel() {
-    this.moduloService.downloadModule().subscribe(data => {
+    this.moduloService.downloadFile().subscribe(data => {
       this.msgSucesso = 'Siga o modelo esperado na importação';
       this.erro = false;
       this.sucesso = true;
@@ -94,5 +98,22 @@ export class ModuloComponent implements OnInit {
 
     });
   }
-}
 
+  validarArquivoCSV(){
+    if(this.selectedFiles != undefined) {
+    if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.csv') {
+      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+        this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
+        this.filename = '';
+        this.msgErro = "Arquivo não é esperado, por favor selecione outro";
+        this.erro = true;
+
+        console.log(this.modulo.nomeProduto)
+      }else{
+        this.erro = false;
+      }
+    }else{
+      this.erro = false;
+    }
+  }
+}
