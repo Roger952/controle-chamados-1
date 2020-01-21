@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Empresa } from '../empresa';
-import { Colaborador } from '../colaborador';
-import { Produtos} from '../produtos';
-import { ColaboradorService } from '../colaborador.service';
-import { EmpresaService } from '../empresa.service';
-import { ProdutosService } from '../produtos.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Empresa} from '../empresa';
+import {Colaborador} from '../colaborador';
+import {Produtos} from '../produtos';
+import {ColaboradorService} from '../colaborador.service';
+import {EmpresaService} from '../empresa.service';
+import {ProdutosService} from '../produtos.service';
 
 @Component({
   selector: 'app-colaborador',
@@ -19,6 +19,8 @@ export class ColaboradorComponent implements OnInit {
 
   colaborador: Colaborador = new Colaborador();
   submitted = false;
+
+  id : number;
 
   /* LISTA DE PRODUTOS */
   produtos = new FormControl();
@@ -38,26 +40,31 @@ export class ColaboradorComponent implements OnInit {
   erro = false;
   sucesso = false;
 
-  constructor(private colaboradorService : ColaboradorService,
-    private produtoService: ProdutosService,
-    private empresaService: EmpresaService) { }
+  constructor(private colaboradorService: ColaboradorService,
+              private produtoService: ProdutosService,
+              private empresaService: EmpresaService) {
+  }
 
   ngOnInit() {
     this.produtoService.getProdutosList().subscribe(
       data => {
-      this.produtoList = data;
-    }, error => {
-      console.log(error)
-    });
+        this.produtoList = data;
+      }, error => {
+        console.log(error)
+      });
 
     this.empresaService.getEmpresaList().subscribe(
       data => {
-      this.empresasList = data;
-    }, error => {
-      console.log(error)
-    });
+        this.empresasList = data;
+      }, error => {
+        console.log(error)
+      });
 
-    this.colaboradorService.getColaboradorList().subscribe(data => { this.colaboradores = data; }, error => { console.log(error); });
+    this.colaboradorService.getColaboradorList().subscribe(data => {
+      this.colaboradores = data;
+    }, error => {
+      console.log(error);
+    });
 
   }
 
@@ -68,29 +75,33 @@ export class ColaboradorComponent implements OnInit {
 
   save() {
 
-    if(this.confirmacaoSenha()){
+    if (this.confirmacaoSenha()) {
       this.msgErro = 'As senhas não correspondem';
       this.erro = true;
       this.sucesso = false;
 
     } else {
-    this.colaboradorService.createColaborador(this.colaborador).subscribe(
-      (data) => {
-      this.msgSucesso = 'Cadastro realizado com sucesso!';
-      this.erro = false;
-      this.sucesso = true;
-      console.log(this.msgSucesso);
-      this.limpar();
-      this.colaboradorService.getColaboradorList().subscribe(data => { this.colaboradores = data; }, error => { console.log(error); });
+      this.colaboradorService.createColaborador(this.colaborador).subscribe(
+        (data) => {
+          this.msgSucesso = 'Cadastro realizado com sucesso!';
+          this.erro = false;
+          this.sucesso = true;
+          console.log(this.msgSucesso);
+          this.limpar();
+          this.colaboradorService.getColaboradorList().subscribe(data => {
+            this.colaboradores = data;
+          }, error => {
+            console.log(error);
+          });
 
-  },
-    (error) => {
-      this.msgErro = error.error[0].mensagemDesenvolvedor;
-      this.erro = true;
-      this.sucesso = false;
-  });
+        },
+        (error) => {
+          this.msgErro = error.error[0].mensagemDesenvolvedor;
+          this.erro = true;
+          this.sucesso = false;
+        });
 
-  }
+    }
 
   }
 
@@ -111,9 +122,9 @@ export class ColaboradorComponent implements OnInit {
 
   }
 
-  confirmacaoSenha(): boolean{
-     const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
-    if(this.colaborador.senha != senhaConfirmacao){
+  confirmacaoSenha(): boolean {
+    const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
+    if (this.colaborador.senha != senhaConfirmacao) {
 
       this.erro = true;
       this.sucesso = false;
@@ -121,7 +132,7 @@ export class ColaboradorComponent implements OnInit {
     }
   }
 
-  selectEmpresa(){
+  selectEmpresa() {
 
     console.log(this.colaborador.empresaId);
   }
@@ -130,10 +141,34 @@ export class ColaboradorComponent implements OnInit {
   selectClickProduto(produtos) {
 
     const index = this.colaborador.produtoList.indexOf(produtos, 0);
-    if(index > -1){
+    if (index > -1) {
       this.colaborador.produtoList.splice(index, 1);
       this.colaborador.produtoList.push(produtos);
     }
     console.log(this.colaborador.produtoList);
+  }
+
+  searchColaboradores() {
+
+    this.colaboradorService.getColaboradorFindBy(this.colaborador.nome).subscribe(data => {
+      this.colaboradores = data;
+    }, error => {
+      console.log(error);
+    });
+  };
+
+  listarUpdate() {
+
+    this.colaborador = new Colaborador();
+
+    this.id = id;
+
+    this.colaboradorService.getColaborador(this.id)
+      .subscribe(data => {
+        console.log(data);
+        this.colaborador = data;
+        this.produtoList = this.colaborador.produtoList;
+        this.empresasList = this.colaborador.empresasList;
+      }, error => console.log(error));
   }
 }

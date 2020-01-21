@@ -19,7 +19,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <input autocomplete="off" [value]="nome" id="nome" class="input" type="text"
+                                <input autocomplete="off" id="nome" class="input" type="text"
                                     pattern=".+" required [(ngModel)]="colaborador.nome" name="nome" maxlength="100">
                                 <label class="label" for="nome">Nome</label>
 
@@ -32,7 +32,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <input autocomplete="off" [value]="email" id="email" class="input" type="text"
+                                <input autocomplete="off" id="email" class="input" type="text"
                                     pattern=".+" required [(ngModel)]="colaborador.email" name="email" maxlength="50" />
                                 <label class="label" for="email">Email</label>
 
@@ -45,7 +45,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <input autocomplete="off" [value]="senha" id="senha" class="input" type="password"
+                                <input autocomplete="off" id="senha" class="input" type="password"
                                     pattern=".+" required [(ngModel)]="colaborador.senha" name="senha" maxlength="30" />
                                 <label class="label" for="senha">Senha</label>
 
@@ -137,7 +137,8 @@
 
                 <div class="form-group input-group" id="searchBar">
                   <div class="input-group-text"><img src="../assets/loupe.png" width="20px" height="20px"></div>
-                  <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                  <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control"
+                         [(ngModel)]="colaborador.nome" (keyup)="searchColaboradores()">
                 </div>
 
               </div>
@@ -156,7 +157,7 @@
                         <tr *ngFor="let colaborador of colaboradores">
                             <td>{{colaborador.id}}</td>
                             <td>{{colaborador.nome}}</td>
-                            <td><button class="btn btn-success">Editar</button></td>
+                            <td><button class="btn btn-success" >Editar</button></td>
                         </tr>
                     </tbody>
                 </table>
