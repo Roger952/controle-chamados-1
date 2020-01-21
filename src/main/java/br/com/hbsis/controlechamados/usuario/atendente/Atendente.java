@@ -1,6 +1,5 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
 import br.com.hbsis.controlechamados.produtos.Produto;
 
 import javax.persistence.*;
@@ -33,7 +32,6 @@ public class Atendente {
             joinColumns = @JoinColumn(name = "id_atendente"),
             inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
-
 
     /** GETTER & SETTER */
 

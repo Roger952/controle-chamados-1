@@ -13,6 +13,7 @@ export class ModuloComponent implements OnInit {
 
   userFile: any = File;
   modulo = new Modulo;
+
   /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
@@ -20,6 +21,9 @@ export class ModuloComponent implements OnInit {
   sucesso = false;
   selectedFiles: FileList;
   filename: string;
+
+  modelo = true;
+  msgModelo = 'Baixe o modelo de importação!';
 
   constructor(private moduloService: ModuloService) {
   }

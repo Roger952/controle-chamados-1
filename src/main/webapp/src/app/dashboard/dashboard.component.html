@@ -14,23 +14,23 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" (click)="tokenAtendente()">Atendentes</a>
+          <a class="nav-link"  *ngIf="auth.temPermissao('ROLE_CADASTRAR_ATENDENTE')" (click)="tokenAtendente()">Atendentes</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" (click)="tokenColaborador()">Colaboradores</a>
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_COLABORADOR')" (click)="tokenColaborador()">Colaboradores</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" (click)="tokenEmpresa()">Empresas</a>
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" (click)="tokenProduto()">Produtos</a>
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" (click)="tokenModulo()">Módulos</a>
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_MODULO')" (click)="tokenModulo()">Módulos</a>
         </li>
       </ul>
 

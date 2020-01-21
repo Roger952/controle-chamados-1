@@ -1,0 +1,1 @@
+ALTER TABLE seg_atendentes ALTER COLUMN senha VARCHAR(100) NOT NULL;
