@@ -30,10 +30,6 @@ export class AtendenteService {
      return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
    }
 
-    getAtendenteList(): Observable<any> {
-      return this.http.get(`${this.baseUrl+'/findAll'}`);
-    }
-
   uploadImg(file: File): Observable<any>{
 
     let url = this.baseUrl + '/saveImagem';
