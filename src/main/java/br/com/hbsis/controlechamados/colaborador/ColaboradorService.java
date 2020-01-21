@@ -26,7 +26,6 @@ public class ColaboradorService {
     private final AdminService adminService;
     private final PasswordEncoder passwordEncoder;
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
     @Autowired
@@ -175,14 +174,11 @@ public class ColaboradorService {
 
         if (colaboradorOptional.isPresent()) {
             LOGGER.info("Colaborador Eencontrado");
-
             return ColaboradorDTO.of(colaboradorOptional.get());
         }
-
-        throw new IllegalArgumentException("Não foi encontrado nenhum colaborador com o Id ..." + id);
+        throw new IllegalArgumentException("Nenhum colaborador encontrado... id: " + id);
     }
 
-    /** MÉTODO DE SUPORTE */
     public void executeListPermissioes(Colaborador colaborador){
 
         List<Permissao> permissaoList = new ArrayList<>();

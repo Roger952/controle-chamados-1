@@ -14,25 +14,21 @@ import { ProdutosService } from '../produtos.service';
 })
 export class ColaboradorComponent implements OnInit {
 
-  /* LISTAR E EDITAR COLABORADORES */
   colaboradores: Colaborador[];
 
   colaborador: Colaborador = new Colaborador();
   submitted = false;
 
-  /* LISTA DE PRODUTOS */
   produtos = new FormControl();
   produtoList: Produtos[];
 
   empresas = new FormControl();
   empresasList: Empresa[];
 
-  /* FILE */
   selectedFiles: FileList;
   currentFileUpload: File;
   filename: string;
 
-  /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
@@ -47,18 +43,17 @@ export class ColaboradorComponent implements OnInit {
       data => {
       this.produtoList = data;
     }, error => {
-      console.log(error)
+      console.log(error);
     });
 
     this.empresaService.getEmpresaList().subscribe(
       data => {
       this.empresasList = data;
     }, error => {
-      console.log(error)
+      console.log(error);
     });
 
     this.colaboradorService.getColaboradorList().subscribe(data => { this.colaboradores = data; }, error => { console.log(error); });
-
   }
 
   newAtendente(): void {
@@ -79,7 +74,6 @@ export class ColaboradorComponent implements OnInit {
       this.msgSucesso = 'Cadastro realizado com sucesso!';
       this.erro = false;
       this.sucesso = true;
-      console.log(this.msgSucesso);
       this.limpar();
       this.colaboradorService.getColaboradorList().subscribe(data => { this.colaboradores = data; }, error => { console.log(error); });
 
@@ -88,10 +82,8 @@ export class ColaboradorComponent implements OnInit {
       this.msgErro = error.error[0].mensagemDesenvolvedor;
       this.erro = true;
       this.sucesso = false;
-  });
-
-  }
-
+      });
+    }
   }
 
   onSubmit() {
@@ -99,16 +91,13 @@ export class ColaboradorComponent implements OnInit {
     this.save();
   }
 
-  /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
     this.colaborador.nome = '';
     this.colaborador.email = '';
     this.colaborador.senha = '';
     this.colaborador.produtoList = [];
     this.colaborador.empresaId = null;
-
     (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = '';
-
   }
 
   confirmacaoSenha(): boolean{
@@ -122,10 +111,8 @@ export class ColaboradorComponent implements OnInit {
   }
 
   selectEmpresa(){
-
     console.log(this.colaborador.empresaId);
   }
-
 
   selectClickProduto(produtos) {
 

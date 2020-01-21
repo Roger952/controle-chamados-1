@@ -10,8 +10,6 @@ public class AdminDTO  {
 
     private Long id;
     private String login, senha;
-
-    /* TESTE */
     private List<Permissao> permissaoList;
 
     public AdminDTO(Long id, String login, String senha) {
@@ -67,7 +65,6 @@ public class AdminDTO  {
         this.senha = senha;
     }
 
-    /* TESTE */
     public List<Permissao> getPermissaoList() {
         return permissaoList;
     }
