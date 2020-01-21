@@ -17,10 +17,11 @@ public class Admin extends AbstractEntity {
     private String senha;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "codigo_usuario")
-            , inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
-    private List<Permissao> permissoes;
-
+    @JoinTable(
+            name = "usuario_permissao",
+            joinColumns = @JoinColumn(name = "codigo_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
+    private List<Permissao> permissaoList;
 
     public String getLogin() {
         return login;
@@ -38,12 +39,12 @@ public class Admin extends AbstractEntity {
         this.senha = senha;
     }
 
-    public List<Permissao> getPermissoes() {
-        return permissoes;
+    public List<Permissao> getPermissaoList() {
+        return permissaoList;
     }
 
-    public void setPermissoes(List<Permissao> permissoes) {
-        this.permissoes = permissoes;
+    public void setPermissaoList(List<Permissao> permissaoList) {
+        this.permissaoList = permissaoList;
     }
 
     @Override
@@ -51,8 +52,7 @@ public class Admin extends AbstractEntity {
         return "Admin{" +
                 "login='" + login + '\'' +
                 ", senha='" + senha + '\'' +
-
-                ", permissoes=" + permissoes +
+                ", permissaoList=" + permissaoList +
                 '}';
     }
 }

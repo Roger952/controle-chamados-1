@@ -1,21 +1,20 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProduto;
-import br.com.hbsis.controlechamados.atendenteproduto.AtendenteProdutoService;
-import br.com.hbsis.controlechamados.produtos.Produto;
+import br.com.hbsis.controlechamados.admin.Admin;
+import br.com.hbsis.controlechamados.admin.AdminService;
+import br.com.hbsis.controlechamados.permissao.Permissao;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
-import br.com.hbsis.controlechamados.utils.exportAndImport.Export;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,19 +24,21 @@ public class AtendenteService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AtendenteService.class);
     private final IAtendenteRepository iAtendenteRepository;
-    private final AtendenteProdutoService atendenteProdutoService;
     private final ProdutoService produtoService;
     private final Disco disco;
+    private final AdminService adminService;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
     @Autowired /** CONSTRUTOR */
-    public AtendenteService(IAtendenteRepository iAtendenteRepository, AtendenteProdutoService atendenteProdutoService, ProdutoService produtoService, Disco disco) {
+    public AtendenteService(IAtendenteRepository iAtendenteRepository, ProdutoService produtoService, Disco disco, AdminService adminService, PasswordEncoder bCryptPasswordEncoder) {
         this.iAtendenteRepository = iAtendenteRepository;
-        this.atendenteProdutoService = atendenteProdutoService;
         this.produtoService = produtoService;
         this.disco = disco;
+        this.adminService = adminService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     /** MÉTODOS DE CRUD */
@@ -51,12 +52,14 @@ public class AtendenteService {
         Atendente atendente = new Atendente();
         atendente.setNome(atendenteDTO.getNome());
         atendente.setEmail(atendenteDTO.getEmail());
-        atendente.setSenha(atendenteDTO.getSenha());
+        atendente.setSenha(bCryptPasswordEncoder.encode(atendenteDTO.getSenha()));
         atendente.setFoto(atendenteDTO.getFoto());
         atendente.setProdutoList(atendenteDTO.getProdutoList());
 
         LOGGER.info("Executando save do atendente!");
         atendente = this.iAtendenteRepository.save(atendente);
+
+        this.executeListPermissioes(atendente);
 
         LOGGER.info("Finalizando save do atendente!");
         return AtendenteDTO.of(atendente);
@@ -163,6 +166,26 @@ public class AtendenteService {
     /** EXECUTAR FILE-UPLOAD NA CLASSE DISCO */
     public void salvarFoto(MultipartFile file) {
         disco.salvarFoto(file);
+    }
+
+    /** MÉTODO DE SUPORTE */
+    public void executeListPermissioes(Atendente atendente){
+
+        List<Permissao> permissaoList = new ArrayList<>();
+
+        Permissao permissao = new Permissao();
+        permissao.setId(Long.parseLong("6"));
+        permissao.setDescricao("ROLE_LISTAR_ATENDENTE");
+
+        permissaoList.add(permissao);
+
+        Admin admin = new Admin();
+        admin.setLogin(atendente.getEmail());
+        admin.setSenha(atendente.getSenha());
+        admin.setPermissaoList(permissaoList);
+
+        LOGGER.info("Executando save do admin...");
+        this.adminService.saveNaRepositoryAdmin(admin);
     }
 }
 

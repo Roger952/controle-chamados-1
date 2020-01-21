@@ -1,30 +1,40 @@
 package br.com.hbsis.controlechamados.colaborador;
 
+import br.com.hbsis.controlechamados.admin.Admin;
+import br.com.hbsis.controlechamados.admin.AdminService;
 import br.com.hbsis.controlechamados.empresa.Empresa;
 import br.com.hbsis.controlechamados.empresa.EmpresaService;
+import br.com.hbsis.controlechamados.permissao.Permissao;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ColaboradorService {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ColaboradorService.class);
     private final IColaboradorRepository iColaboradorRepository;
     private final EmpresaService empresaService;
+    private final AdminService adminService;
+    private final PasswordEncoder passwordEncoder;
 
-    /**
-     * MENSAGEM PADRÃO DE CAMPO EM BRANCO
-     */
+    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
-    public ColaboradorService(IColaboradorRepository iColaboradorRepository, EmpresaService empresaService) {
+    @Autowired
+    public ColaboradorService(IColaboradorRepository iColaboradorRepository, EmpresaService empresaService, AdminService adminService, PasswordEncoder bCryptPasswordEncoder, PasswordEncoder passwordEncoder) {
         this.iColaboradorRepository = iColaboradorRepository;
         this.empresaService = empresaService;
+        this.adminService = adminService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private void validate(ColaboradorDTO colaboradorDTO) {
@@ -101,7 +111,6 @@ public class ColaboradorService {
 
     private Empresa findEmpresa(Long id) {
         Optional<Empresa> empresaOptional = this.empresaService.findByIdOptional(id);
-
         return empresaOptional.get();
     }
 
@@ -122,16 +131,19 @@ public class ColaboradorService {
 
         LOGGER.info("Cadastrando novo colaborador '{}'...", colaboradorDTO.getEmail());
 
-        Colaborador colaborador = new Colaborador(
-                colaboradorDTO.getNome(),
-                colaboradorDTO.getEmail(),
-                colaboradorDTO.getSenha(),
-                findEmpresa(colaboradorDTO.getEmpresa()),
-                colaboradorDTO.getProdutoList()
-        );
+        Colaborador colaborador = new Colaborador();
+        colaborador.setNome(colaboradorDTO.getNome());
+        colaborador.setEmail(colaboradorDTO.getEmail());
+        colaborador.setSenha(passwordEncoder.encode(colaboradorDTO.getSenha()));
+        colaborador.setEmpresa(findEmpresa(colaboradorDTO.getEmpresa()));
+        colaborador.setProdutoList(colaboradorDTO.getProdutoList());
 
+        LOGGER.info("Executando save do colaborador!");
         colaborador = this.iColaboradorRepository.save(colaborador);
 
+        this.executeListPermissioes(colaborador);
+
+        LOGGER.info("Finalizando save do colaborador!");
         return ColaboradorDTO.of(colaborador);
     }
 
@@ -168,5 +180,25 @@ public class ColaboradorService {
         }
 
         throw new IllegalArgumentException("Não foi encontrado nenhum colaborador com o Id ..." + id);
+    }
+
+    /** MÉTODO DE SUPORTE */
+    public void executeListPermissioes(Colaborador colaborador){
+
+        List<Permissao> permissaoList = new ArrayList<>();
+
+        Permissao permissao = new Permissao();
+        permissao.setId(Long.parseLong("10"));
+        permissao.setDescricao("ROLE_LISTAR_COLABORADOR");
+
+        permissaoList.add(permissao);
+
+        Admin admin = new Admin();
+        admin.setLogin(colaborador.getEmail());
+        admin.setSenha(colaborador.getSenha());
+        admin.setPermissaoList(permissaoList);
+
+        LOGGER.info("Executando save do admin...");
+        this.adminService.saveNaRepositoryAdmin(admin);
     }
 }

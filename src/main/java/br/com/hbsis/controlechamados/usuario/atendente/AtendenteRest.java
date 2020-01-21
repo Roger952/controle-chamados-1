@@ -1,7 +1,5 @@
 package br.com.hbsis.controlechamados.usuario.atendente;
 
-import br.com.hbsis.controlechamados.empresa.Empresa;
-import br.com.hbsis.controlechamados.storage.Disco;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
