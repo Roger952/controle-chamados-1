@@ -1,24 +1,12 @@
 package br.com.hbsis.controlechamados.chamados;
 
-import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
-import br.com.hbsis.controlechamados.chamados.arquivo.ArquivoDTO;
-import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Service
 public class ChamadosService {
@@ -33,60 +21,39 @@ public class ChamadosService {
 
 
     public ChamadosDTO save(ChamadosDTO chamadosDTO) {
+        this.validate(chamadosDTO);
 
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         LOGGER.info("Cadastrando novo atendimento '{}'...", chamadosDTO.getTitulo());
 
         Chamados chamados = new Chamados();
 
-        chamados.setDescricao(chamadosDTO.getDescricao());
-        chamados.setDataHoraRegistro(new Date());
-        chamados.setStatus(chamadosDTO.getStatus());
+        chamados.setProduto(this.produtoService.findByIdProduto(chamadosDTO.getProdutoId()).get());
         chamados.setTitulo(chamadosDTO.getTitulo());
-        chamados.setProduto(findByProdutoId(chamadosDTO.getProdutoId()));
+        chamados.setDescricao(chamadosDTO.getDescricao());
+        chamados.setMultipartFileList(chamadosDTO.getMultipartFileList());
+        chamados.setStatus("PENDENTE");
+        chamados.setDataHoraRegistro(LocalDateTime.now());
+
         chamados = iChamadosRepository.save(chamados);
-        chamados.setArquivoList(parseArquivos(chamadosDTO.getArquivoDTOS(), chamados));
-
-        for (Arquivo arquivo : chamados.getArquivoList()) {
-
-        }
 
         return ChamadosDTO.of(chamados);
     }
 
-    public Chamados findById(Long id) {
-        Optional<Chamados> chamadosOptional = iChamadosRepository.findById(id);
-        if (chamadosOptional.isPresent()) {
-            return chamadosOptional.get();
+    private void validate(ChamadosDTO chamadosDTO){
+        LOGGER.info("Validando novo chamado...");
+
+        if(StringUtils.isBlank(chamadosDTO.getTitulo())){
+            throw new IllegalArgumentException("Título não pode estar vazio.");
         }
-        throw new IllegalArgumentException("ID não encontrado.");
-    }
 
-    public List<Arquivo> parseArquivos(List<ArquivoDTO> arquivoDTOS, Chamados chamados) {
-        List<Arquivo> arquivoList = new ArrayList<>();
-        for (ArquivoDTO arquivoDTO : arquivoDTOS) {
-            Arquivo arquivo = new Arquivo();
-            arquivo.setArquivo(arquivoDTO.getArquivo());
-            arquivo.setNomeArquivo(arquivoDTO.getNomeArquivo());
-            arquivo.setIdChamados(chamados);
-            arquivoList.add(arquivo);
+        if(chamadosDTO.getTitulo().length() > 200){
+            throw new IllegalArgumentException("Título excedeu o limite de caracteres.");
         }
-        return arquivoList;
-    }
 
-    public Produto findByProdutoId(Long id) {
-        return produtoService.findByIdProduto(id).get();
-    }
-
-    public void saveMultipartFiles(List<MultipartFile> multipartFiles) throws IOException {
-        List<Arquivo> arquivoList = new ArrayList<>();
-        for (int i = 0; i < multipartFiles.size(); i++) {
-            byte[] byteArr = multipartFiles.get(i).getBytes();
-            InputStream inputStream = new ByteArrayInputStream(byteArr);
-            Arquivo arq = new Arquivo();
-            arq.setArquivo(byteArr[i]);
-
+        if(StringUtils.isBlank(chamadosDTO.getDescricao())){
+            throw new IllegalArgumentException("Descrição não pode estar vazia.");
         }
     }
+
+
 }

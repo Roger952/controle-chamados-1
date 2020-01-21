@@ -1,7 +1,5 @@
 package br.com.hbsis.controlechamados.chamados.arquivo;
 
-import br.com.hbsis.controlechamados.chamados.Chamados;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,12 +13,9 @@ public class Arquivo {
     @Column(name = "nome_arquivo", nullable = false, length = 200)
     private String nomeArquivo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_chamados", referencedColumnName = "id")
-    private Chamados idChamados;
 
     @Column(name = "arquivo")
-    private Byte arquivo;
+    private byte[] arquivo;
 
     public Long getId() {
         return id;
@@ -38,28 +33,18 @@ public class Arquivo {
         this.nomeArquivo = nomeArquivo;
     }
 
-    public Chamados getIdChamados() {
-        return idChamados;
-    }
-
-    public void setIdChamados(Chamados idChamados) {
-        this.idChamados = idChamados;
-    }
-
-    public Byte getArquivo() {
+    public byte[] getArquivo() {
         return arquivo;
     }
 
-    public void setArquivo(Byte arquivo) {
+    public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
-
     @Override
     public String toString() {
         return "Arquivo{" +
                 "id=" + id +
                 ", nomeArquivo='" + nomeArquivo + '\'' +
-                ", idChamados=" + idChamados +
                 ", arquivo=" + arquivo +
                 '}';
     }

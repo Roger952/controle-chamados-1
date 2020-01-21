@@ -1,7 +1,11 @@
 package br.com.hbsis.controlechamados.chamados;
 
+import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
 import br.com.hbsis.controlechamados.chamados.arquivo.ArquivoDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,38 +16,34 @@ public class ChamadosDTO {
     private Long produtoId;
     private String titulo;
     private String descricao;
-    private List<ArquivoDTO> arquivoDTOS;
+    private List<Arquivo> multipartFileList;
     private String status;
-    private Date dataHoraRegistro;
+    private LocalDateTime dataHoraRegistro;
 
     public ChamadosDTO() {
     }
 
-    public ChamadosDTO(Long id, Long produtoId, String titulo, String descricao, List<ArquivoDTO> arquivoDTOS, String status, Date dataHoraRegistro) {
+    public ChamadosDTO(Long id, Long produtoId, String titulo, String descricao, List<Arquivo> multipartFileList, String status, LocalDateTime dataHoraRegistro) {
         this.id = id;
         this.produtoId = produtoId;
         this.titulo = titulo;
         this.descricao = descricao;
-        this.arquivoDTOS = arquivoDTOS;
+        this.multipartFileList = multipartFileList;
         this.status = status;
         this.dataHoraRegistro = dataHoraRegistro;
     }
 
-    public static ChamadosDTO of(Chamados chamados) {
-
-        List<ArquivoDTO> arquivoDTOS = new ArrayList<ArquivoDTO>();
-
-        chamados.getArquivoList().forEach(arquivo -> arquivoDTOS.add(ArquivoDTO.of(arquivo)));
-
+    public static ChamadosDTO of(Chamados chamados){
         return new ChamadosDTO(
                 chamados.getId(),
                 chamados.getProduto().getId(),
                 chamados.getTitulo(),
                 chamados.getDescricao(),
-                arquivoDTOS,
+                chamados.getMultipartFileList(),
                 chamados.getStatus(),
                 chamados.getDataHoraRegistro()
         );
+
     }
 
     public Long getId() {
@@ -78,12 +78,12 @@ public class ChamadosDTO {
         this.descricao = descricao;
     }
 
-    public List<ArquivoDTO> getArquivoDTOS() {
-        return arquivoDTOS;
+    public List<Arquivo> getMultipartFileList() {
+        return multipartFileList;
     }
 
-    public void setArquivoDTOS(List<ArquivoDTO> arquivoDTOS) {
-        this.arquivoDTOS = arquivoDTOS;
+    public void setMultipartFileList(List<Arquivo> multipartFileList) {
+        this.multipartFileList = multipartFileList;
     }
 
     public String getStatus() {
@@ -94,11 +94,11 @@ public class ChamadosDTO {
         this.status = status;
     }
 
-    public Date getDataHoraRegistro() {
+    public LocalDateTime getDataHoraRegistro() {
         return dataHoraRegistro;
     }
 
-    public void setDataHoraRegistro(Date dataHoraRegistro) {
+    public void setDataHoraRegistro(LocalDateTime dataHoraRegistro) {
         this.dataHoraRegistro = dataHoraRegistro;
     }
 
@@ -106,10 +106,10 @@ public class ChamadosDTO {
     public String toString() {
         return "ChamadosDTO{" +
                 "id=" + id +
-                ", produto='" + produtoId + '\'' +
+                ", produtoId=" + produtoId +
                 ", titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", arquivoDTOS=" + arquivoDTOS +
+                ", multipartFileList=" + multipartFileList +
                 ", status='" + status + '\'' +
                 ", dataHoraRegistro=" + dataHoraRegistro +
                 '}';

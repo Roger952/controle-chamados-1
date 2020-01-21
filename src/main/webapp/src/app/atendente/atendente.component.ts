@@ -121,7 +121,6 @@ export class AtendenteComponent implements OnInit {
 
         },
         (error) => {
-          this.msgErro = error.error[0].mensagemDesenvolvedor;
           this.erro = true;
           this.sucesso = false;
           console.log(this.msgErro);

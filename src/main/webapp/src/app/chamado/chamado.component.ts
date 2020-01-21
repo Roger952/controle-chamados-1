@@ -66,7 +66,7 @@ save() {
     this.limpar();
 },
   (error) => {
-    this.msgErro = error.error[0].mensagemDesenvolvedor;
+    this.msgErro = error;
     this.erro = true;
     this.sucesso = false;
     console.log(this.msgErro);

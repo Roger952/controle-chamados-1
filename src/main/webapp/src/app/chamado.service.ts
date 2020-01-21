@@ -21,21 +21,14 @@ export class ChamadoService {
   createChamado(chamado: Chamado): Observable<Object> {
 
     console.log("Chamado: "+ chamado.titulo);
-    console.log("Chamado: "+ chamado.nome_arquivo);
+    console.log("Chamado: "+ chamado.produto);
     console.log("Chamado: "+ chamado.descricao);
-    console.log("Chamado: "+ chamado.produtoList);
 
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
     return this.http.post(`${this.baseUrl+'/save'}`, chamado, { headers });
   }
 
-   updateChamado(id: number, value: any): Observable<Object> {
-     return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
-   }
 
-   deleteChamado(id: number): Observable<any> {
-        return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
-   }
 
   getChamadoList(): Observable<Chamado[]> {
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
@@ -47,7 +40,7 @@ uploadFile(file: File): Observable<any>{
 
   console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
 
-  let url = this.baseUrl + '/saveFiles';
+  let url = this.baseUrl + '/save';
   let formData: FormData = new FormData();
   formData.append('file', file);
   return this.http.post(url, formData);
