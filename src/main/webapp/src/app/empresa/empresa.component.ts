@@ -27,7 +27,7 @@ export class EmpresaComponent implements OnInit {
     this.submitted = false;
     this.empresa = new Empresa();
   }
-  
+
   save() {
     this.empresaService.createEmpresa(this.empresa).subscribe(
       (data) => {
@@ -36,13 +36,13 @@ export class EmpresaComponent implements OnInit {
         this.sucesso = true;
         console.log(this.msgSucesso);
         this.limpar();
-    },
+      },
       (error) => {
         this.msgErro = error.error[0].mensagemDesenvolvedor;
         this.erro = true;
         this.sucesso = false;
         console.log(this.msgErro);
-    });
+      });
   }
 
   onSubmit() {

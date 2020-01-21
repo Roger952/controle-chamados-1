@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Modulo} from '../modulo';
-import {ModuloService} from '../modulo.service';
-import {saveAs} from 'file-saver';
+import { Component, OnInit } from '@angular/core';
+import { Modulo } from '../modulo';
+import { ModuloService } from '../modulo.service';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -13,6 +13,7 @@ export class ModuloComponent implements OnInit {
 
   userFile: any = File;
   modulo = new Modulo;
+
   /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
@@ -20,6 +21,9 @@ export class ModuloComponent implements OnInit {
   sucesso = false;
   selectedFiles: FileList;
   filename: string;
+
+  modelo = true;
+  msgModelo = 'Baixe o modelo de importação!';
 
   constructor(private moduloService: ModuloService) {
   }
@@ -44,7 +48,7 @@ export class ModuloComponent implements OnInit {
 
   onSubmit() {
 
-  this.validarArquivoCSV();
+    this.validarArquivoCSV();
   }
 
   downloadFile() {
@@ -54,7 +58,7 @@ export class ModuloComponent implements OnInit {
       this.erro = true;
       this.sucesso = false;
 
-      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.txt');
+      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'inconsistencias.txt');
 
     }, (error) => {
       this.msgSucesso = 'Nenhuma inconsistência encontrada ';
@@ -94,25 +98,25 @@ export class ModuloComponent implements OnInit {
       this.erro = false;
       this.sucesso = true;
 
-      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'model.csv');
+      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'model.csv');
 
     });
   }
 
-  validarArquivoCSV(){
-    if(this.selectedFiles != undefined) {
-    if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.csv') {
-      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+  validarArquivoCSV() {
+    if (this.selectedFiles != undefined) {
+      if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.csv') {
+        (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
         this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
         this.filename = '';
         this.msgErro = "Arquivo não é esperado, por favor selecione outro";
         this.erro = true;
 
         console.log(this.modulo.nomeProduto)
-      }else{
+      } else {
         this.erro = false;
       }
-    }else{
+    } else {
       this.erro = false;
     }
   }

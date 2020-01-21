@@ -14,14 +14,14 @@ export class AtendenteService {
 
   createAtendente(atendente: Object): Observable<Object> {
 
-    console.log("Atendente: "+ atendente);
-    return this.http.post(`${this.baseUrl+'/save'}`, atendente);
+    console.log("Atendente: " + atendente);
+    return this.http.post(`${this.baseUrl + '/save'}`, atendente);
   }
 
   /* FILE-UPLOAD */
-  uploadImg(file: File): Observable<any>{
+  uploadImg(file: File): Observable<any> {
 
-    console.log("Arquivo (file) dentro do método uploadimg: "+ file.name);
+    console.log("Arquivo (file) dentro do método uploadimg: " + file.name);
 
     let url = this.baseUrl + '/saveImagem';
     let formData: FormData = new FormData();
@@ -30,6 +30,6 @@ export class AtendenteService {
   }
 
   getAtendenteList(): Observable<Atendente[]> {
-    return this.http.get(`${this.baseUrl+'/findAll'}`);
+    return this.http.get(`${this.baseUrl + '/findAll'}`);
   }
 }

@@ -33,14 +33,6 @@ public class Colaborador {
     public Colaborador() {
     }
 
-    public Colaborador(String nome, String email, String senha, Empresa empresa, List<Produto> produtoList) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.empresa = empresa;
-        this.produtoList = produtoList;
-    }
-
     public Long getId() {
         return id;
     }

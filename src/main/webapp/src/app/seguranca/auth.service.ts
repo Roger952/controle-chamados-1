@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders }    from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -8,21 +8,20 @@ export class AuthService {
 
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
   jwtPayload: any;
-  
+
   public login: String;
   public senha: String;
 
-  constructor(private _router: Router, private http: HttpClient, private jwtHelper: JwtHelperService)
-   { this.carregarToken(); }
+  constructor(private _router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { this.carregarToken(); }
 
   islogin(login: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
-        .append('Content-Type', 'application/x-www-form-urlencoded')
-        .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = `username=${login}&password=${senha}&grant_type=password`;
 
-    return this.http.post<any>(this.oauthTokenUrl, body ,
+    return this.http.post<any>(this.oauthTokenUrl, body,
       { headers, withCredentials: true })
       .toPromise()
       .then(response => {
@@ -40,13 +39,13 @@ export class AuthService {
   }
   obterNovoAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
-        .append('Content-Type', 'application/x-www-form-urlencoded')
-        .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = 'grant_type=refresh_token';
 
     return this.http.post<any>(this.oauthTokenUrl, body,
-        { headers, withCredentials: true })
+      { headers, withCredentials: true })
       .toPromise()
       .then(response => {
         this.armazenarToken(response.access_token);
@@ -77,7 +76,7 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-   carregarToken() {
+  carregarToken() {
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -98,5 +97,4 @@ export class AuthService {
 
     return false;
   }
-
 }

@@ -15,7 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './seguranca/auth.service';
 import { ControleHttp } from '../app/seguranca/Controle-http';
 import { ProdutosService } from './produtos.service';
+
 import { HttpClientModule } from '@angular/common/http';
+
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
@@ -24,8 +26,10 @@ import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { environment } from 'src/environments/environment';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChamadoComponent } from './chamado/chamado.component';
+import { NaoAutorizadoComponent } from './page-not-found/nao-autorizado-component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -44,7 +48,8 @@ export function tokenGetter() {
     InicioComponent,
     ModuloComponent,
     ColaboradorComponent,
-    ChamadoComponent
+    ChamadoComponent,
+    NaoAutorizadoComponent
 
   ],
   imports: [
@@ -77,4 +82,5 @@ export function tokenGetter() {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
