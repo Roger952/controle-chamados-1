@@ -16,7 +16,6 @@ public class EmpresaService {
     private final IEmpresaRepository iEmpresaRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(EmpresaService.class);
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode ser vazio!";
 
     @Autowired

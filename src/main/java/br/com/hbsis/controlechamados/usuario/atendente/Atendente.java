@@ -25,7 +25,6 @@ public class Atendente {
     @Column(name = "senha", unique = false, nullable = false, length = 30)
     private String senha;
 
-    /** MUITOS ATENDENTES PARA MUITOS PRODUTOS */
     @ManyToMany
     @JoinTable(
             name = "seg_atendente_produto",
@@ -34,7 +33,6 @@ public class Atendente {
     private List<Produto> produtoList;
 
     /** GETTER & SETTER */
-
     public Long getId() {
         return id;
     }
@@ -75,7 +73,6 @@ public class Atendente {
         this.senha = senha;
     }
 
-    /** @ManyToMany */
     public List<Produto> getProdutoList() {
         return produtoList;
     }

@@ -19,7 +19,7 @@
 
 .btn{
     width: 100%;
-    
+
 }
 
 #h6Csv{
@@ -30,9 +30,13 @@
     margin-bottom: 20px;
 }
 
+.col-8{
+    display: flex;
+    align-items: center;
+}
+
 p{
-    text-align: center;
-    margin: auto;
+  margin: 0px;
 }
 
 

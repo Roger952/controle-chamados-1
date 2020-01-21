@@ -12,7 +12,6 @@ export class EmpresaComponent implements OnInit {
   empresa: Empresa = new Empresa();
   submitted = false;
 
-  /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
@@ -27,7 +26,7 @@ export class EmpresaComponent implements OnInit {
     this.submitted = false;
     this.empresa = new Empresa();
   }
-  
+
   save() {
     this.empresaService.createEmpresa(this.empresa).subscribe(
       (data) => {
@@ -50,7 +49,6 @@ export class EmpresaComponent implements OnInit {
     this.save();
   }
 
-  /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
     this.empresa.razaoSocial = '';
     this.empresa.nomeFantasia = '';

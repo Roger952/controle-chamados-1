@@ -14,7 +14,6 @@ export class ModuloComponent implements OnInit {
   userFile: any = File;
   modulo = new Modulo;
 
-  /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
@@ -33,7 +32,6 @@ export class ModuloComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
-
     this.validarArquivoCSV();
   }
 
@@ -57,7 +55,6 @@ export class ModuloComponent implements OnInit {
       this.msgErro = 'Inconsistências encontradas, verifique no arquivo abaixo';
       this.erro = true;
       this.sucesso = false;
-
       saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.txt');
 
     }, (error) => {
@@ -76,7 +73,6 @@ export class ModuloComponent implements OnInit {
   upload() {
     const formData = new FormData();
     formData.append('file', this.userFile);
-
     this.moduloService.createModulo(formData).subscribe(
       (data) => {
         this.msgSucesso = 'Cadastro realizado com sucesso!';
@@ -97,9 +93,7 @@ export class ModuloComponent implements OnInit {
       this.msgSucesso = 'Siga o modelo esperado na importação';
       this.erro = false;
       this.sucesso = true;
-
       saveAs(new Blob([data], {type: 'multipart/form-data'}), 'model.csv');
-
     });
   }
 

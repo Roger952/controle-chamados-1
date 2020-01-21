@@ -17,16 +17,13 @@ export class AtendenteComponent implements OnInit {
   atendente: Atendente = new Atendente();
   submitted = false;
 
-  /* LISTA DE PRODUTOS */
   produtos = new FormControl();
   produtoList: Produtos[];
 
-  /* FILE */
   selectedFiles: FileList;
   currentFileUpload: File;
   filename: string;
 
-  /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
@@ -34,10 +31,8 @@ export class AtendenteComponent implements OnInit {
 
   constructor(private atendenteService: AtendenteService, private produtoService: ProdutosService) { }
 
-  /* MÉTODOS DO FILE */
   selectFile(event) {
     this.selectedFiles = event.target.files;
-
     this.verificarFile();
   }
 
@@ -51,7 +46,7 @@ export class AtendenteComponent implements OnInit {
       data => {
         this.produtoList = data;
       }, error => {
-        console.log(error)
+        console.log(error);
       });
   }
 
@@ -86,7 +81,6 @@ export class AtendenteComponent implements OnInit {
     }else{
       this.erro = false;
     }
-
   }
 
   newAtendente(): void {
@@ -104,7 +98,6 @@ export class AtendenteComponent implements OnInit {
       this.msgErro = 'As senhas não correspondem';
       this.erro = true;
       this.sucesso = false;
-      console.log('Deu ruim!!!');
 
     } else {
       this.atendenteService.createAtendente(this.atendente).subscribe(
@@ -112,7 +105,6 @@ export class AtendenteComponent implements OnInit {
           this.msgSucesso = 'Cadastro realizado com sucesso!';
           this.erro = false;
           this.sucesso = true;
-          console.log(this.msgSucesso);
           this.limpar();
 
         },
@@ -132,10 +124,8 @@ export class AtendenteComponent implements OnInit {
 
     this.currentFileUpload = this.selectedFiles.item(0);
     this.atendenteService.uploadImg(this.currentFileUpload).subscribe();
-
   }
 
-  /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
     this.atendente.nome = '';
     this.atendente.email = '';
@@ -166,5 +156,4 @@ export class AtendenteComponent implements OnInit {
       return this.erro;
     }
   }
-
 }

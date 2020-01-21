@@ -13,7 +13,6 @@ export class ProdutosComponent implements OnInit {
   produto: Produtos = new Produtos;
   submitted = false;
 
-  /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
@@ -36,7 +35,6 @@ export class ProdutosComponent implements OnInit {
         this.erro = false;
         this.sucesso = true;
         this.limpar();
-        console.log(this.msgSucesso);
     },
       (error) => {
         this.msgErro = error.error[0].mensagemDesenvolvedor;
@@ -51,10 +49,7 @@ export class ProdutosComponent implements OnInit {
     this.save();
   }
 
-  /* LIMPAR OS CAMPOS APÓS CADASTRO */
   limpar() {
     this.produto.nome = '';
-    
   }
-  
 }
