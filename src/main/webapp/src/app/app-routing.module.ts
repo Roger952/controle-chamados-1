@@ -13,7 +13,6 @@ import { ModuloComponent } from './modulo/modulo.component';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { AuthGuard2 } from './seguranca/auth.guard2';
 import { ChamadoComponent } from './chamado/chamado.component';
-
 const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent, canActivate: [AuthGuard2]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},

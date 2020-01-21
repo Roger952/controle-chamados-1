@@ -59,14 +59,14 @@ export class AtendenteComponent implements OnInit {
 
     let formData: FormData = new FormData();
 
-    if(this.selectedFiles != undefined) {
+    if (this.selectedFiles != undefined) {
       if (this.selectedFiles[0].size > 1000 * 1000 * 2) {
         (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
         this.atendente.foto = (<HTMLInputElement>document.getElementById('labelFile')).value;
         this.filename = '';
         this.msgErro = "Arquivo maior que o esperado, por favor selecione outro";
         this.erro = true;
-      } else{
+      } else {
         this.erro = false;
       }
 
@@ -80,10 +80,10 @@ export class AtendenteComponent implements OnInit {
         this.msgErro = "Arquivo não é esperado, por favor selecione outro";
         this.erro = true;
 
-      }else{
+      } else {
 
       }
-    }else{
+    } else {
       this.erro = false;
     }
 
@@ -166,5 +166,4 @@ export class AtendenteComponent implements OnInit {
       return this.erro;
     }
   }
-
 }

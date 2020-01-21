@@ -1,95 +1,98 @@
 <app-dashboard></app-dashboard>
 
-<div class="container rounded" >
-    <div class="row">
-    <div class="col-12">
-    <div class="row titulo">
-       
-        <div class="col-12">
-            <h1>Chamados</h1>
-        </div>
-    </div>
-
+<div class="container rounded">
     <div class="row">
         <div class="col-12">
-            <form #chamadoForm="ngForm" (ngSubmit)="onSubmit()">
-                  <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
-                <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+            <div class="row titulo">
 
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <mat-form-field id="checkEscolha" color="accent">
-                            <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                                <mat-select [(ngModel)]="chamado.produtoList" name="produtoList" [formControl]="produtos" multiple>
-                                <mat-option (click)="selectClickProdutos(produtos)" id="optionEscolha" *ngFor="let produtos of produtoList" [value]="produtos">
-                                    {{produtos.nome}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+                <div class="col-12">
+                    <h1>Chamados</h1>
                 </div>
-                
-                <div class="row">
-                    <div class="col-12">
-                        <input autocomplete="off" [value]="titulo" id="titulo" class="input" type="text" pattern=".+"
-                            required [(ngModel)]="chamado.titulo" name="titulo" maxlength="200">
-                        <label class="label" for="titulo">Título</label>
+            </div>
 
-                        <div class="underDiv">
-                            <div class="underDivLeft"></div>
-                            <div class="underDivRight"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-12">
-                        <label class="labelDEscricao" >Descrição</label>
-                        <textarea></textarea>
-                        <div class="underDiv">
-                            <div class="underDivLeft"></div>
-                            <div class="underDivRight"></div>
-                        </div>                        
-                    </div>
-                </div>
-            
-                <div class="row "> <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
+            <div class="row">
+                <div class="col-12">
+                    <form #chamadoForm="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                        <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
 
-                    <div class="col-12"><!-- LADO ESQUERDO -->
-
-                       
-                        
-                        <i class=" info text-center"
-                            ngbPopover="Você pode selecionar 10 arquivos de no máximo 2MB cada."
-                            triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
-                            <img src="../../assets/info-icon.png" width="20" height="20">
-                        </i>
-                        <h6 id="h3Foto" class= "text-left" pattern=".+">Anexar Arquivos(Opcional)</h6>
-                        
-
-                        <div class="custom-file">
-                            <input type="file" accept="/*" class="custom-file-input" id="validatedCustomFile" required multiple
-                            name="arquivo" (change)="onChange($event)" (change)="selectFile($event)" onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
-                            <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <mat-form-field id="checkEscolha" color="accent">
+                                    <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                                    <mat-select [(ngModel)]="chamado.produtoList" name="produtoList"
+                                        [formControl]="produtos" multiple>
+                                        <mat-option (click)="selectClickProdutos(produtos)" id="optionEscolha"
+                                            *ngFor="let produtos of produtoList" [value]="produtos">
+                                            {{produtos.nome}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
 
-                         <div class="underDiv">
-                            <div class="underDivLeft"></div>
-                            <div class="underDivRight"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input autocomplete="off" [value]="titulo" id="titulo" class="input" type="text"
+                                    pattern=".+" required [(ngModel)]="chamado.titulo" name="titulo" maxlength="200">
+                                <label class="label" for="titulo">Título</label>
+
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+                            </div>
                         </div>
-        
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <button class="btn btn-dark">Salvar</button>
-                    </div>
-                </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="labelDEscricao">Descrição</label>
+                                <textarea></textarea>
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+                            </div>
+                        </div>
 
-            </form><!-- FORMULÁRIO -->
+                        <div class="row mb-3">
+
+                            <div class="col-12 col-file">
+
+                                <i class="info text-center"
+                                    ngbPopover="Você pode selecionar até 10 arquivos de no máximo 2MB cada."
+                                    triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
+                                    <img src="../../assets/info-icon.png" width="20" height="20">
+                                </i>
+                               
+                                <h6 id="h3Foto" class="text-left" pattern=".+">Anexar Arquivos(Opcional)</h6>
+
+                                <div class="custom-file">
+                                    <input type="file" accept="/*" class="custom-file-input" id="validatedCustomFile"
+                                        required multiple [(ngModel)]="chamado.arquivoDTOS" name="arquivo"
+                                        (change)="onChange($event)" (change)="selectFile($event)"
+                                        onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
+                                    <label class="custom-file-label" id="labelFile"
+                                        for="validatedCustomFile">{{filename}}</label>
+                                </div>
+
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-dark">Salvar</button>
+                            </div>
+                        </div>
+
+                    </form><!-- FORMULÁRIO -->
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </div>

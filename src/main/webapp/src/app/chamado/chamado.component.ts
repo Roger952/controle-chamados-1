@@ -76,7 +76,6 @@ save() {
 
  onSubmit() {
 
-  this.verificarFile();
   this.submitted = true;
   this.save();
 
@@ -105,22 +104,32 @@ limpar() {
   console.log(this.chamado.produtoList);
 }
 
-selectStatus(status){
-}
-
 verificarFile() {
 
   if(this.selectedFiles != undefined) {
     if (this.selectedFiles[0].size > (1000 * 1000 * 2)* 10) {
-      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-      this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
+      (<HTMLInputElement>document.getElementById('validatedCustomFile')).value = undefined;
+      this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
       this.filename = '';
       this.msgErro = "Arquivo maior que o esperado, por favor, selecione outros";
       this.erro = true;
-      console.log(this.chamado.arquivoDTOS)
+     
     } else{
+      
+    }
+  
+    if(this.selectedFiles.length > 10){
+      (<HTMLInputElement>document.getElementById('validatedCustomFile')).value = undefined;
+      this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
+      this.filename = '';
+      this.msgErro = "Limite de 10 arquivos.";
+      this.erro = true;
+    }else{
       this.erro = false;
     }
-  }
+    }else{
+      this.erro = false;
+    }
 }
 }
+

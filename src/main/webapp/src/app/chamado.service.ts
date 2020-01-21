@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-import { HttpHeaders }    from '@angular/common/http'
+import { HttpHeaders } from '@angular/common/http'
 import { Chamado } from './chamado';
 
 
@@ -20,37 +20,37 @@ export class ChamadoService {
 
   createChamado(chamado: Chamado): Observable<Object> {
 
-    console.log("Chamado: "+ chamado.titulo);
-    console.log("Chamado: "+ chamado.arquivoDTOS);
-    console.log("Chamado: "+ chamado.descricao);
-    console.log("Chamado: "+ chamado.produtoList);
+    console.log("Chamado: " + chamado.titulo);
+    console.log("Chamado: " + chamado.arquivoDTOS);
+    console.log("Chamado: " + chamado.descricao);
+    console.log("Chamado: " + chamado.produtoList);
 
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl+'/save'}`, chamado, { headers });
+    return this.http.post(`${this.baseUrl + '/save'}`, chamado, { headers });
   }
 
-   updateChamado(id: number, value: any): Observable<Object> {
-     return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
-   }
+  updateChamado(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl + '/update'}/${id}`, value);
+  }
 
-   deleteChamado(id: number): Observable<any> {
-        return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
-   }
+  deleteChamado(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl + '/delete'}/${id}`, { responseType: 'text' });
+  }
 
   getChamadoList(): Observable<Chamado[]> {
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl+'/findAll'}`, {headers} );
+    return this.http.get(`${this.baseUrl + '/findAll'}`, { headers });
   }
 
-/* FILE-UPLOAD */
-uploadFile(file: File): Observable<any>{
+  /* FILE-UPLOAD */
+  uploadFile(file: File): Observable<any> {
 
-  console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
+    console.log("Arquivo (file) dentro do método uploadimg: " + file.name);
 
-  let url = this.baseUrl + '/saveFiles';
-  let formData: FormData = new FormData();
-  formData.append('file', file);
-  return this.http.post(url, formData);
-}
+    let url = this.baseUrl + '/saveFiles';
+    let formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post(url, formData);
+  }
 
 }

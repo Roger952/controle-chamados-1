@@ -45,16 +45,18 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <input autocomplete="off" [value]="senha" id="senha" class="input" type="password" pattern=".+"
-                            required [(ngModel)]="atendente.senha" name="senha" maxlength="30" />
-                            
+
                         <label class="label" for="senha">Senha</label>
 
-                        <button class="btn info text-center"
+                        <input autocomplete="off" [value]="senha" id="senha" class="input" type="password" pattern=".+"
+                            required [(ngModel)]="atendente.senha" name="senha" maxlength="30" />
+
+                        <i class="btn info text-center"
                             ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
                             triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
                             <img src="../../assets/info-icon.png" width="20" height="20">
-                        </button>
+                        </i>
+
 
                         <div class="underDiv">
                             <div class="underDivLeft"></div>
@@ -77,16 +79,14 @@
                 </div>
 
                 <div class="row mb-3">
-                
+
                     <div class="col-6 col-file">
-         
-                            <i class=" info text-center"
-                            ngbPopover="Você pode selecionar um arquivo dos tipos /.jpg, /.jpeg, /.png, /.jfif 
-                            de até 2MB"
-                            triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
+
+                        <i class=" info text-center" ngbPopover="Você pode selecionar um arquivo dos tipos /.jpg, /.jpeg, /.png, /.jfif 
+                            de até 2MB" triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
                             <img src="../../assets/info-icon.png" width="20" height="20">
                         </i>
-                        <h6 id="h3Foto" class= "text-left" pattern=".+">Selecione foto (Opcional)</h6>
+                        <h6 id="h3Foto" class="text-left" pattern=".+">Selecione foto (Opcional)</h6>
 
                         <div class="custom-file">
                             <input type="file" accept="image/jpg, image/jpeg, image/png, image/jfif"

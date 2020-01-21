@@ -45,6 +45,7 @@ export function tokenGetter() {
     ModuloComponent,
     ColaboradorComponent,
     ChamadoComponent
+
   ],
   imports: [
     BrowserModule,
