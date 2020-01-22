@@ -16,7 +16,7 @@ body {
     background-size: cover;
 }
 
-@media (max-width: 575px){
+/* @media (max-width: 575px){
     .container{
         width: 90%;
         margin-top: 40px;
@@ -45,5 +45,5 @@ body {
     .container{
         width: 600px;
     }
- }
+ } */
 
