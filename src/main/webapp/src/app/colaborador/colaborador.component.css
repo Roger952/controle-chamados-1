@@ -96,9 +96,10 @@
 
 .input,
 .label {
-    width: 100%;
+    width: 88%;
     height: 3rem;
     font-size: 1rem;
+
 }
 
 /* PARTE DO FILE UPLOAD */
@@ -152,14 +153,18 @@
     color: #3d3d3d;
 }
 
+::ng-deep .mat-form-field-infix{
+    margin-top: -30px !important;
+}
+
 table{
     text-align: center;
 }
 
 .info{
     float: right;
-    margin-bottom: 0;
     cursor: help;
+    margin-top: 5px;
 }
 
 #searchBar{
