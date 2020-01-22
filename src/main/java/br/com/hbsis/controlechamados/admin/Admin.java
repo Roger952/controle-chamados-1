@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "seg_admin")
+@Table(name = "usuario")
 public class Admin extends AbstractEntity {
 
     @Column(name = "login", unique = true, nullable = false)
