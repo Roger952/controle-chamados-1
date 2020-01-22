@@ -3,7 +3,7 @@ package br.com.hbsis.controlechamados.empresa;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "seg_empresa")
+@Table(name = "empresa")
 public class Empresa {
 
     @Id

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "seg_colaboradores")
+@Table(name = "colaborador")
 public class Colaborador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,10 @@ public class Colaborador {
     private Empresa empresa;
 
     @ManyToMany
-    @JoinTable(name = "seg_colaborador_produto", joinColumns = @JoinColumn(name = "id_colaborador"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    @JoinTable(
+            name = "colaborador_produto",
+            joinColumns = @JoinColumn(name = "id_colaborador"),
+            inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
 
     public Colaborador() {

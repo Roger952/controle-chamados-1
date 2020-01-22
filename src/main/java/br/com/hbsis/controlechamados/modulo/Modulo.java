@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "seg_modulo")
+@Entity(name = "modulo")
 public class Modulo extends AbstractEntity {
 
     @Column(name = "nome", length = 150, nullable = false)

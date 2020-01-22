@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "seg_atendentes")
+@Table(name = "atendente")
 public class Atendente {
 
     @Id
@@ -27,12 +27,11 @@ public class Atendente {
 
     @ManyToMany
     @JoinTable(
-            name = "seg_atendente_produto",
+            name = "atendente_produto",
             joinColumns = @JoinColumn(name = "id_atendente"),
             inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
 
-    /** GETTER & SETTER */
     public Long getId() {
         return id;
     }

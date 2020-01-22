@@ -5,7 +5,7 @@ import br.com.hbsis.controlechamados.utils.entity.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity(name = "seg_produto")
+@Entity(name = "produto")
 public class Produto extends AbstractEntity {
 
     @Column(name = "nome", unique = true, nullable = false, length = 50)
