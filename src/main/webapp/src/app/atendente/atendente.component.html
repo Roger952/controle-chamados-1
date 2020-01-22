@@ -3,7 +3,6 @@
 <div class="container rounded">
 
     <div class="row titulo">
-        <!--LINHA DO TÍTULO-->
         <div class="col-12">
             <h1>Cadastro de Atendente</h1>
         </div>
@@ -12,9 +11,8 @@
     <div class="row">
         <div class="col-12">
             <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
-                <!-- FORMULÁRIO -->
 
-                <div class="alert alert-warning" *ngIf='erro'>{{msgErro}}</div>
+                <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
                 <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
 
                 <div class="row">
@@ -77,13 +75,17 @@
                 </div>
 
                 <div class="row mb-3">
-                    <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
-
                     <div class="col-6 col-file">
-                        <!-- LADO ESQUERDO -->
-
                         <div>
-                            <h5 id="h3Foto" pattern=".+">Selecione foto (Opcional)</h5>
+                            <label class="foto-opc">Selecione foto (Opcional)
+
+                                <span class="btn info text-center"
+                                    ngbPopover="A imagem deve ser do tipo jpeg - jpg - png - jfif e conter até 2MB."
+                                    triggers="mouseenter:mouseleave" popoverTitle="O que sua imagem precisa ter?">
+                                    <img src="../../assets/info-icon.png" width="20" height="20">
+                                </span>
+
+                            </label>
                         </div>
 
                         <div class="custom-file">
@@ -91,25 +93,15 @@
                                 class="custom-file-input" id="validatedCustomFile" required [(ngModel)]="atendente.foto"
                                 name="foto" (change)="onChange($event)" (change)="selectFile($event)"
                                 onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
-                            <label class="custom-file-label" id="labelFile"
-                                for="validatedCustomFile">{{filename}}</label>
-                        </div>
-
-                        <div class="text-center">
-                            <label class="labelFotoEspec">Tamanho máximo 2MB</label>
+                            <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
                         </div>
 
                     </div>
 
                     <div class="col-6">
-                        <!-- LADO DIREITO -->
-
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                            <!-- <mat-select [(ngModel)]="atendente.atendenteProdutoDTOList" name="atendenteProdutoDTOList" [formControl]="toppings" multiple> -->
-                            <mat-select [(ngModel)]="atendente.produtoList" name="produtoList" [formControl]="produtos"
-                                multiple>
-
+                            <mat-select [(ngModel)]="atendente.produtoList" name="produtoList" [formControl]="produtos" multiple>
                                 <mat-option (click)="selectClick(produtos)" id="optionEscolha"
                                     *ngFor="let produtos of produtoList" [value]="produtos">
                                     {{produtos.nome}}
@@ -126,7 +118,7 @@
                     </div>
                 </div>
 
-            </form><!-- FORMULÁRIO -->
+            </form>
         </div>
     </div>
 </div>
