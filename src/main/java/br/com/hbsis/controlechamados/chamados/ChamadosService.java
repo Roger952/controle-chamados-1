@@ -27,9 +27,10 @@ public class ChamadosService {
         chamados.setProdutoList(chamadosDTO.getProdutoList());
         chamados.setTitulo(chamadosDTO.getTitulo());
         chamados.setDescricao(chamadosDTO.getDescricao());
+        chamados.setMultipartFileList(chamadosDTO.getMultipartFileList());
         chamados.setStatus("PENDENTE");
         chamados.setDataHoraRegistro(LocalDateTime.now());
-        chamados.setMultipartFileList(chamadosDTO.getMultipartFileList());
+
 
         LOGGER.info("Executando save Chamados!");
         chamados = this.iChamadosRepository.save(chamados);

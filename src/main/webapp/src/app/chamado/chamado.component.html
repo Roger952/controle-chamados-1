@@ -71,7 +71,7 @@
 
                                 <div class="custom-file">
                                     <input type="file" accept="/*" class="custom-file-input" id="validatedCustomFile"
-                                        required multiple [(ngModel)]="chamado.arquivoDTOS" name="arquivo"
+                                        required multiple [(ngModel)]="chamado.arquivo" name="arquivo"
                                         (change)="onChange($event)" (change)="selectFile($event)"
                                         onchange="document.querySelector('#validatedCustomFile').textContent = this.files[0].name;">
                                     <label class="custom-file-label" id="labelFile"

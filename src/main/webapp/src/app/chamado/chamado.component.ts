@@ -53,8 +53,8 @@ export class ChamadoComponent implements OnInit {
 
   save() {
 
-    if (this.chamado.arquivoDTOS != null || this.chamado.arquivoDTOS === '') {
-      this.chamado.arquivoDTOS = this.chamado.arquivoDTOS.substring(12);
+    if (this.chamado.arquivo != null || this.chamado.arquivo === '') {
+      this.chamado.arquivo = this.chamado.arquivo.substring(12);
     }
     console.log(this.produtoList)
     this.chamadoService.createChamado(this.chamado).subscribe(
@@ -90,7 +90,7 @@ export class ChamadoComponent implements OnInit {
     this.chamado.descricao = '';
     this.chamado.produtoList = [];
     (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
-    this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
+    this.chamado.arquivo = (<HTMLInputElement>document.getElementById('labelFile')).value;
     this.filename = '';
   }
 
@@ -109,7 +109,7 @@ export class ChamadoComponent implements OnInit {
     if (this.selectedFiles != undefined) {
       if (this.selectedFiles[0].size > (1000 * 1000 * 2) * 10) {
         (<HTMLInputElement>document.getElementById('validatedCustomFile')).value = undefined;
-        this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
+        this.chamado.arquivo = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
         this.filename = '';
         this.msgErro = "Arquivo maior que o esperado, por favor, selecione outros";
         this.erro = true;
@@ -120,7 +120,7 @@ export class ChamadoComponent implements OnInit {
 
       if (this.selectedFiles.length > 10) {
         (<HTMLInputElement>document.getElementById('validatedCustomFile')).value = undefined;
-        this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
+        this.chamado.arquivo = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
         this.filename = '';
         this.msgErro = "Limite de 10 arquivos.";
         this.erro = true;
