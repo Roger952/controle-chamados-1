@@ -45,18 +45,16 @@
 
                 <div class="row">
                     <div class="col-12">
-
-                        <label class="label" for="senha">Senha</label>
-
                         <input autocomplete="off" [value]="senha" id="senha" class="input" type="password" pattern=".+"
                             required [(ngModel)]="atendente.senha" name="senha" maxlength="30" />
 
-                        <i class="btn info text-center"
+                        <label class="label" for="senha">Senha</label>
+
+                        <span class="btn info text-center"
                             ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
                             triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
                             <img src="../../assets/info-icon.png" width="20" height="20">
-                        </i>
-
+                        </span>
 
                         <div class="underDiv">
                             <div class="underDivLeft"></div>
@@ -79,14 +77,14 @@
                 </div>
 
                 <div class="row mb-3">
+                    <!-- LINHA DOS ARQUIVOS ESPECIAIS -->
 
                     <div class="col-6 col-file">
+                        <!-- LADO ESQUERDO -->
 
-                        <i class=" info text-center" ngbPopover="Você pode selecionar um arquivo dos tipos /.jpg, /.jpeg, /.png, /.jfif 
-                            de até 2MB" triggers="mouseenter:mouseleave" popoverTitle="Informações sobre o upload">
-                            <img src="../../assets/info-icon.png" width="20" height="20">
-                        </i>
-                        <h6 id="h3Foto" class="text-left" pattern=".+">Selecione foto (Opcional)</h6>
+                        <div>
+                            <h5 id="h3Foto" pattern=".+">Selecione foto (Opcional)</h5>
+                        </div>
 
                         <div class="custom-file">
                             <input type="file" accept="image/jpg, image/jpeg, image/png, image/jfif"
@@ -96,12 +94,19 @@
                             <label class="custom-file-label" id="labelFile"
                                 for="validatedCustomFile">{{filename}}</label>
                         </div>
+
+                        <div class="text-center">
+                            <label class="labelFotoEspec">Tamanho máximo 2MB</label>
+                        </div>
+
                     </div>
 
                     <div class="col-6">
+                        <!-- LADO DIREITO -->
 
                         <mat-form-field id="checkEscolha" color="accent">
                             <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                            <!-- <mat-select [(ngModel)]="atendente.atendenteProdutoDTOList" name="atendenteProdutoDTOList" [formControl]="toppings" multiple> -->
                             <mat-select [(ngModel)]="atendente.produtoList" name="produtoList" [formControl]="produtos"
                                 multiple>
 
@@ -112,6 +117,7 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -120,7 +126,7 @@
                     </div>
                 </div>
 
-            </form>
+            </form><!-- FORMULÁRIO -->
         </div>
     </div>
 </div>

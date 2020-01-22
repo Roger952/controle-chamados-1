@@ -1,3 +1,19 @@
  .nav-link{
   cursor: pointer;
 } 
+
+#dropdownMenuLink{
+  background-color: transparent;
+  border: 0px;
+  color:#8a9da0;
+}
+
+.dropdown-menu{
+  background-color: #343a40;
+  color: azure;
+
+}
+
+.dropdown-menu:hover{
+  color: black;
+}

@@ -49,11 +49,11 @@
                                     pattern=".+" required [(ngModel)]="colaborador.senha" name="senha" maxlength="30" />
                                 <label class="label" for="senha">Senha</label>
 
-                                <button class="btn info text-center"
+                                <span class="btn info text-center"
                                     ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
                                     triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
                                     <img src="../../assets/info-icon.png" width="20" height="20">
-                                </button>
+                                </span>
 
                                 <div class="underDiv">
                                     <div class="underDivLeft"></div>
@@ -96,7 +96,7 @@
                                     <mat-label id="labelEscolha">Selecione Empresa</mat-label>
                                     <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId"
                                         [formControl]="empresas">
-                                        <mat-option (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
+                                        <mat-option title="{{empresas.razaoSocial}}" (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
                                             [value]="empresas.id" id='empresasId'>
                                             {{empresas.razaoSocial}}
                                         </mat-option>
@@ -137,9 +137,9 @@
 
                     <div class="form-group input-group" id="searchBar">
                         <div class="input-group-text"><img src="../assets/loupe.png" width="20px" height="20px"></div>
-                        <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text"
-                            class="form-control">
-                    </div>
+                        <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control"
+                               [(ngModel)]="colaborador.nome" (keyup)="searchColaboradores()">
+                      </div>
 
                 </div>
             </div>

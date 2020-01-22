@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'colaborador', component: ColaboradorComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_CADASTRAR_COLABORADOR']} },
   { path: 'modulo', component: ModuloComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_CADASTRAR_MODULO']} },
   { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
-  { path: 'chamado', component: ChamadoComponent, canActivate:[AuthGuard] },
+  { path: 'chamado', component: ChamadoComponent, canActivate:[AuthGuard], data: { roles: ['ROLE_LISTAR_CHAMADOS']}  },
 
   { path: '', redirectTo: '/login-admin', pathMatch: 'full'},
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },

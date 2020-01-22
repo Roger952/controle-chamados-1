@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "seg_chamados")
+@Table(name = "chamados")
 public class Chamados {
 
     @Id
@@ -15,7 +15,7 @@ public class Chamados {
     private Long id;
 
     @ManyToMany
-    @JoinTable(name = "seg_chamados_produto", joinColumns = @JoinColumn(name = "id_chamados"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    @JoinTable(name = "chamado_produto", joinColumns = @JoinColumn(name = "id_chamados"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
 
     @Column(name = "titulo", nullable = false, length = 200)
@@ -25,7 +25,7 @@ public class Chamados {
     private String descricao;
 
     @ManyToMany
-    @JoinTable(name = "seg_chamado_arquivo", joinColumns = @JoinColumn(name = "id_chamado"), inverseJoinColumns = @JoinColumn(name = "id_arquivo"))
+    @JoinTable(name = "chamado_arquivo", joinColumns = @JoinColumn(name = "id_chamado"), inverseJoinColumns = @JoinColumn(name = "id_arquivo"))
     private List<Arquivo> multipartFileList;
 
     @Column(name = "status", nullable = false)

@@ -2,8 +2,7 @@
 
 <div class="container rounded">
 
-  <div class="row titulo">
-    <!--LINHA DO TÍTULO-->
+  <div class="row titulo"><!--LINHA DO TÍTULO-->
     <div class="col-12">
       <h1>Cadastro de Módulo</h1>
     </div>
@@ -12,8 +11,7 @@
 
   <div class="row">
     <div class="col-12">
-      <form (ngSubmit)="onSubmit()">
-        <!-- FORMULÁRIO -->
+      <form (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
 
         <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
         <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
@@ -26,7 +24,7 @@
             </div>
 
             <div class="col-4">
-              <button id="btn" class="btn btn-secondary" (click)="exportModel()">Baixar</button>
+              <button id="btn" class="btn btn-secondary btn-sm" (click)="exportModel()">Baixar Modelo</button>
             </div>
           </div>
 
@@ -46,27 +44,20 @@
                 <div class="custom-file">
 
                   <input title="{{filename}}" type="file" id="file" accept=".csv" class="form-control"
-                    class="custom-file-input" id="validatedCustomFile" (change)="onSelectFile($event)"
-                    (change)="onChange($event)" (change)="selectFile($event)">
+                         class="custom-file-input" id="validatedCustomFile"
+                         (change)="onSelectFile($event)" (change)="onChange($event)" (change)="selectFile($event)">
                   <label class="custom-file-label" id="labelFile" for="validatedCustomFile">{{filename}}</label>
                 </div>
               </div>
-
-
-
+              <div class="col-6">
+                <button class="btn btn-dark" (click)="upload()">Importar Módulos</button>
+              </div>
             </div>
+
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-12">
-            <button class="btn btn-dark" (click)="upload()">Cadastrar Módulo</button>
-          </div>
-        </div>
-
-
       </form><!-- FORMULÁRIO -->
     </div>
   </div>
-
 </div>
+

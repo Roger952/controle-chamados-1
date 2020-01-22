@@ -13,6 +13,8 @@ import { ControleHttp } from '../seguranca/Controle-http';
 
 export class DashboardComponent implements OnInit {
 
+  usuarioAutenticado = '';
+  
   constructor(
     private logoutService: LogoutService,
     private router: Router,
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuarioAutenticado = sessionStorage.getItem('loggedUser');
   }
 
   tokenInicio() {

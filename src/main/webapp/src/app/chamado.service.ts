@@ -38,8 +38,8 @@ export class ChamadoService {
   // }
 
   getChamadoList(): Observable<Chamado[]> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl + '/listar'}`, { headers });
+    //const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.get(`${this.baseUrl+'/listar'}`); 
   }
 
   /* FILE-UPLOAD */

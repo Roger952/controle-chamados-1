@@ -66,7 +66,7 @@ export class ChamadoComponent implements OnInit {
         this.limpar();
       },
       (error) => {
-        this.msgErro = error.error[0].mensagemDesenvolvedor;
+        this.msgErro = error;
         this.erro = true;
         this.sucesso = false;
         console.log(this.msgErro);
@@ -79,8 +79,8 @@ export class ChamadoComponent implements OnInit {
     this.submitted = true;
     this.save();
 
-    // this.currentFileUpload = this.selectedFiles.item(0);
-    // this.chamadoService.uploadFile(this.currentFileUpload).subscribe();
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.chamadoService.uploadFile(this.currentFileUpload).subscribe(); 
 
   }
 

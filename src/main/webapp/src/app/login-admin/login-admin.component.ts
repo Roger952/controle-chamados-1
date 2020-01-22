@@ -35,7 +35,7 @@ export class LoginAdminComponent implements OnInit {
         console.log(erro);
       });
   }
-  ngOnInit() {
 
+  ngOnInit() {
   }
 }

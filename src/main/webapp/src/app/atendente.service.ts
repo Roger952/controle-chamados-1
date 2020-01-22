@@ -12,16 +12,25 @@ export class AtendenteService {
 
   constructor(private http: ControleHttp) { }
 
+   getAtendente(id: number): Observable<any> {
+     return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
+   }
+
   createAtendente(atendente: Object): Observable<Object> {
 
-    console.log("Atendente: " + atendente);
-    return this.http.post(`${this.baseUrl + '/save'}`, atendente);
+    console.log("Atendente: "+ atendente);
+    return this.http.post(`${this.baseUrl+'/save'}`, atendente);
   }
 
-  /* FILE-UPLOAD */
-  uploadImg(file: File): Observable<any> {
+   updateAtendente(id: number, value: any): Observable<Object> {
+     return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
+   }
 
-    console.log("Arquivo (file) dentro do método uploadimg: " + file.name);
+   deleteAtendente(id: number): Observable<any> {
+     return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
+   }
+
+  uploadImg(file: File): Observable<any>{
 
     let url = this.baseUrl + '/saveImagem';
     let formData: FormData = new FormData();
@@ -30,6 +39,6 @@ export class AtendenteService {
   }
 
   getAtendenteList(): Observable<Atendente[]> {
-    return this.http.get(`${this.baseUrl + '/findAll'}`);
+    return this.http.get(`${this.baseUrl+'/findAll'}`);
   }
 }

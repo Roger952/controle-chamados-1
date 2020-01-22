@@ -38,6 +38,11 @@ export class ColaboradorService {
    deleteColaborador(id: number): Observable<any> {
         return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
    }
+   getColaboradorFindBy(nome: string): Observable<Colaborador[]> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.get(`${this.baseUrl + '/findByNome'}/${nome}`, {headers});
+  }
+
 
   /* FILE-UPLOAD */
 //   uploadImg(file: File): Observable<any>{

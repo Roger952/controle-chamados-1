@@ -26,7 +26,6 @@ public class ColaboradorService {
     private final AdminService adminService;
     private final PasswordEncoder passwordEncoder;
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
     @Autowired
@@ -175,14 +174,11 @@ public class ColaboradorService {
 
         if (colaboradorOptional.isPresent()) {
             LOGGER.info("Colaborador Eencontrado");
-
             return ColaboradorDTO.of(colaboradorOptional.get());
         }
-
-        throw new IllegalArgumentException("Não foi encontrado nenhum colaborador com o Id ..." + id);
+        throw new IllegalArgumentException("Nenhum colaborador encontrado... id: " + id);
     }
 
-    /** MÉTODO DE SUPORTE */
     public void executeListPermissioes(Colaborador colaborador){
 
         List<Permissao> permissaoList = new ArrayList<>();
@@ -192,6 +188,32 @@ public class ColaboradorService {
         permissao.setDescricao("ROLE_LISTAR_COLABORADOR");
 
         permissaoList.add(permissao);
+
+
+        Permissao permissao1 = new Permissao();
+        permissao1.setId(Long.parseLong("4"));
+        permissao1.setDescricao("ROLE_LISTAR_PRODUTO");
+
+        permissaoList.add(permissao1);
+
+        Permissao permissao2 = new Permissao();
+        permissao2.setId(Long.parseLong("16"));
+        permissao2.setDescricao("ROLE_CADASTRAR_CHAMADOS");
+
+        permissaoList.add(permissao2);
+
+        Permissao permissao3 = new Permissao();
+        permissao3.setId(Long.parseLong("18"));
+        permissao3.setDescricao("ROLE_LISTAR_CHAMADOS");
+
+        permissaoList.add(permissao3);
+
+        Permissao permissao4 = new Permissao();
+        permissao4.setId(Long.parseLong("17"));
+        permissao4.setDescricao("ROLE_CADASTER_FILES_CHAMADOS");
+
+        permissaoList.add(permissao4);
+
 
         Admin admin = new Admin();
         admin.setLogin(colaborador.getEmail());

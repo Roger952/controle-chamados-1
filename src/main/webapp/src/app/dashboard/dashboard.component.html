@@ -43,10 +43,20 @@
 
 
       <ul class="nav navbar-nav ml-auto mr-5">
-        <li class="nav-item">
-          <a class="nav-link sair" (click)="logout();">Sair</a>
-        </li>
+
+       
+       
       </ul>
+
+      <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Usuário: {{usuarioAutenticado}}</a>
+
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item"(click)="logout();">Sair</a>
+       
+        </div>
+      </div>
     </div>
   </nav>
 </div>

@@ -3,7 +3,7 @@ package br.com.hbsis.controlechamados.chamados.arquivo;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "seg_arquivos")
+@Table(name = "arquivos")
 public class Arquivo {
 
     @Id

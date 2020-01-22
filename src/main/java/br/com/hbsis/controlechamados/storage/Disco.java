@@ -20,7 +20,6 @@ public class Disco {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Disco.class);
 
-    /** RESOLUÇÃO DAS IMAGENS */
     private final int MAX_SIZE_IMAGE = 2 * 1000 * 1000;
 
     @Value("${hbsis.disco.raiz}")
@@ -29,7 +28,6 @@ public class Disco {
     @Value("${hbsis.disco.diretorio-fotos}")
     private String diretorioFotos;
 
-    /** MÉTODOS */
     public void salvarFoto(MultipartFile foto){
         this.salvar(this.diretorioFotos, foto);
     }
@@ -55,7 +53,6 @@ public class Disco {
         }
     }
 
-    /** VALIDAÇÕES */
     public void validate(MultipartFile file) {
 
         String nomeArquivo = file.getOriginalFilename();

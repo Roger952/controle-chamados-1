@@ -89,10 +89,16 @@ export class ColaboradorComponent implements OnInit {
           this.erro = true;
           this.sucesso = false;
         });
-
     }
-
   }
+
+  searchColaboradores() {
+    this.colaboradorService.getColaboradorFindBy(this.colaborador.nome).subscribe(data => {
+      this.colaboradores = data;
+    }, error => {
+      console.log(error);
+    });
+  };
 
   onSubmit() {
     this.submitted = true;

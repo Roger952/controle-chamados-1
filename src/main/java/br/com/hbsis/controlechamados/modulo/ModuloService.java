@@ -34,7 +34,6 @@ public class ModuloService {
                 produtoService.findByNome(nomeProduto));
     }
 
-
     private void save(ModuloDTO moduloDTO) {
         Modulo modulo = new Modulo();
 

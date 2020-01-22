@@ -29,10 +29,9 @@ public class AtendenteService {
     private final AdminService adminService;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode estar vazio!";
 
-    @Autowired /** CONSTRUTOR */
+    @Autowired
     public AtendenteService(IAtendenteRepository iAtendenteRepository, ProdutoService produtoService, Disco disco, AdminService adminService, PasswordEncoder bCryptPasswordEncoder) {
         this.iAtendenteRepository = iAtendenteRepository;
         this.produtoService = produtoService;
@@ -41,7 +40,6 @@ public class AtendenteService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    /** MÉTODOS DE CRUD */
     public AtendenteDTO save(AtendenteDTO atendenteDTO) {
 
         this.validate(atendenteDTO);
@@ -143,7 +141,6 @@ public class AtendenteService {
         return atendenteDTO;
     }
 
-    /** MÉTODO DE FORMATAÇÃO GERAL */
     private Atendente converterObjeto(AtendenteDTO atendenteDTO) {
 
         Atendente atendente = new Atendente();
@@ -162,12 +159,10 @@ public class AtendenteService {
         throw new IllegalArgumentException(String.format("Id %s de atendente não existe", id));
     }
 
-    /** EXECUTAR FILE-UPLOAD NA CLASSE DISCO */
     public void salvarFoto(MultipartFile file) {
         disco.salvarFoto(file);
     }
 
-    /** MÉTODO DE SUPORTE */
     public void executeListPermissioes(Atendente atendente){
 
         List<Permissao> permissaoList = new ArrayList<>();

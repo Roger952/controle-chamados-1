@@ -46,13 +46,11 @@ public class ChamadosService {
         }
 
         if(chamadosDTO.getTitulo().length() > 200){
-            throw new IllegalArgumentException("Título excedeu o limite de caracteres.");
+            throw new IllegalArgumentException("Título excedeu o limite de 200 caracteres.");
         }
 
         if(StringUtils.isBlank(chamadosDTO.getDescricao())){
             throw new IllegalArgumentException("Descrição não pode estar vazia.");
         }
     }
-
-
 }

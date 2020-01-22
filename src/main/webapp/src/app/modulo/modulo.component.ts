@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Modulo } from '../modulo';
-import { ModuloService } from '../modulo.service';
-import { saveAs } from 'file-saver';
+import {Component, OnInit} from '@angular/core';
+import {Modulo} from '../modulo';
+import {ModuloService} from '../modulo.service';
+import {saveAs} from 'file-saver';
 
 
 @Component({
@@ -14,7 +14,6 @@ export class ModuloComponent implements OnInit {
   userFile: any = File;
   modulo = new Modulo;
 
-  /* RETORNO DE ERROS AO USER */
   msgErro: string;
   msgSucesso: string;
   erro = false;
@@ -23,7 +22,7 @@ export class ModuloComponent implements OnInit {
   filename: string;
 
   modelo = true;
-  msgModelo = 'Baixe o modelo de importação!';
+  msgModelo = 'Baixe o modelo de importação';
 
   constructor(private moduloService: ModuloService) {
   }
@@ -33,7 +32,6 @@ export class ModuloComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
-
     this.validarArquivoCSV();
   }
 
@@ -48,7 +46,7 @@ export class ModuloComponent implements OnInit {
 
   onSubmit() {
 
-    this.validarArquivoCSV();
+  this.validarArquivoCSV();
   }
 
   downloadFile() {
@@ -57,8 +55,7 @@ export class ModuloComponent implements OnInit {
       this.msgErro = 'Inconsistências encontradas, verifique no arquivo abaixo';
       this.erro = true;
       this.sucesso = false;
-
-      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'inconsistencias.txt');
+      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'inconsistencias.txt');
 
     }, (error) => {
       this.msgSucesso = 'Nenhuma inconsistência encontrada ';
@@ -76,7 +73,6 @@ export class ModuloComponent implements OnInit {
   upload() {
     const formData = new FormData();
     formData.append('file', this.userFile);
-
     this.moduloService.createModulo(formData).subscribe(
       (data) => {
         this.msgSucesso = 'Cadastro realizado com sucesso!';
@@ -97,26 +93,24 @@ export class ModuloComponent implements OnInit {
       this.msgSucesso = 'Siga o modelo esperado na importação';
       this.erro = false;
       this.sucesso = true;
-
-      saveAs(new Blob([data], { type: 'multipart/form-data' }), 'model.csv');
-
+      saveAs(new Blob([data], {type: 'multipart/form-data'}), 'model.csv');
     });
   }
 
-  validarArquivoCSV() {
-    if (this.selectedFiles != undefined) {
-      if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.csv') {
-        (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+  validarArquivoCSV(){
+    if(this.selectedFiles != undefined) {
+    if (this.selectedFiles[0].name.substring(this.selectedFiles[0].name.length - 4) != '.csv') {
+      (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
         this.userFile = (<HTMLInputElement>document.getElementById('labelFile')).value;
         this.filename = '';
         this.msgErro = "Arquivo não é esperado, por favor selecione outro";
         this.erro = true;
 
         console.log(this.modulo.nomeProduto)
-      } else {
+      }else{
         this.erro = false;
       }
-    } else {
+    }else{
       this.erro = false;
     }
   }

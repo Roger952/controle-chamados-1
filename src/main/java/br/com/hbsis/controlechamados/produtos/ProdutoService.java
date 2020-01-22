@@ -15,7 +15,6 @@ public class ProdutoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoService.class);
     private final IProdutoRepository iProdutoRepository;
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
     private final String msgVazio = " não pode ser vazio!";
 
     @Autowired

@@ -7,7 +7,6 @@ import java.util.List;
 
 public class AtendenteDTO {
 
-    /** ATRIBUTOS */
     private Long id;
     private String nome;
     private String foto;
@@ -15,7 +14,6 @@ public class AtendenteDTO {
     private List<Produto> produtoList;
     private String senha;
 
-    /** CONSTRUTORES */
     public AtendenteDTO() {
     }
 
@@ -45,7 +43,6 @@ public class AtendenteDTO {
 
         );
     }
-    /** GETTER & SETTER */
 
     public Long getId() {
         return id;
@@ -87,7 +84,6 @@ public class AtendenteDTO {
         this.senha = senha;
     }
 
-    /** @ManyToMany - List */
     public List<Produto> getProdutoList() {
         return produtoList;
     }
