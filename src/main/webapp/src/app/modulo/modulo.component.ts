@@ -22,7 +22,7 @@ export class ModuloComponent implements OnInit {
   filename: string;
 
   modelo = true;
-  msgModelo = 'Baixe o modelo de importação!';
+  msgModelo = 'Baixe o modelo de importação';
 
   constructor(private moduloService: ModuloService) {
   }
