@@ -4,7 +4,7 @@ export class Chamado {
     id: number;
     titulo: string;
     descricao: string;
-    arquivo: string;
+    arquivos : FileList;
     status: string;
     dataHoraRegistro: Date;
     produtoList: Produtos[];

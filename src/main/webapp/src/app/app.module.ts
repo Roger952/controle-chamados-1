@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './seguranca/auth.service';
 import { ControleHttp } from '../app/seguranca/Controle-http';
 import { ProdutosService } from './produtos.service';
-
+import {FileSelectDirective} from "ng2-file-upload";
 import { HttpClientModule } from '@angular/common/http';
 
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
@@ -63,6 +63,7 @@ export function tokenGetter() {
     HttpClientModule,
     MatSelectModule,
     NgbModule,
+    FileSelectDirective,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

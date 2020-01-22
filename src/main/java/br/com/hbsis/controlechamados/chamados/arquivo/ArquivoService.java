@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 
 @Service
@@ -19,14 +20,14 @@ public class ArquivoService {
         this.chamadosService = chamadosService;
     }
 
-    public ArquivoDTO save(ArquivoDTO arquivoDTO, MultipartFile multipartFile) throws IOException {
+    public ArquivoDTO save(ArquivoDTO arquivoDTO) throws IOException {
         LOGGER.info("Cadastrando novos arquivos...");
-        this.validarArquivos(multipartFile);
+        this.validarArquivos(arquivoDTO);
 
         Arquivo arquivo = new Arquivo();
 
-        arquivo.setNomeArquivo(multipartFile.getOriginalFilename());
-        arquivo.setArquivo(multipartFile.getBytes());
+        arquivo.setNomeArquivo(arquivoDTO.getNomeArquivo());
+        arquivo.setArquivo(arquivoDTO.getArquivo());
 
 
         arquivo = iArquivoRepository.save(arquivo);
@@ -34,8 +35,9 @@ public class ArquivoService {
     }
 
 
-    private void validarArquivos(MultipartFile multipartFile) {
-        if (multipartFile.getSize() > 1000 * 1000 * 2) {
+    private void validarArquivos(ArquivoDTO arquivoDTO) {
+
+        if (arquivoDTO.getArquivo().length > 1000 * 1000 * 2) {
             throw new IllegalArgumentException("Arquivo excedeu o limite de 2MB");
         }
 

@@ -18,15 +18,11 @@ export class ChamadoService {
   //   return this.http.get(`${this.baseUrl+'/findById'}/${id}`);
   // }
 
-  createChamado(chamado: Chamado): Observable<Object> {
+  createChamado(chamado: Chamado, formData: FormData): Observable<Object> {
 
-    console.log("Chamado: " + chamado.titulo);
-    console.log("Chamado: " + chamado.arquivoDTOS);
-    console.log("Chamado: " + chamado.descricao);
-    console.log("Chamado: " + chamado.produtoList);
 
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl + '/save'}`, chamado, { headers });
+    return this.http.post(`${this.baseUrl + '/save'}`, chamado, formData);
   }
 
   // updateChamado(id: number, value: any): Observable<Object> {
