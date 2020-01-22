@@ -1,0 +1,1 @@
+exec sp_rename 'seg_admin', 'seg_usuarios'

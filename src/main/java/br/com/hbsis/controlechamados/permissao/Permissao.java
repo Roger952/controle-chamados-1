@@ -3,7 +3,7 @@ package br.com.hbsis.controlechamados.permissao;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "seg_permissao")
+@Table(name = "permissao")
 public class Permissao {
 
     @Id
