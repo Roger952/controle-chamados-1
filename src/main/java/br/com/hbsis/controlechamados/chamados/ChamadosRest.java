@@ -1,9 +1,10 @@
 package br.com.hbsis.controlechamados.chamados;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -21,8 +22,9 @@ public class ChamadosRest {
 
     @PostMapping("/save")
     @PreAuthorize("hasRole('ROLE_CADASTRAR_COLABORADOR')")
-    public ChamadosDTO save(@RequestBody ChamadosDTO chamadosDTO){
-        return this.chamadosService.save(chamadosDTO);
+    public ChamadosDTO save(@RequestBody ChamadosDTO chamadosDTO, MultipartFile multipartFile){
+        return this.chamadosService.save(chamadosDTO, multipartFile);
+
     }
 
     @GetMapping("/listar")

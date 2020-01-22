@@ -15,7 +15,7 @@ public class Chamados {
     private Long id;
 
     @ManyToMany
-    @JoinTable(name = "seg_chamado_produto", joinColumns = @JoinColumn(name = "id_chamado"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    @JoinTable(name = "seg_chamados_produto", joinColumns = @JoinColumn(name = "id_chamados"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtoList;
 
     @Column(name = "titulo", nullable = false, length = 200)

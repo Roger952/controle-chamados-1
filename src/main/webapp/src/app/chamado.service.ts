@@ -29,17 +29,17 @@ export class ChamadoService {
     return this.http.post(`${this.baseUrl + '/save'}`, chamado, { headers });
   }
 
-  updateChamado(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl + '/update'}/${id}`, value);
-  }
+  // updateChamado(id: number, value: any): Observable<Object> {
+  //   return this.http.put(`${this.baseUrl + '/update'}/${id}`, value);
+  // }
 
-  deleteChamado(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl + '/delete'}/${id}`, { responseType: 'text' });
-  }
+  // deleteChamado(id: number): Observable<any> {
+  //   return this.http.delete(`${this.baseUrl + '/delete'}/${id}`, { responseType: 'text' });
+  // }
 
   getChamadoList(): Observable<Chamado[]> {
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl + '/findAll'}`, { headers });
+    return this.http.get(`${this.baseUrl + '/listar'}`, { headers });
   }
 
   /* FILE-UPLOAD */

@@ -4,6 +4,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
 
 @Service
@@ -16,7 +18,7 @@ public class ChamadosService {
         this.iChamadosRepository = iChamadosRepository;
     }
 
-    public ChamadosDTO save(ChamadosDTO chamadosDTO) {
+    public ChamadosDTO save(ChamadosDTO chamadosDTO, MultipartFile multipartFile) {
         this.validate(chamadosDTO);
 
         LOGGER.info("Cadastrando novo atendimento '{}'...", chamadosDTO.getTitulo());
@@ -27,6 +29,7 @@ public class ChamadosService {
         chamados.setDescricao(chamadosDTO.getDescricao());
         chamados.setStatus("PENDENTE");
         chamados.setDataHoraRegistro(LocalDateTime.now());
+        chamados.setMultipartFileList(chamadosDTO.getMultipartFileList());
 
         LOGGER.info("Executando save Chamados!");
         chamados = this.iChamadosRepository.save(chamados);
