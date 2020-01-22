@@ -1,21 +1,22 @@
 package br.com.hbsis.controlechamados.chamados;
 
-
 import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
 import br.com.hbsis.controlechamados.produtos.Produto;
-import br.com.hbsis.controlechamados.utils.entity.AbstractEntity;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "seg_chamados")
-public class Chamados extends AbstractEntity {
+public class Chamados {
 
-    @ManyToOne
-    @JoinColumn(name = "id_produto", referencedColumnName = "id")
-    private Produto produto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToMany
+    @JoinTable(name = "seg_chamado_produto", joinColumns = @JoinColumn(name = "id_chamado"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    private List<Produto> produtoList;
 
     @Column(name = "titulo", nullable = false, length = 200)
     private String titulo;
@@ -23,29 +24,30 @@ public class Chamados extends AbstractEntity {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @OneToMany(mappedBy = "idChamados")
-    private List<Arquivo> arquivoList;
+    @ManyToMany
+    @JoinTable(name = "seg_chamado_arquivo", joinColumns = @JoinColumn(name = "id_chamado"), inverseJoinColumns = @JoinColumn(name = "id_arquivo"))
+    private List<Arquivo> multipartFileList;
 
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "data_hora_registro", unique = true, nullable = false, length = 50)
-    private Date dataHoraRegistro;
+    @Column(name = "data_hora_registro", nullable = false)
+    private LocalDateTime dataHoraRegistro;
 
-    public List<Arquivo> getArquivoList() {
-        return arquivoList;
+    public Long getId() {
+        return id;
     }
 
-    public void setArquivoList(List<Arquivo> arquivoList) {
-        this.arquivoList = arquivoList;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public List<Produto> getProdutoList() {
+        return produtoList;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
     }
 
     public String getTitulo() {
@@ -64,6 +66,14 @@ public class Chamados extends AbstractEntity {
         this.descricao = descricao;
     }
 
+    public List<Arquivo> getMultipartFileList() {
+        return multipartFileList;
+    }
+
+    public void setMultipartFileList(List<Arquivo> multipartFileList) {
+        this.multipartFileList = multipartFileList;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -72,24 +82,24 @@ public class Chamados extends AbstractEntity {
         this.status = status;
     }
 
-    public Date getDataHoraRegistro() {
+    public LocalDateTime getDataHoraRegistro() {
         return dataHoraRegistro;
     }
 
-    public void setDataHoraRegistro(Date dataHoraRegistro) {
+    public void setDataHoraRegistro(LocalDateTime dataHoraRegistro) {
         this.dataHoraRegistro = dataHoraRegistro;
     }
 
     @Override
     public String toString() {
         return "Chamados{" +
-                "produto=" + produto +
+                "id=" + id +
+                ", produtoList=" + produtoList +
                 ", titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", arquivoList=" + arquivoList +
+                ", multipartFileList=" + multipartFileList +
                 ", status='" + status + '\'' +
                 ", dataHoraRegistro=" + dataHoraRegistro +
                 '}';
     }
 }
-

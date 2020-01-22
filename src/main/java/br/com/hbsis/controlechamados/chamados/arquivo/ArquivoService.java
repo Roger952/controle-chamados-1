@@ -5,8 +5,8 @@ import br.com.hbsis.controlechamados.chamados.ChamadosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 @Service
 public class ArquivoService {
@@ -14,30 +14,30 @@ public class ArquivoService {
     private final IArquivoRepository iArquivoRepository;
     private final ChamadosService chamadosService;
 
-    public ArquivoService(IArquivoRepository iArquivoRepository, ChamadosService chamadosService)  {
+    public ArquivoService(IArquivoRepository iArquivoRepository, ChamadosService chamadosService) {
         this.iArquivoRepository = iArquivoRepository;
         this.chamadosService = chamadosService;
     }
 
-    public ArquivoDTO save(ArquivoDTO arquivoDTO) {
-        LOGGER.info("Cadastrando novo arquivo '{}'...", arquivoDTO.getArquivo());
+    public ArquivoDTO save(ArquivoDTO arquivoDTO, MultipartFile multipartFile) throws IOException {
+        LOGGER.info("Cadastrando novos arquivos...");
+        this.validarArquivos(multipartFile);
 
         Arquivo arquivo = new Arquivo();
 
-        arquivo.setNomeArquivo(arquivoDTO.getNomeArquivo());
-        arquivo.setArquivo(arquivoDTO.getArquivo());
-        arquivo.setIdChamados(chamadosService.findById(arquivoDTO.getIdChamados()));
+        arquivo.setNomeArquivo(multipartFile.getOriginalFilename());
+        arquivo.setArquivo(multipartFile.getBytes());
+
 
         arquivo = iArquivoRepository.save(arquivo);
         return ArquivoDTO.of(arquivo);
     }
 
-    public Arquivo findById(Long id){
-        Optional<Arquivo> optionalArquivo = iArquivoRepository.findById(id);
-        if (optionalArquivo.isPresent()){
-            return optionalArquivo.get();
-        }
-        throw new IllegalArgumentException("Não foi possivel fazer a ");
-    }
 
+    private void validarArquivos(MultipartFile multipartFile) {
+        if (multipartFile.getSize() > 1000 * 1000 * 2) {
+            throw new IllegalArgumentException("Arquivo excedeu o limite de 2MB");
+        }
+
+    }
 }

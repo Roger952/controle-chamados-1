@@ -4,16 +4,14 @@ public class ArquivoDTO {
 
     private Long id;
     private String nomeArquivo;
-    private Long idChamados;
-    private Byte arquivo;
+    private byte[] arquivo;
 
     public ArquivoDTO() {
     }
 
-    public ArquivoDTO(Long id, String nomeArquivo, Long idChamados, Byte arquivo) {
+    public ArquivoDTO(Long id, String nomeArquivo, byte[] arquivo) {
         this.id = id;
         this.nomeArquivo = nomeArquivo;
-        this.idChamados = idChamados;
         this.arquivo = arquivo;
     }
 
@@ -21,7 +19,6 @@ public class ArquivoDTO {
         return new ArquivoDTO(
                 arquivo.getId(),
                 arquivo.getNomeArquivo(),
-                arquivo.getIdChamados().getId(),
                 arquivo.getArquivo()
         );
     }
@@ -42,19 +39,11 @@ public class ArquivoDTO {
         this.nomeArquivo = nomeArquivo;
     }
 
-    public Long getIdChamados() {
-        return idChamados;
-    }
-
-    public void setIdChamados(Long idChamados) {
-        this.idChamados = idChamados;
-    }
-
-    public Byte getArquivo() {
+    public byte[] getArquivo() {
         return arquivo;
     }
 
-    public void setArquivo(Byte arquivo) {
+    public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
 
@@ -63,7 +52,6 @@ public class ArquivoDTO {
         return "ArquivoDTO{" +
                 "id=" + id +
                 ", nomeArquivo='" + nomeArquivo + '\'' +
-                ", idChamados=" + idChamados +
                 ", arquivo=" + arquivo +
                 '}';
     }

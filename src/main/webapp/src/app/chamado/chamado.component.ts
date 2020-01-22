@@ -79,8 +79,8 @@ export class ChamadoComponent implements OnInit {
     this.submitted = true;
     this.save();
 
-    this.currentFileUpload = this.selectedFiles.item(0);
-    this.chamadoService.uploadFile(this.currentFileUpload).subscribe();
+    // this.currentFileUpload = this.selectedFiles.item(0);
+    // this.chamadoService.uploadFile(this.currentFileUpload).subscribe();
 
   }
 

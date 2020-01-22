@@ -1,103 +1,55 @@
 package br.com.hbsis.controlechamados.chamados;
 
-import br.com.hbsis.controlechamados.chamados.arquivo.Arquivo;
-import br.com.hbsis.controlechamados.chamados.arquivo.ArquivoDTO;
-import br.com.hbsis.controlechamados.produtos.ProdutoService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Service
 public class ChamadosService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChamadosService.class);
     private final IChamadosRepository iChamadosRepository;
-    private final ProdutoService produtoService;
 
 
-    /**
-     * MENSAGEM PADRÃO DE CAMPO EM BRANCO
-     */
-    private final String msgVazio = " não pode estar vazio!";
-
-    public ChamadosService(IChamadosRepository iChamadosRepository, ProdutoService produtoService) {
+    public ChamadosService(IChamadosRepository iChamadosRepository) {
         this.iChamadosRepository = iChamadosRepository;
-        this.produtoService = produtoService;
-    }
-
-    private void validate(ChamadosDTO chamadosDTO) {
-
-        LOGGER.info("Validando colaborador...");
-
-        if (chamadosDTO == null) {
-            throw new IllegalArgumentException("Colaborador DTO vazio.");
-        }
-
-        if (chamadosDTO.getProdutoId() == 0) {
-            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
-        }
-
-        if (chamadosDTO.getTitulo() == null) {
-            throw new IllegalArgumentException("Título" + msgVazio);
-        }
-
-        if (chamadosDTO.getDescricao() == null) {
-            throw new IllegalArgumentException("Descrição" + msgVazio);
-        }
-
     }
 
     public ChamadosDTO save(ChamadosDTO chamadosDTO) {
+        this.validate(chamadosDTO);
 
-        validate(chamadosDTO);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         LOGGER.info("Cadastrando novo atendimento '{}'...", chamadosDTO.getTitulo());
 
         Chamados chamados = new Chamados();
-
-        chamados.setDescricao(chamadosDTO.getDescricao());
-        chamados.setDataHoraRegistro(new Date());
-        chamados.setStatus(chamadosDTO.getStatus());
+        chamados.setProdutoList(chamadosDTO.getProdutoList());
         chamados.setTitulo(chamadosDTO.getTitulo());
-        chamados.setProduto(produtoService.findByIdProduto(chamadosDTO.getProdutoId()));
-        chamados = iChamadosRepository.save(chamados);
-        chamados.setArquivoList(parseArquivos(chamadosDTO.getArquivoDTOS(), chamados));
+        chamados.setDescricao(chamadosDTO.getDescricao());
+        chamados.setStatus("PENDENTE");
+        chamados.setDataHoraRegistro(LocalDateTime.now());
 
-        for (Arquivo arquivo : chamados.getArquivoList()){
+        LOGGER.info("Executando save Chamados!");
+        chamados = this.iChamadosRepository.save(chamados);
 
-        }
-
+        LOGGER.info("Finalizando save do Chamados!");
         return ChamadosDTO.of(chamados);
     }
 
-    public Chamados findById(Long id) {
-        Optional<Chamados> chamadosOptional = iChamadosRepository.findById(id);
-        if (chamadosOptional.isPresent()) {
-            return chamadosOptional.get();
+    private void validate(ChamadosDTO chamadosDTO){
+        LOGGER.info("Validando novo chamado...");
+
+        if(StringUtils.isBlank(chamadosDTO.getTitulo())){
+            throw new IllegalArgumentException("Título não pode estar vazio.");
         }
-        throw new IllegalArgumentException("ID não encontrado.");
-    }
 
-    public List<Arquivo> parseArquivos(List<ArquivoDTO> arquivoDTOS, Chamados chamados) {
-        List<Arquivo> arquivoList = new ArrayList<>();
-        for (ArquivoDTO arquivoDTO : arquivoDTOS){
-            Arquivo arquivo = new Arquivo();
-            arquivo.setArquivo(arquivoDTO.getArquivo());
-            arquivo.setNomeArquivo(arquivoDTO.getNomeArquivo());
-            arquivo.setIdChamados(chamados);
-            arquivoList.add(arquivo);
+        if(chamadosDTO.getTitulo().length() > 200){
+            throw new IllegalArgumentException("Título excedeu o limite de caracteres.");
         }
-        return arquivoList;
+
+        if(StringUtils.isBlank(chamadosDTO.getDescricao())){
+            throw new IllegalArgumentException("Descrição não pode estar vazia.");
+        }
     }
 
-    public void saveMultipartFiles(List<MultipartFile> multipartFiles){
 
-    }
 }
