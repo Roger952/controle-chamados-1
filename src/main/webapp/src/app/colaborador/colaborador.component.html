@@ -12,7 +12,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+                    <form #colaboradorForm="ngForm" (ngSubmit)="onSubmit()">
 
                         <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
                         <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
@@ -79,7 +79,7 @@
                             <div class="col-6">
 
                                 <mat-form-field id="checkEscolha" color="accent">
-                                    <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                                    <mat-label id="labelEscolha">Selecione Produtos</mat-label>
                                     <mat-select [(ngModel)]="colaborador.produtoList" name="produtoList"
                                         [formControl]="produtos" multiple>
 
@@ -93,10 +93,10 @@
 
                             <div class="col-6">
                                 <mat-form-field id="checkEscolha" color="accent">
-                                    <mat-label id="labelEscolha">Selecione Empresas</mat-label>
+                                    <mat-label id="labelEscolha">Selecione Empresa</mat-label>
                                     <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId"
                                         [formControl]="empresas">
-                                        <mat-option (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
+                                        <mat-option title="{{empresas.razaoSocial}}" (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
                                             [value]="empresas.id" id='empresasId'>
                                             {{empresas.razaoSocial}}
                                         </mat-option>
@@ -133,14 +133,15 @@
             </div>
 
             <div class="row">
-              <div class="col-12">
+                <div class="col-12">
 
-                <div class="form-group input-group" id="searchBar">
-                  <div class="input-group-text"><img src="../assets/loupe.png" width="20px" height="20px"></div>
-                  <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                    <div class="form-group input-group" id="searchBar">
+                        <div class="input-group-text"><img src="../assets/loupe.png" width="20px" height="20px"></div>
+                        <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control"
+                               [(ngModel)]="colaborador.nome" (keyup)="searchColaboradores()">
+                      </div>
+
                 </div>
-
-              </div>
             </div>
 
             <div class="table-responsive rounded">
@@ -148,7 +149,7 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Produto</th>
+                            <th>Colaborador</th>
                             <th>Alterar</th>
                         </tr>
                     </thead>
@@ -161,8 +162,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
     </div>
 </div>

@@ -8,9 +8,9 @@ describe('AtendenteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AtendenteComponent ]
+      declarations: [AtendenteComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,5 +22,5 @@ describe('AtendenteComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
 });

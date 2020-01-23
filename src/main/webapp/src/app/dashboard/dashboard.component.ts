@@ -112,6 +112,4 @@ export class DashboardComponent implements OnInit {
       })
       .catch(erro => console.error(erro));
   }
-
-
 }

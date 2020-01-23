@@ -153,7 +153,6 @@ public class AtendenteService {
         Optional<Atendente> atendenteOptional = this.iAtendenteRepository.findById(id);
 
         if (atendenteOptional.isPresent()){
-
             Atendente atendente = atendenteOptional.get();
             return AtendenteDTO.of(atendente);
         }

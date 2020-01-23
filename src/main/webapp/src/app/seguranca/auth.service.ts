@@ -9,7 +9,7 @@ export class AuthService {
 
   oauthTokenUrl = environment.apiUrl + '/oauth/token';
   jwtPayload: any;
-  
+
   public login: String;
   public senha: String;
 
@@ -40,8 +40,6 @@ export class AuthService {
         return Promise.reject(response);
       });
   }
-
-
   obterNovoAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
         .append('Content-Type', 'application/x-www-form-urlencoded')

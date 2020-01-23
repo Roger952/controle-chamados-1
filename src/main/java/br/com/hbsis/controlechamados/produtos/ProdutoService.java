@@ -105,13 +105,13 @@ public class ProdutoService {
         return produto;
     }
 
-    public Produto findByIdProduto (Long id){
+    public Optional<Produto> findByIdProduto (Long id){
         LOGGER.info("Procurando o Produto..." +  id);
 
         Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
 
         if (optionalProduto.isPresent()){
-            return optionalProduto.get();
+            return optionalProduto;
         }
 
         throw new IllegalArgumentException("Não existe um produto com este id");

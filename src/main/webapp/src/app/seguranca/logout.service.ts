@@ -10,7 +10,7 @@ export class LogoutService {
   tokensRevokeUrl: string;
 
   constructor(
-    private http: ControleHttp ,
+    private http: ControleHttp,
     private auth: AuthService
   ) {
     this.tokensRevokeUrl = environment.apiUrl + '/tokens/revoke' ;
@@ -23,5 +23,4 @@ export class LogoutService {
         this.auth.limparAccessToken();
       });
   }
-
 }

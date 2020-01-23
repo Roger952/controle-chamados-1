@@ -1,0 +1,1 @@
+INSERT INTO permissao (id, descricao) values (18, 'ROLE_LISTAR_CHAMADOS');
