@@ -14,7 +14,7 @@ import { ControleHttp } from '../seguranca/Controle-http';
 export class DashboardComponent implements OnInit {
 
   usuarioAutenticado = '';
-  
+
   constructor(
     private logoutService: LogoutService,
     private router: Router,
@@ -79,18 +79,18 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/produtos']);
   }
 
-  tokenColaborador() {
-    if (this.auth.isAccessTokenInvalido()) {
-      console.log('Access token inválido. Obtendo novo token...');
+   tokenColaborador() {
+      if (this.auth.isAccessTokenInvalido()) {
+        console.log('Access token inválido. Obtendo novo token...');
 
-      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
-        .then(() => {
-          this.router.navigate(['/colaborador']);
-        })
-        .catch(erro => console.error(erro));
+        const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+          .then(() => {
+            this.router.navigate(['/colaborador']);
+          })
+          .catch(erro => console.error(erro));
+      }
+      this.router.navigate(['/colaborador']);
     }
-    this.router.navigate(['/colaborador']);
-  }
 
   tokenModulo() {
     if (this.auth.isAccessTokenInvalido()) {

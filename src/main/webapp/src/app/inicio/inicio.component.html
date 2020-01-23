@@ -1,11 +1,10 @@
 <app-dashboard></app-dashboard>
 
-<div class="container rounded">
+<div *ngIf="auth.temPermissao('ROLE_LISTAR_EMPRESA')"class="container rounded">
 
     <div class="row">
 
-        <div class="col-lg-4 col-md-4 col-sm-12" *ngIf="auth.temPermissao('ROLE_LISTAR_EMPRESA')" >
-            <!-- COLUNA DA ESQUERDA -->
+        <div *ngIf="auth.temPermissao('ROLE_LISTAR_EMPRESA')" class="col-lg-4 col-md-4 col-sm-12"><!-- COLUNA DA ESQUERDA -->
 
             <h2>Empresas</h2>
 
@@ -27,8 +26,7 @@
             </div>
         </div>
 
-        <div *ngIf="auth.temPermissao('ROLE_LISTAR_PRODUTO')" class="col-lg-4 col-md-4 col-sm-12">
-            <!-- COLUNA DA DIREITA -->
+        <div *ngIf="auth.temPermissao('ROLE_LISTAR_PRODUTO')" class="col-lg-4 col-md-4 col-sm-12"><!-- COLUNA DA DIREITA -->
 
             <h2>Produtos</h2>
 
@@ -51,8 +49,7 @@
 
         </div>
 
-        <div *ngIf="auth.temPermissao('ROLE_LISTAR_ATENDENTE')" class="col-lg-4 col-md-4 col-sm-12">
-            <!-- COLUNA DA ESQUERDA -->
+        <div *ngIf="auth.temPermissao('ROLE_LISTAR_ATENDENTE')" class="col-lg-4 col-md-4 col-sm-12"><!-- COLUNA DA ESQUERDA -->
 
             <h2>Atendentes</h2>
 
@@ -97,4 +94,6 @@
             </div>
         </div>
     </div>
+
 </div>
+

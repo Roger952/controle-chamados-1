@@ -1,9 +1,9 @@
- <div class="container-fluid">
+<div class="container-fluid">
   <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand"><img src="../../assets/hbsis-png.png" height="30"></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -20,7 +20,7 @@
                (click)="tokenAtendente()">Atendentes</a>
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_COLABORADOR')"
                (click)="tokenColaborador()">Colaboradores</a>
-     
+
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_MODULO')" (click)="tokenModulo()">Módulos</a>
             <a class="nav-link" routerLink="/chamado">Chamados</a>
           </div>
@@ -29,7 +29,7 @@
          <div class="dropdown show">
           <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Listar</a>
            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-             
+
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
 
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_lISTAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
@@ -44,8 +44,8 @@
 
           </div>
          </div>
-  
-  
+
+
       </ul>
 
 
@@ -55,12 +55,12 @@
       <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Usuário: {{usuarioAutenticado}}</a>
 
-      
+
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item"(click)="logout();">Sair</a>
-       
+
         </div>
       </div>
     </div>
   </nav>
-</div> 
+</div>
