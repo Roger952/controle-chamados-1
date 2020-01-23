@@ -6,6 +6,7 @@ import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
 import { AtendenteService } from '../atendente.service';
 import { Atendente } from '../atendente';
+import { AuthService } from '../seguranca/auth.service';
 
 @Component({
   selector: 'app-inicio',
@@ -20,7 +21,8 @@ export class InicioComponent implements OnInit {
 
   constructor(private empresaService: EmpresaService,
     private produtoService: ProdutosService,
-    private atendenteService: AtendenteService) { }
+    private atendenteService: AtendenteService,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.empresaService.getEmpresaList().subscribe(data => { this.empresas = data; }, error => { console.log(error); });
