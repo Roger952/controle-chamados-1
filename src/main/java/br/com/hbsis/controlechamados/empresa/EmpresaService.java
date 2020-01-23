@@ -2,11 +2,11 @@ package br.com.hbsis.controlechamados.empresa;
 
 import br.com.hbsis.controlechamados.utils.cnpj.ValidatorCNPJ;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.Optional;
 
@@ -16,7 +16,9 @@ public class EmpresaService {
     private final IEmpresaRepository iEmpresaRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(EmpresaService.class);
 
-    /** MENSAGEM PADRÃO DE CAMPO EM BRANCO */
+    /**
+     * MENSAGEM PADRÃO DE CAMPO EM BRANCO
+     */
     private final String msgVazio = " não pode ser vazio!";
 
     @Autowired
@@ -28,29 +30,29 @@ public class EmpresaService {
         LOGGER.info("Validando Empresa {}", empresaDTO);
 
         /** MENSAGENS DE RETONO AO USUÁRIO */
-        if(StringUtils.isBlank(empresaDTO.getRazaoSocial())){
-            throw new IllegalArgumentException("Razão social"+msgVazio);
+        if (StringUtils.isBlank(empresaDTO.getRazaoSocial())) {
+            throw new IllegalArgumentException("Razão social" + msgVazio);
         }
 
-        if(empresaDTO.getRazaoSocial().length() > 50){
+        if (empresaDTO.getRazaoSocial().length() > 50) {
             throw new IllegalArgumentException("Razão social deve conter no máximo 50 digitos!");
         }
 
-        if(StringUtils.isBlank(empresaDTO.getNomeFantasia())){
-            throw new IllegalArgumentException("Nome fantasia"+msgVazio);
+        if (StringUtils.isBlank(empresaDTO.getNomeFantasia())) {
+            throw new IllegalArgumentException("Nome fantasia" + msgVazio);
         }
 
-        if(empresaDTO.getNomeFantasia().length() > 50){
+        if (empresaDTO.getNomeFantasia().length() > 50) {
             throw new IllegalArgumentException("Nome fantasia deve conter no máximo 50 digitos!");
         }
 
         validateCnpj(empresaDTO);
 
-        if(StringUtils.isBlank(empresaDTO.getIe())){
-            throw new IllegalArgumentException("Incrição estadual"+msgVazio);
+        if (StringUtils.isBlank(empresaDTO.getIe())) {
+            throw new IllegalArgumentException("Incrição estadual" + msgVazio);
         }
 
-        if(empresaDTO.getIe().length() > 10){
+        if (empresaDTO.getIe().length() > 10) {
             throw new IllegalArgumentException("Inscrição estadual deve conter no máximo 10 digitos");
         }
 
@@ -59,46 +61,45 @@ public class EmpresaService {
 
     private void validateEmail(EmpresaDTO empresaDTO) {
 
-        if(StringUtils.isBlank(empresaDTO.getEmail())){
-            throw new IllegalArgumentException("E-mail"+msgVazio);
+        if (StringUtils.isBlank(empresaDTO.getEmail())) {
+            throw new IllegalArgumentException("E-mail" + msgVazio);
         }
 
-        if(!ValidatorEmail.isValidEmail(empresaDTO.getEmail())){
+        if (!ValidatorEmail.isValidEmail(empresaDTO.getEmail())) {
             throw new IllegalArgumentException("Padrão de e-mail inválido!");
         }
 
-        if(empresaDTO.getEmail().length() > 50){
+        if (empresaDTO.getEmail().length() > 50) {
             throw new IllegalArgumentException("E-mail deve conter no máximo 50 digitos!");
         }
 
-        if(this.iEmpresaRepository.existsByEmail(empresaDTO.getEmail())){
+        if (this.iEmpresaRepository.existsByEmail(empresaDTO.getEmail())) {
             throw new IllegalArgumentException("E-mail já cadastrado!");
         }
     }
 
     private void validateCnpj(EmpresaDTO empresaDTO) {
 
-        if(StringUtils.isBlank(empresaDTO.getCnpj())){
-            throw new IllegalArgumentException("CNPJ"+msgVazio);
+        if (StringUtils.isBlank(empresaDTO.getCnpj())) {
+            throw new IllegalArgumentException("CNPJ" + msgVazio);
         }
 
-        if(!ValidatorCNPJ.isValidCNPJ(empresaDTO.getCnpj())){
+        if (!ValidatorCNPJ.isValidCNPJ(empresaDTO.getCnpj())) {
             throw new IllegalArgumentException("CNPJ inválido.");
         }
 
-        if(this.iEmpresaRepository.existsByCnpj(empresaDTO.getCnpj())){
+        if (this.iEmpresaRepository.existsByCnpj(empresaDTO.getCnpj())) {
             throw new IllegalArgumentException("CNPJ já cadastrado!");
         }
     }
 
-    public Optional<Empresa> findByIdOptional(Long id){
+    public Empresa findByIdEmpresa(Long id) {
         Optional<Empresa> empresaOptional = this.iEmpresaRepository.findById(id);
 
-        if(empresaOptional.isPresent()){
-            return empresaOptional;
+        if (empresaOptional.isPresent()) {
+            return empresaOptional.get();
         }
-
-        throw new IllegalArgumentException(String.format("Empresa de ID: %s, não existe.", id));
+        throw new IllegalArgumentException("Esta empresa já foi removido ou foi removido do sistema");
     }
 
     public EmpresaDTO save(EmpresaDTO empresaDTO) {

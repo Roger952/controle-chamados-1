@@ -23,11 +23,6 @@ export class EmpresaComponent implements OnInit {
   ngOnInit() {
   }
 
-  newEmpresa(): void {
-    this.submitted = false;
-    this.empresa = new Empresa();
-  }
-  
   save() {
     this.empresaService.createEmpresa(this.empresa).subscribe(
       (data) => {

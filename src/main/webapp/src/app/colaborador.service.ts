@@ -45,4 +45,9 @@ export class ColaboradorService {
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
     return this.http.get(`${this.baseUrl + '/findById'}/${id}`, {headers});
   }
+
+  alterColaborador(colaborador: Colaborador) {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
+    return this.http.get(`${this.baseUrl + '/update'}`, {headers});
+  }
 }

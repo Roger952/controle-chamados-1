@@ -7,4 +7,6 @@ export class Colaborador {
     senha: string;
     empresaId: number;
     produtoList: Produtos[];
+
+
 }

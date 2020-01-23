@@ -38,5 +38,12 @@ public class EmpresaRest {
     public void delete(@PathVariable("id") Long id) {
         this.empresaService.delete(id);
     }
+
+    @GetMapping("/findById/{id}")
+    @PreAuthorize("hasRole('ROLE_FIND_BY_ID_EMPRESA')")
+    public Empresa findById(@PathVariable("id") Long id) {
+        return this.empresaService.findByIdEmpresa(id);
+    }
+
 }
 

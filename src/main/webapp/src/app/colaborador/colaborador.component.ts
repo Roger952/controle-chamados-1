@@ -13,26 +13,20 @@ import {ProdutosService} from '../produtos.service';
   styleUrls: ['./colaborador.component.css']
 })
 export class ColaboradorComponent implements OnInit {
-
   /* LISTAR E EDITAR COLABORADORES */
   colaboradores: Colaborador[];
+
+  produtoControl = new FormControl();
+  produtosSelecionados: Produtos[];
+  produtoList: Produtos[];
 
   colaborador: Colaborador = new Colaborador();
   submitted = false;
 
-  id : number;
+  id: number;
 
-  /* LISTA DE PRODUTOS */
-  produtos = new FormControl();
-  produtoList: Produtos[];
-
-  empresas = new FormControl();
+  empresaControl = new FormControl();
   empresasList: Empresa[];
-
-  /* FILE */
-  selectedFiles: FileList;
-  currentFileUpload: File;
-  filename: string;
 
   /* RETORNO DE ERROS AO USER */
   msgErro: string;
@@ -46,9 +40,13 @@ export class ColaboradorComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("passeio");
+
     this.produtoService.getProdutosList().subscribe(
       data => {
         this.produtoList = data;
+        // this.produtosSelecionados = data;
+        // this.produtosSelecionados.push(data[2]);
       }, error => {
         console.log(error)
       });
@@ -66,11 +64,6 @@ export class ColaboradorComponent implements OnInit {
       console.log(error);
     });
 
-  }
-
-  newAtendente(): void {
-    this.submitted = false;
-    this.colaborador = new Colaborador();
   }
 
   save() {
@@ -100,9 +93,7 @@ export class ColaboradorComponent implements OnInit {
           this.erro = true;
           this.sucesso = false;
         });
-
     }
-
   }
 
   onSubmit() {
@@ -133,17 +124,18 @@ export class ColaboradorComponent implements OnInit {
   }
 
   selectEmpresa() {
-
     console.log(this.colaborador.empresaId);
   }
 
+  selectClickProduto(produto) {
 
-  selectClickProduto(produtos) {
+    console.log("produto selecionado....");
+    console.log(produto);
 
-    const index = this.colaborador.produtoList.indexOf(produtos, 0);
+    const index = this.colaborador.produtoList.indexOf(produto.data, 0);
     if (index > -1) {
       this.colaborador.produtoList.splice(index, 1);
-      this.colaborador.produtoList.push(produtos);
+      this.colaborador.produtoList.push(produto.data);
     }
     console.log(this.colaborador.produtoList);
   }
@@ -157,18 +149,27 @@ export class ColaboradorComponent implements OnInit {
     });
   };
 
-  listarUpdate() {
+  listarUpdate(colaboradorObj: Colaborador) {
 
-    this.colaborador = new Colaborador();
+    console.log("Colaborador: " + colaboradorObj.id);
 
-    this.id = id;
+    this.colaboradorService.getColaborador(colaboradorObj.id).subscribe(data => {
 
-    this.colaboradorService.getColaborador(this.id)
-      .subscribe(data => {
-        console.log(data);
         this.colaborador = data;
-        this.produtoList = this.colaborador.produtoList;
-        this.empresasList = this.colaborador.empresasList;
-      }, error => console.log(error));
+
+        for(let i = 0; i < this.colaborador.produtoList.length; i++){
+          this.compararProdutos(this.produtoList[i], this.colaborador.produtoList[i]);
+        }
+
+        (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value = data.senha;
+
+      },
+      error => console.log(error));
   }
+
+  compararProdutos(produto1: Produtos, produto2: Produtos){
+    return produto1 && produto2 && produto1.nome == produto2.nome;
+  }
+
+
 }

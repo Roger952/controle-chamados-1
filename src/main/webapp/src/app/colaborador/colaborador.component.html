@@ -1,6 +1,6 @@
 <app-dashboard></app-dashboard>
 
-<div class="container rounded">
+<div class="container rounded" id="cadas">
     <div class="row">
 
         <div class="col-12">
@@ -76,16 +76,15 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-6" >
 
                                 <mat-form-field id="checkEscolha" color="accent">
                                     <mat-label id="labelEscolha">Selecione produtos</mat-label>
-                                    <mat-select [(ngModel)]="colaborador.produtoList" name="produtoList"
-                                        [formControl]="produtos" multiple>
+                                    <mat-select  [(ngModel)]="colaborador.produtoList" name="produtoList"  multiple>
 
-                                        <mat-option (click)="selectClickProduto(produtos)" id="optionEscolha"
-                                            *ngFor="let produtos of produtoList" [value]="produtos">
-                                            {{produtos.nome}}
+                                        <mat-option class="opc" (click)="selectClickProduto(produto)"
+                                                    *ngFor="let produto of produtoList" [value]="produto">
+                                            {{produto.nome}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -95,9 +94,9 @@
                                 <mat-form-field id="checkEscolha" color="accent">
                                     <mat-label id="labelEscolha">Selecione Empresas</mat-label>
                                     <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId"
-                                        [formControl]="empresas">
+                                        [formControl]="empresaControl">
                                         <mat-option (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
-                                            [value]="empresas.id" id='empresasId'>
+                                            [value]="empresas.id" >
                                             {{empresas.razaoSocial}}
                                         </mat-option>
                                     </mat-select>
@@ -119,6 +118,126 @@
         </div>
 
     </div>
+</div>
+
+<div class="container rounded" id="alter" style="display: none;">
+  <div class="row">
+
+    <div class="col-12">
+      <div class="row titulo">
+        <div class="col-12">
+          <h1>Alteração de Colaboradores</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <form #atendenteForm="ngForm" (ngSubmit)="onSubmit()">
+
+            <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+            <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
+            <div class="row">
+              <div class="col-12">
+                <input autocomplete="off" id="nomeAlter" class="input" type="text"
+                       pattern=".+" required [(ngModel)]="colaborador.nome" name="nome" maxlength="100">
+                <label class="label" for="nome">Nome</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <input autocomplete="off" id="emailAlter" class="input" type="text"
+                       pattern=".+" required [(ngModel)]="colaborador.email" name="email" maxlength="50" />
+                <label class="label" for="email">Email</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <input autocomplete="off" id="senhaAlter" class="input" type="text"
+                       pattern=".+" required [(ngModel)]="colaborador.senha" name="senha" maxlength="30" />
+                <label class="label" for="senhaAlter">Senha</label>
+
+                <button class="btn info text-center"
+                        ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
+                        triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
+                  <img src="../../assets/info-icon.png" width="20" height="20">
+                </button>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <input autocomplete="off" id="senhaConfirmacaoAlter" class="input" type="password"
+                       pattern=".+" required name="senhaConfirmacao" maxlength="30" />
+                <label class="label" for="senhaConfirmacaoAlter">Confirmação Senha</label>
+
+                <div class="underDiv">
+                  <div class="underDivLeft"></div>
+                  <div class="underDivRight"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6" >
+
+                <mat-form-field id="checkEscolha" color="accent">
+                  <mat-label id="labelEscolha">Selecione produtos</mat-label>
+                  <mat-select [(ngModel)]="colaborador.produtoList" [formControl]="produtoControl" [compareWith]="compararProdutos" name="produtoList" id="produtoList" multiple>
+
+                    <mat-option class="opc"  (click)="selectClickProduto($event)"  id="optionEscolha"
+                                *ngFor="let produto of produtoList" [value]="produto">
+                      {{produto.nome}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field id="checkEscolha" color="accent">
+                  <mat-label id="labelEscolha">Selecione Empresas</mat-label>
+                  <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId"
+                              [formControl]="empresaControl">
+                    <mat-option (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
+                                [value]="empresas.id" id='empresasId'>
+                      {{empresas.razaoSocial}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+                <h3 *ngFor="let produto of colaborador.produtoList"> {{produto.nome}} </h3>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <button class="btn cadastrar btn-dark">Alterar Colaborador</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
 <div class="container rounded">
@@ -157,7 +276,7 @@
                         <tr *ngFor="let colaborador of colaboradores">
                             <td>{{colaborador.id}}</td>
                             <td>{{colaborador.nome}}</td>
-                            <td><button class="btn btn-success" >Editar</button></td>
+                            <td><button class="btn btn-success" (click)="listarUpdate(colaborador)">Editar</button></td>
                         </tr>
                     </tbody>
                 </table>

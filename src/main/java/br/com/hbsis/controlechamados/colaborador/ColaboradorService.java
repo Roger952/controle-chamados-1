@@ -99,12 +99,6 @@ public class ColaboradorService {
         }
     }
 
-    private Empresa findEmpresa(Long id) {
-        Optional<Empresa> empresaOptional = this.empresaService.findByIdOptional(id);
-
-        return empresaOptional.get();
-    }
-
     private Colaborador findColaboradorExistente(Long id) {
         Optional<Colaborador> colaboradorOptional = this.iColaboradorRepository.findById(id);
 
@@ -126,7 +120,7 @@ public class ColaboradorService {
                 colaboradorDTO.getNome(),
                 colaboradorDTO.getEmail(),
                 colaboradorDTO.getSenha(),
-                findEmpresa(colaboradorDTO.getEmpresa()),
+                empresaService.findByIdEmpresa(colaboradorDTO.getEmpresa()),
                 colaboradorDTO.getProdutoList()
         );
 
@@ -142,7 +136,7 @@ public class ColaboradorService {
 
         colaboradorAtualizado.setEmail(colaboradorDTO.getEmail());
         colaboradorAtualizado.setSenha(colaboradorDTO.getSenha());
-        colaboradorAtualizado.setEmpresa(this.findEmpresa(colaboradorDTO.getEmpresa()));
+        colaboradorAtualizado.setEmpresa(this.empresaService.findByIdEmpresa(colaboradorDTO.getEmpresa()));
         colaboradorAtualizado.setProdutoList(colaboradorDTO.getProdutoList());
 
         colaboradorAtualizado = this.iColaboradorRepository.save(colaboradorAtualizado);
@@ -162,7 +156,7 @@ public class ColaboradorService {
         Optional<Colaborador> colaboradorOptional = iColaboradorRepository.findById(id);
 
         if (colaboradorOptional.isPresent()) {
-            LOGGER.info("Colaborador Eencontrado");
+            LOGGER.info("Colaborador Eencontrado"+ColaboradorDTO.of(colaboradorOptional.get()));
 
             return ColaboradorDTO.of(colaboradorOptional.get());
         }
