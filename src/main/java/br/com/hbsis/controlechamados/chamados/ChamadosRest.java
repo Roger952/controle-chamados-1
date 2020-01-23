@@ -3,8 +3,8 @@ package br.com.hbsis.controlechamados.chamados;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/chamado")
 public class ChamadosRest {
     private final ChamadosService chamadosService;
-    private  final IChamadosRepository iChamadosRepository;
+    private final IChamadosRepository iChamadosRepository;
 
     @Autowired
     public ChamadosRest(IChamadosRepository iChamadosRepository, ChamadosService chamadosService) {
@@ -21,15 +21,14 @@ public class ChamadosRest {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_CADASTRAR_COLABORADOR')")
-    public ChamadosDTO save(@RequestBody ChamadosDTO chamadosDTO, MultipartFile multipartFile){
-        return this.chamadosService.save(chamadosDTO, multipartFile);
-
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_CHAMADOS')")
+    public ChamadosDTO save(@RequestBody ChamadosDTO chamadosDTO){
+        return this.chamadosService.save(chamadosDTO);
     }
 
     @GetMapping("/listar")
     @PreAuthorize("hasRole('ROLE_LISTAR_CHAMADOS')")
-    public List<Chamados> listarTudo(){
+    public List<Chamados> listarTudo() {
         return this.iChamadosRepository.findAll();
     }
 

@@ -29,6 +29,13 @@ import { environment } from 'src/environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChamadoComponent } from './chamado/chamado.component';
 import { NaoAutorizadoComponent } from './page-not-found/nao-autorizado-component';
+import {
+  MatToolbarModule,
+  MatIconModule,
+  MatCardModule,
+  MatButtonModule,
+  MatProgressBarModule
+} from '@angular/material';
 
 
 export function tokenGetter() {
@@ -61,6 +68,11 @@ export function tokenGetter() {
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatProgressBarModule,
     MatSelectModule,
     NgbModule,
     JwtModule.forRoot({

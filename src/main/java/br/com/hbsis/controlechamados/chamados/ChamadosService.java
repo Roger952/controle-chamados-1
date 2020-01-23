@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -18,10 +17,11 @@ public class ChamadosService {
         this.iChamadosRepository = iChamadosRepository;
     }
 
-    public ChamadosDTO save(ChamadosDTO chamadosDTO, MultipartFile multipartFile) {
+    public ChamadosDTO save(ChamadosDTO chamadosDTO) {
         this.validate(chamadosDTO);
 
         LOGGER.info("Cadastrando novo atendimento '{}'...", chamadosDTO.getTitulo());
+
 
         Chamados chamados = new Chamados();
         chamados.setProdutoList(chamadosDTO.getProdutoList());
@@ -29,7 +29,7 @@ public class ChamadosService {
         chamados.setDescricao(chamadosDTO.getDescricao());
         chamados.setStatus("PENDENTE");
         chamados.setDataHoraRegistro(LocalDateTime.now());
-        chamados.setMultipartFileList(chamadosDTO.getMultipartFileList());
+
 
         LOGGER.info("Executando save Chamados!");
         chamados = this.iChamadosRepository.save(chamados);
@@ -38,21 +38,19 @@ public class ChamadosService {
         return ChamadosDTO.of(chamados);
     }
 
-    private void validate(ChamadosDTO chamadosDTO){
+    private void validate(ChamadosDTO chamadosDTO) {
         LOGGER.info("Validando novo chamado...");
 
-        if(StringUtils.isBlank(chamadosDTO.getTitulo())){
+        if (StringUtils.isBlank(chamadosDTO.getTitulo())) {
             throw new IllegalArgumentException("Título não pode estar vazio.");
         }
 
-        if(chamadosDTO.getTitulo().length() > 200){
+        if (chamadosDTO.getTitulo().length() > 200) {
             throw new IllegalArgumentException("Título excedeu o limite de caracteres.");
         }
 
-        if(StringUtils.isBlank(chamadosDTO.getDescricao())){
+        if (StringUtils.isBlank(chamadosDTO.getDescricao())) {
             throw new IllegalArgumentException("Descrição não pode estar vazia.");
         }
     }
-
-
 }

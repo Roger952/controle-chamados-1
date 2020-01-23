@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Chamado } from '../chamado';
 import { Produtos } from '../produtos';
 import { ChamadoService } from '../chamado.service';
@@ -11,6 +14,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./chamado.component.css']
 })
 export class ChamadoComponent implements OnInit {
+
 
   chamado: Chamado = new Chamado();
   submitted = false;
@@ -33,6 +37,7 @@ export class ChamadoComponent implements OnInit {
   constructor(private chamadoService: ChamadoService, private produtoService: ProdutosService) { }
 
   /* MÉTODOS DO FILE */
+
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
@@ -43,6 +48,7 @@ export class ChamadoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.produtoService.getProdutosList().subscribe(
       data => {
         this.produtoList = data;
@@ -53,13 +59,31 @@ export class ChamadoComponent implements OnInit {
 
   save() {
 
-    if (this.chamado.arquivoDTOS != null || this.chamado.arquivoDTOS === '') {
-      this.chamado.arquivoDTOS = this.chamado.arquivoDTOS.substring(12);
+    const data = new FormData();
+    for (let index = 0; index < this.selectedFiles.length; index++) {
+      this.currentFileUpload = this.selectedFiles[index];
+
+      data.append('file', this.currentFileUpload);
     }
-    console.log(this.produtoList)
+
     this.chamadoService.createChamado(this.chamado).subscribe(
       (data) => {
         this.msgSucesso = 'Cadastro realizado com sucesso!';
+        this.erro = false;
+        this.sucesso = true;
+        console.log(this.msgSucesso);
+        this.limpar();
+      },
+      (error) => {
+        this.msgErro = error.error[0].mensagemDesenvolvedor;
+        this.erro = true;
+        this.sucesso = false;
+        console.log(this.msgErro);
+      });
+
+    this.chamadoService.uploadFile(data).subscribe(
+      (data) => {
+        this.msgSucesso = 'Cadastro de aruivos realizado com sucesso!';
         this.erro = false;
         this.sucesso = true;
         console.log(this.msgSucesso);
@@ -78,9 +102,6 @@ export class ChamadoComponent implements OnInit {
 
     this.submitted = true;
     this.save();
-
-    // this.currentFileUpload = this.selectedFiles.item(0);
-    // this.chamadoService.uploadFile(this.currentFileUpload).subscribe();
 
   }
 
