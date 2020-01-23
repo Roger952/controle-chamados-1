@@ -106,9 +106,15 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row" *ngIf="cadastro">
                             <div class="col-12">
                                 <button class="btn cadastrar btn-dark">Cadastrar Colaborador</button>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="alteracao">
+                            <div class="col-12">
+                                <button class="btn cadastrar btn-dark">Alterar Colaborador</button>
                             </div>
                         </div>
 
