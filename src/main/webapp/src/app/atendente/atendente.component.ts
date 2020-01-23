@@ -4,7 +4,6 @@ import { Atendente } from '../atendente';
 import { AtendenteService } from '../atendente.service';
 import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
-import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({

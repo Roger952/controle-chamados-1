@@ -3,20 +3,20 @@ import {HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ControleHttp} from "./seguranca/Controle-http";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModuloService {
-  private baseUrl = 'http://localhost:8080/modulos';
+  
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: ControleHttp) {
   }
 
   createModulo(file: FormData): Observable<any> {
-
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl + '/import'}`, file, {headers});
+    return this.http.post(`${this.baseUrl + '/modulos/import'}`, file);
   }
 
   downloadFile(): Observable<ArrayBuffer> {
@@ -32,7 +32,7 @@ export class ModuloService {
       responseType: 'arraybuffer'
     };
 
-    let url = this.baseUrl + '/export';
+    let url = this.baseUrl + '/modulos/export';
 
     return this.http.get(url, options).pipe(map((file: ArrayBuffer) => {
       return file;
@@ -52,7 +52,7 @@ export class ModuloService {
       responseType: 'arraybuffer'
     };
 
-    let url = this.baseUrl + '/export-formatted';
+    let url = this.baseUrl + '/modulos/export-formatted';
 
 
     return this.http.get(url, options).pipe(map((file: ArrayBuffer) => {
