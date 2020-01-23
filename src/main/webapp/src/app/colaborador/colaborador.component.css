@@ -102,22 +102,12 @@
 
 }
 
-/* PARTE DO FILE UPLOAD */
 #fileUpload{
     background-color: #0069d9;
     color: white;
     padding-bottom: 35px !important;
 }
 
-#fileUpload:hover{
-    cursor: pointer;
-}
-
-.row-foto-h{
-    text-align: left;
-}
-
-/*SELECT PRODUTO*/
 #labelEscolha{
     color:grey;
 }
@@ -137,7 +127,7 @@
 }
 
 #checkEscolha{
-    margin-top: 20px;
+    margin-top: -10px !important;
     width: 100%;
 }
 
@@ -151,10 +141,6 @@
 }
 ::ng-deep .mat-select-arrow{
     color: #3d3d3d;
-}
-
-::ng-deep .mat-form-field-infix{
-    margin-top: -30px !important;
 }
 
 table{
