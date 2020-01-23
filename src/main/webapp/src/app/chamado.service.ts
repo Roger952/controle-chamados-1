@@ -47,7 +47,7 @@ export class ChamadoService {
 
     console.log("Arquivo (file) dentro do método uploadimg: " + file.name);
 
-    let url = this.baseUrl + '/saveFiles';
+    let url = this.baseUrl + '/save';
     let formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post(url, formData);

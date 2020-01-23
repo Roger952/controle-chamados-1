@@ -13,7 +13,6 @@ public class Arquivo {
     @Column(name = "nome_arquivo", nullable = false, length = 200)
     private String nomeArquivo;
 
-
     @Column(name = "arquivo")
     private byte[] arquivo;
 

@@ -34,6 +34,8 @@ public class Chamados {
     @Column(name = "data_hora_registro", nullable = false)
     private LocalDateTime dataHoraRegistro;
 
+
+
     public Long getId() {
         return id;
     }
