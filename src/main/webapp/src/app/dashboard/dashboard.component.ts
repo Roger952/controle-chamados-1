@@ -14,7 +14,7 @@ import { ControleHttp } from '../seguranca/Controle-http';
 export class DashboardComponent implements OnInit {
 
   usuarioAutenticado = '';
-  
+
   constructor(
     private logoutService: LogoutService,
     private router: Router,
@@ -112,4 +112,6 @@ export class DashboardComponent implements OnInit {
       })
       .catch(erro => console.error(erro));
   }
+
+
 }

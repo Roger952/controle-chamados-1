@@ -2,11 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders }    from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
  
 @Injectable()
 export class AuthService {
  
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
+
+import { environment } from 'src/environments/environment';
+
+@Injectable()
+export class AuthService {
+
+  oauthTokenUrl = environment.apiUrl + '/oauth/token';
+
   jwtPayload: any;
   
   public login: String;
@@ -39,7 +48,6 @@ export class AuthService {
         return Promise.reject(response);
       });
   }
- 
   obterNovoAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
         .append('Content-Type', 'application/x-www-form-urlencoded')

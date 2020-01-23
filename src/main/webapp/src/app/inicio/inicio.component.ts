@@ -5,6 +5,7 @@ import { ProdutosService } from '../produtos.service';
 import { Produtos } from '../produtos';
 import { AtendenteService } from '../atendente.service';
 import { Atendente } from '../atendente';
+
 import { Chamado } from '../chamado';
 import { ChamadoService } from '../chamado.service';
 import { AuthService } from '../seguranca/auth.service';
@@ -24,11 +25,14 @@ export class InicioComponent implements OnInit {
   constructor(private empresaService: EmpresaService,
     private produtoService: ProdutosService,
     private atendenteService: AtendenteService,
+
     private chamadoService: ChamadoService,
     private auth: AuthService
     ) { }
 
-  ngOnInit() {
+    private auth: AuthService) { }
+
+ngOnInit() {
     this.empresaService.getEmpresaList().subscribe(data => { this.empresas = data; }, error => { console.log(error); });
     this.produtoService.getProdutosList().subscribe(data => { this.produtos = data; }, error => { console.log(error); });
     this.atendenteService.getAtendenteList().subscribe(data => { this.atendentes = data; }, error => { console.log(error); });
