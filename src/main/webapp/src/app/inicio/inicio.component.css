@@ -8,7 +8,6 @@
 
 .titulo{
     font-weight: bold;
-    margin-bottom: 10px;
     color: rgb(26, 55, 68);
     text-align: center;
 }
@@ -24,8 +23,7 @@ h2{
 
 @media (max-width: 575px){
     .container{
-        width: 90%;
-        margin-top: 800px;
+        width: 100%;
     }
 }
 
@@ -43,12 +41,12 @@ h2{
 
 @media (min-width: 992px) {
     .container{
-        width: 800px;
+        width: 400px;
     }
 }
 
 @media (min-width: 1200px) {
     .container{
-        width: 1000px;
+        width: 500px;
     }
  }
