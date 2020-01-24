@@ -1,7 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { Chamado } from '../chamado';
 import { Produtos } from '../produtos';
 import { ChamadoService } from '../chamado.service';
@@ -38,13 +35,24 @@ export class ChamadoComponent implements OnInit {
 
   /* MÉTODOS DO FILE */
 
+
   selectFile(event) {
     this.selectedFiles = event.target.files;
+
+    // this.verificarFile();
+
+    console.log(this.selectedFiles = event.target.files);
+
+    console.log(this.chamado.id)
+
   }
 
   onChange(event) {
     this.filename = event.srcElement.files[0].name;
     this.filename = this.filename.substring(this.filename.length - 20);
+
+    console.log(this.filename = event.srcElement.files[0].name);
+
   }
 
   ngOnInit() {
@@ -60,7 +68,7 @@ export class ChamadoComponent implements OnInit {
   save() {
 
     const data = new FormData();
-    for (let index = 0; index < this.selectedFiles.length; index++) {
+    for (let index = +1; index < this.selectedFiles.length; index++) {
       this.currentFileUpload = this.selectedFiles[index];
 
       data.append('file', this.currentFileUpload);
@@ -72,36 +80,39 @@ export class ChamadoComponent implements OnInit {
         this.erro = false;
         this.sucesso = true;
         console.log(this.msgSucesso);
+        this.chamado = data;
         this.limpar();
+        console.log(this.chamado.id);
       },
       (error) => {
-        this.msgErro = error.error[0].mensagemDesenvolvedor;
+        this.msgErro = error;
         this.erro = true;
         this.sucesso = false;
         console.log(this.msgErro);
       });
 
-    this.chamadoService.uploadFile(data).subscribe(
+    this.chamadoService.uploadFile(data, this.chamado.id).subscribe(
       (data) => {
-        this.msgSucesso = 'Cadastro de aruivos realizado com sucesso!';
+        this.msgSucesso = 'Cadastro de arquivos realizado com sucesso!';
         this.erro = false;
         this.sucesso = true;
-        console.log(this.msgSucesso);
+        console.log(this.chamado.id);
         this.limpar();
       },
       (error) => {
-        this.msgErro = error.error[0].mensagemDesenvolvedor;
+        this.msgErro = error;
         this.erro = true;
         this.sucesso = false;
         console.log(this.msgErro);
       });
-
   }
 
   onSubmit() {
 
     this.submitted = true;
     this.save();
+
+    console.log(this.chamado.id)
 
   }
 
@@ -125,31 +136,31 @@ export class ChamadoComponent implements OnInit {
     console.log(this.chamado.produtoList);
   }
 
-  verificarFile() {
+  // verificarFile() {
 
-    if (this.selectedFiles != undefined) {
-      if (this.selectedFiles[0].size > (1000 * 1000 * 2) * 10) {
-        (<HTMLInputElement>document.getElementById('validatedCustomFile')).value = undefined;
-        this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
-        this.filename = '';
-        this.msgErro = "Arquivo maior que o esperado, por favor, selecione outros";
-        this.erro = true;
+  //   if (this.selectedFiles != undefined) {
+  //     if (this.selectedFiles[0].size > 1000 * 1000 * 2) {
+  //       (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+  //       this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
+  //       this.filename = '';
+  //       this.msgErro = "Arquivo maior que o esperado, por favor, selecione outros";
+  //       this.erro = true;
 
-      } else {
+  //     } else {
 
-      }
+  //     }
 
-      if (this.selectedFiles.length > 10) {
-        (<HTMLInputElement>document.getElementById('validatedCustomFile')).value = undefined;
-        this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('validatedCustomFile')).value;
-        this.filename = '';
-        this.msgErro = "Limite de 10 arquivos.";
-        this.erro = true;
-      } else {
-        this.erro = false;
-      }
-    } else {
-      this.erro = false;
-    }
-  }
+  //     if (this.selectedFiles.length > 10) {
+  //       (<HTMLInputElement>document.getElementById('labelFile')).value = undefined;
+  //       this.chamado.arquivoDTOS = (<HTMLInputElement>document.getElementById('labelFile')).value;
+  //       this.filename = '';
+  //       this.msgErro = "Limite de 10 arquivos.";
+  //       this.erro = true;
+  //     } else {
+  //       this.erro = false;
+  //     }
+  //   } else {
+  //     this.erro = false;
+  //   }
+// }
 }

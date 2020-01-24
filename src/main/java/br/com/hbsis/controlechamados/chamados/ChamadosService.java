@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class ChamadosService {
@@ -52,5 +53,15 @@ public class ChamadosService {
         if (StringUtils.isBlank(chamadosDTO.getDescricao())) {
             throw new IllegalArgumentException("Descrição não pode estar vazia.");
         }
+    }
+
+    public Chamados findById(Long id){
+        Optional<Chamados> chamadosOptional = iChamadosRepository.findById(id);
+
+        if (chamadosOptional.isPresent()){
+            return chamadosOptional.get();
+        }
+
+        throw new IllegalArgumentException("Id do Chamados não encontrado");
     }
 }

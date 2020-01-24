@@ -1,0 +1,1 @@
+ALTER TABLE seg_arquivos ALTER COLUMN arquivo IMAGE NOT NULL;

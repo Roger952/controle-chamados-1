@@ -15,7 +15,7 @@ export class ChamadoService {
   constructor(private http: ControleHttp) { }
 
 
-  createChamado(chamado: Chamado): Observable<Object> {
+  createChamado(chamado: Chamado): Observable<Chamado> {
 
 
     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
@@ -28,10 +28,9 @@ export class ChamadoService {
   }
 
   /* FILE-UPLOAD */
-  uploadFile(formData: FormData): Observable<any> {
+  uploadFile(formData: FormData, id: number): Observable<any> {
 
-    let url = this.baseUrl + 'arquivos/save';
-    return this.http.post(url, formData);
+    return this.http.post(`${this.baseUrl + 'arquivos/save'}/${id}`, formData);
   }
 
 }

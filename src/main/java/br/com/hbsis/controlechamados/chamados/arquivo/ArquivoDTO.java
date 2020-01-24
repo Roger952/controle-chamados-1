@@ -1,25 +1,30 @@
 package br.com.hbsis.controlechamados.chamados.arquivo;
 
+import java.util.Arrays;
+
 public class ArquivoDTO {
 
     private Long id;
     private String nomeArquivo;
     private byte[] arquivo;
+    private Long chamado;
 
     public ArquivoDTO() {
     }
 
-    public ArquivoDTO(Long id, String nomeArquivo, byte[] arquivo) {
+    public ArquivoDTO(Long id, String nomeArquivo, byte[] arquivo, Long chamado) {
         this.id = id;
         this.nomeArquivo = nomeArquivo;
         this.arquivo = arquivo;
+        this.chamado = chamado;
     }
 
     public static ArquivoDTO of(Arquivo arquivo) {
         return new ArquivoDTO(
                 arquivo.getId(),
                 arquivo.getNomeArquivo(),
-                arquivo.getArquivo()
+                arquivo.getArquivo(),
+                arquivo.getChamados().getId()
         );
     }
 
@@ -47,12 +52,21 @@ public class ArquivoDTO {
         this.arquivo = arquivo;
     }
 
+    public Long getChamado() {
+        return chamado;
+    }
+
+    public void setChamado(Long chamado) {
+        this.chamado = chamado;
+    }
+
     @Override
     public String toString() {
         return "ArquivoDTO{" +
                 "id=" + id +
                 ", nomeArquivo='" + nomeArquivo + '\'' +
-                ", arquivo=" + arquivo +
+                ", arquivo=" + Arrays.toString(arquivo) +
+                ", chamado=" + chamado +
                 '}';
     }
 }

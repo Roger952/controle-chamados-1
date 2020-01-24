@@ -22,7 +22,7 @@ public class ArquivoService {
         this.chamadosService = chamadosService;
     }
 
-    public ArquivoDTO save(ArquivoDTO arquivoDTO){
+    public ArquivoDTO save(ArquivoDTO arquivoDTO) {
         LOGGER.info("Cadastrando novos arquivos...");
         this.validarArquivos(arquivoDTO);
 
@@ -30,7 +30,7 @@ public class ArquivoService {
 
         arquivo.setNomeArquivo(arquivoDTO.getNomeArquivo());
         arquivo.setArquivo(arquivoDTO.getArquivo());
-
+        arquivo.setChamados(chamadosService.findById(arquivoDTO.getChamado()));
 
         arquivo = iArquivoRepository.save(arquivo);
         return ArquivoDTO.of(arquivo);
@@ -45,16 +45,16 @@ public class ArquivoService {
 
     }
 
-    public List<Arquivo> formattedMultipartFile(List<MultipartFile> multipartFileList) throws IOException {
+    public List<Arquivo> formattedMultipartFile(List<MultipartFile> multipartFileList, Long idChamado) throws IOException {
 
         List<Arquivo> arquivoList = new ArrayList<>();
 
-        for (MultipartFile multipartFile  : multipartFileList) {
+        for (MultipartFile multipartFile : multipartFileList) {
             ArquivoDTO arquivoDTO = new ArquivoDTO();
 
             arquivoDTO.setArquivo(multipartFile.getBytes());
             arquivoDTO.setNomeArquivo(multipartFile.getOriginalFilename());
-
+            arquivoDTO.setChamado(idChamado);
             arquivoList.add(parseArquivo(save(arquivoDTO)));
 
         }

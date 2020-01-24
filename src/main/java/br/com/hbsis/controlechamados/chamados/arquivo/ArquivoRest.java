@@ -18,9 +18,9 @@ public class ArquivoRest {
         this.arquivoService = arquivoService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save/{id}")
     @PreAuthorize("hasRole('ROLE_CADASTRAR_ARQUIVOS')")
-    public List<Arquivo> saveArquivos(@RequestParam("file") List<MultipartFile> multipartFile) throws IOException {
-        return arquivoService.formattedMultipartFile(multipartFile);
+    public List<Arquivo> save(@PathVariable("id") Long id,@RequestParam("file") List<MultipartFile> multipartFile) throws IOException {
+        return arquivoService.formattedMultipartFile(multipartFile, id);
     }
 }
