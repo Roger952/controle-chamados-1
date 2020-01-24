@@ -24,11 +24,10 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { LogoutService } from '../app/seguranca/logout.service'
 import { AuthGuard } from './seguranca/auth.guard';
 import { ModuloComponent } from './modulo/modulo.component';
-
 import { ColaboradorComponent } from './colaborador/colaborador.component';
-
 import { environment } from 'src/environments/environment';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChamadoComponent } from './chamado/chamado.component';
 import { NaoAutorizadoComponent } from './page-not-found/nao-autorizado-component';
 
 
@@ -49,7 +48,9 @@ export function tokenGetter() {
     InicioComponent,
     ModuloComponent,
     ColaboradorComponent,
+    ChamadoComponent,
     NaoAutorizadoComponent
+
   ],
   imports: [
     BrowserModule,
@@ -81,4 +82,5 @@ export function tokenGetter() {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

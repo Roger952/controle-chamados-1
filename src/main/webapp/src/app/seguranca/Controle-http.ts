@@ -5,7 +5,7 @@ import { Observable, from as observableFromPromise } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
-export class NotAuthenticatedError {}
+export class NotAuthenticatedError { }
 
 @Injectable()
 export class ControleHttp extends HttpClient {
@@ -63,5 +63,4 @@ export class ControleHttp extends HttpClient {
       return fn();
     }
   }
-
 }

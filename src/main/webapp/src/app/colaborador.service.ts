@@ -1,36 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ControleHttp } from '../app/seguranca/Controle-http';
-import { HttpHeaders }    from '@angular/common/http';
-import { Atendente } from './atendente';
 import { Colaborador } from './colaborador';
-
+import { environment } from 'src/environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColaboradorService {
 
-  private baseUrl = 'http://localhost:8080/colaborador';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: ControleHttp) { }
 
   createColaborador(colaborador: Colaborador): Observable<Object> {
-
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.post(`${this.baseUrl+'/save'}`, colaborador, { headers });
+    return this.http.post(`${this.baseUrl + '/colaborador/save'}`, colaborador);
   }
 
-   updateColaborador(id: number, value: any): Observable<Object> {
-     return this.http.put(`${this.baseUrl+'/update'}/${id}`, value);
-   }
+  updateColaborador(colaborador: Colaborador): Observable<Object> {
+    return this.http.put(`${this.baseUrl + '/colaborador/update'}`, colaborador);
+  }
 
-   deleteColaborador(id: number): Observable<any> {
-        return this.http.delete(`${this.baseUrl+'/delete'}/${id}`, { responseType: 'text' });
-   }
+  deleteColaborador(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl + '/colaborador/delete'}/${id}`, { responseType: 'text' });
+  }
+
+  getColaboradorFindBy(nome: string): Observable<Colaborador[]> {
+    return this.http.get(`${this.baseUrl + '/colaborador/findByNome'}/${nome}`);
+  }
 
   getColaboradorList(): Observable<Colaborador[]> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl+'/findAll'}`, {headers} );
+    return this.http.get(`${this.baseUrl + '/colaborador/findAll'}`);
+  }
+
+  getColaborador(id: number): Observable<Colaborador> {
+    return this.http.get(`${this.baseUrl + '/colaborador/findById'}/${id}`);
   }
 }
