@@ -8,4 +8,5 @@ export class Chamado {
     status: string;
     dataHoraRegistro: Date;
     produtoList: Produtos[];
+    produtoId: Produtos;
 }

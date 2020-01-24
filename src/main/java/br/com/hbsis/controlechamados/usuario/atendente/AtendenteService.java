@@ -63,11 +63,10 @@ public class AtendenteService {
         return AtendenteDTO.of(atendente);
     }
 
-    public AtendenteDTO validate(AtendenteDTO atendenteDTO){
+    private AtendenteDTO validate(AtendenteDTO atendenteDTO){
 
         LOGGER.info("Validando atendente...");
 
-        /** MENSAGENS DE RETORNO AO USUÁRIO */
         if(StringUtils.isBlank(atendenteDTO.getNome())){
             throw new IllegalArgumentException("Nome"+msgVazio);
         }
@@ -78,6 +77,10 @@ public class AtendenteService {
 
         if(StringUtils.isBlank(atendenteDTO.getEmail())){
             throw new IllegalArgumentException("E-mail"+msgVazio);
+        }
+
+        if(adminService.validateLogin(atendenteDTO.getEmail())){
+            throw new IllegalArgumentException("E-mail já cadastrado!");
         }
 
         if(!ValidatorEmail.isValidEmail(atendenteDTO.getEmail())){
@@ -96,6 +99,24 @@ public class AtendenteService {
             throw new IllegalArgumentException("Senha"+msgVazio);
         }
 
+        validateSenha(atendenteDTO);
+
+        if(atendenteDTO.getProdutoList() == null){
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
+        }
+
+        if(atendenteDTO.getProdutoList().size() == 0){
+            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
+        }
+
+        if(StringUtils.isBlank(atendenteDTO.getFoto())){
+            atendenteDTO.setFoto("default-person.png");
+        }
+
+        return atendenteDTO;
+    }
+
+    private void validateSenha(AtendenteDTO atendenteDTO) {
         if(atendenteDTO.getSenha().length() > 30){
             throw new IllegalArgumentException("Senha deve conter no máximo 30 digitos!");
         }
@@ -125,27 +146,6 @@ public class AtendenteService {
         if(!StringUtils.containsAny(atendenteDTO.getSenha(), "$&+,:;=?@#|'<>.^*()%!-")){
             throw new IllegalArgumentException("Senha fraca: Senha precisa de caracteres especiais");
         }
-
-        if(atendenteDTO.getProdutoList() == null){
-            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
-        }
-
-        if(atendenteDTO.getProdutoList().size() == 0){
-            throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
-        }
-
-        if(StringUtils.isBlank(atendenteDTO.getFoto())){
-            atendenteDTO.setFoto("default-person.png");
-        }
-
-        return atendenteDTO;
-    }
-
-    private Atendente converterObjeto(AtendenteDTO atendenteDTO) {
-
-        Atendente atendente = new Atendente();
-        atendente.setId(atendenteDTO.getId());
-        return atendente;
     }
 
     public AtendenteDTO findById(Long id){
@@ -167,23 +167,23 @@ public class AtendenteService {
 
         List<Permissao> permissaoList = new ArrayList<>();
 
-        Permissao permissao = new Permissao();
-        permissao.setId(Long.parseLong("6"));
-        permissao.setDescricao("ROLE_LISTAR_ATENDENTE");
-
-        permissaoList.add(permissao);
-
         Permissao permissao1 = new Permissao();
-        permissao1.setId(Long.parseLong("18"));
-        permissao1.setDescricao("ROLE_LISTAR_CHAMADOS");
+        permissao1.setId(Long.parseLong("6"));
+        permissao1.setDescricao("ROLE_LISTAR_ATENDENTE");
 
         permissaoList.add(permissao1);
 
         Permissao permissao2 = new Permissao();
-        permissao2.setId(Long.parseLong("4"));
-        permissao2.setDescricao("ROLE_LISTAR_PRODUTO");
+        permissao2.setId(Long.parseLong("16"));
+        permissao2.setDescricao("ROLE_CADASTRAR_CHAMADOS");
 
         permissaoList.add(permissao2);
+
+        Permissao permissao3 = new Permissao();
+        permissao3.setId(Long.parseLong("17"));
+        permissao3.setDescricao("ROLE_CADASTER_FILES_CHAMADOS");
+
+        permissaoList.add(permissao3);
 
         Admin admin = new Admin();
         admin.setLogin(atendente.getEmail());
@@ -194,5 +194,13 @@ public class AtendenteService {
         this.adminService.saveNaRepositoryAdmin(admin);
     }
 
+    public AtendenteDTO findByEmail(String email){
+        Optional<Atendente> colaboradorOptional = iAtendenteRepository.findByEmail(email);
+        if (colaboradorOptional.isPresent()) {
+            LOGGER.info("Colaborador encontrado");
+            return AtendenteDTO.of(colaboradorOptional.get());
+        }
+        return AtendenteDTO.of(colaboradorOptional.get());
+    }
 }
 

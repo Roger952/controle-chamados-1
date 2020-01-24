@@ -14,8 +14,8 @@ export class EmpresaService {
 
   constructor(private http: ControleHttp) { }
 
-  getEmpresa(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl+'/empresa/findById'}/${id}`);
+  getEmpresa(id: number): Observable<Empresa> {
+    return this.http.get<Empresa>(`${this.baseUrl+'/empresa/findById'}/${id}`);
   }
 
   createEmpresa(empresa: Object): Observable<Object> {

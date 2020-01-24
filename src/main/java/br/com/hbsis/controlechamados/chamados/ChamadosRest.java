@@ -27,7 +27,7 @@ public class ChamadosRest {
 
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/findAll")
     @PreAuthorize("hasRole('ROLE_LISTAR_CHAMADOS')")
     public List<Chamados> listarTudo(){
         return this.iChamadosRepository.findAll();

@@ -105,6 +105,18 @@ public class ProdutoService {
         return produto;
     }
 
+    public Optional<Produto> findByIdProduto (Long id){
+        LOGGER.info("Procurando o Produto..." +  id);
+
+        Optional<Produto> optionalProduto = iProdutoRepository.findById(id);
+
+        if (optionalProduto.isPresent()){
+            return optionalProduto;
+        }
+
+        throw new IllegalArgumentException("Não existe um produto com este id");
+    }
+
     public boolean existsByNome(String nome){
         return iProdutoRepository.existsByNome(nome);
     }

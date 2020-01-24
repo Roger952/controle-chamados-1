@@ -105,6 +105,19 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/modulo']);
   }
 
+  tokenChamado() {
+    if (this.auth.isAccessTokenInvalido()) {
+      console.log('Access token inválido. Obtendo novo token...');
+
+      const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+        .then(() => {
+          this.router.navigate(['/chamado']);
+        })
+        .catch(erro => console.error(erro));
+    }
+    this.router.navigate(['/chamado']);
+  }
+
   logout() {
     this.logoutService.logout()
       .then(() => {

@@ -23,7 +23,7 @@ public class ProdutoRest {
 
     @GetMapping("/lista")
     @PreAuthorize("hasRole('ROLE_LISTAR_PRODUTO')")
-    public List<Produto> findAll(){
+    public List<Produto> listAll(){
         return produtoService.findAll();
     }
 

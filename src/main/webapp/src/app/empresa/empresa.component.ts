@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmpresaComponent implements OnInit {
 
+  empresas: Empresa[];
+
   empresa: Empresa = new Empresa();
   submitted = false;
 
@@ -20,6 +22,7 @@ export class EmpresaComponent implements OnInit {
   constructor(private empresaService: EmpresaService) { }
 
   ngOnInit() {
+    this.empresaService.getEmpresaList().subscribe(data => {this.empresas = data}, erro => {console.log(erro)});
   }
 
   newEmpresa(): void {
@@ -35,13 +38,14 @@ export class EmpresaComponent implements OnInit {
         this.sucesso = true;
         console.log(this.msgSucesso);
         this.limpar();
-      },
+        this.empresaService.getEmpresaList().subscribe(data => {this.empresas = data}, erro => {console.log(erro)});
+    },
       (error) => {
         this.msgErro = error.error[0].mensagemDesenvolvedor;
         this.erro = true;
         this.sucesso = false;
         console.log(this.msgErro);
-      });
+    });
   }
 
   onSubmit() {

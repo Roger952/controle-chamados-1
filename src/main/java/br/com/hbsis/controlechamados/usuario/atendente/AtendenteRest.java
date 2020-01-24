@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -44,5 +45,4 @@ public class AtendenteRest {
     public List<Atendente> findAll() {
         return this.iAtendenteRepository.findAll();
     }
-
 }

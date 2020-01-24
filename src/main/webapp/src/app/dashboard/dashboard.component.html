@@ -31,34 +31,14 @@
             <a class="nav-link" routerLink="/chamado">Chamados</a>
           </div>
          </div>
-
-         <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" 
-             id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Listar</a>
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
-
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_lISTAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
-
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_lISTAR_ATENDENTE')"
-               (click)="tokenAtendente()">Atendentes</a>
-
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_COLABORADOR')"
-               (click)="tokenColaborador()">Colaboradores</a>
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_MODULO')" (click)="tokenModulo()">Módulos</a>
-            <a class="nav-link" routerLink="/chamado">Chamados</a>
-
-          </div>
-         </div>
-
       </ul>
 
       <ul class="nav navbar-nav ml-auto mr-5">
       </ul>
 
       <div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Usuário: {{usuarioAutenticado}}</a>
+        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" 
+        role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Usuário: {{usuarioAutenticado}}</a>
 
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -69,6 +49,3 @@
     </div>
   </nav>
 </div>
-
-
-
