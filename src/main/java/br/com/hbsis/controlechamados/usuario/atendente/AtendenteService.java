@@ -3,6 +3,7 @@ package br.com.hbsis.controlechamados.usuario.atendente;
 import br.com.hbsis.controlechamados.admin.Admin;
 import br.com.hbsis.controlechamados.admin.AdminService;
 import br.com.hbsis.controlechamados.permissao.Permissao;
+import br.com.hbsis.controlechamados.produtos.ProdutoDTO;
 import br.com.hbsis.controlechamados.produtos.ProdutoService;
 import br.com.hbsis.controlechamados.storage.Disco;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
@@ -10,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -173,6 +173,18 @@ public class AtendenteService {
 
         permissaoList.add(permissao);
 
+        Permissao permissao1 = new Permissao();
+        permissao1.setId(Long.parseLong("18"));
+        permissao1.setDescricao("ROLE_LISTAR_CHAMADOS");
+
+        permissaoList.add(permissao1);
+
+        Permissao permissao2 = new Permissao();
+        permissao2.setId(Long.parseLong("4"));
+        permissao2.setDescricao("ROLE_LISTAR_PRODUTO");
+
+        permissaoList.add(permissao2);
+
         Admin admin = new Admin();
         admin.setLogin(atendente.getEmail());
         admin.setSenha(atendente.getSenha());
@@ -181,5 +193,6 @@ public class AtendenteService {
         LOGGER.info("Executando save do admin...");
         this.adminService.saveNaRepositoryAdmin(admin);
     }
+
 }
 

@@ -44,4 +44,5 @@ public class AtendenteRest {
     public List<Atendente> findAll() {
         return this.iAtendenteRepository.findAll();
     }
+
 }

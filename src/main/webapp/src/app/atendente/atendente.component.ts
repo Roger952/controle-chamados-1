@@ -136,14 +136,6 @@ export class AtendenteComponent implements OnInit {
     this.filename = '';
   }
 
-  selectClick(produtos) {
-
-    const index = this.atendente.produtoList.indexOf(produtos, 0);
-    if (index > -1) {
-      this.atendente.produtoList.splice(index, 1);
-      this.atendente.produtoList.push(produtos);
-    }
-  }
 
   confirmacaoSenha(): boolean {
     const senhaConfirmacao = (<HTMLInputElement>document.getElementById('senhaConfirmacao')).value;
@@ -153,6 +145,15 @@ export class AtendenteComponent implements OnInit {
       this.erro = true;
       this.sucesso = false;
       return this.erro;
+    }
+  }
+
+  selectClickProduto(produtos) {
+
+    const index = this.atendente.produtoList.indexOf(produtos, 0);
+    if (index > -1) {
+      this.atendente.produtoList.splice(index, 1);
+      this.atendente.produtoList.push(produtos);
     }
   }
 }

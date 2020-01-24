@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -34,15 +33,20 @@ public class ModuloService {
                 produtoService.findByNome(nomeProduto));
     }
 
-    private void save(ModuloDTO moduloDTO) {
+    private ModuloDTO save(ModuloDTO moduloDTO) {
+
+        LOGGER.info("Salvando Módulo");
+        LOGGER.debug("Linha: {}", moduloDTO);
+
         Modulo modulo = new Modulo();
 
         modulo.setNomeModulo(moduloDTO.getNomeModulo());
         modulo.setProduto(produtoService.findByNome(moduloDTO.getNomeProduto()));
 
-        iModuloRepositoty.save(modulo);
+        modulo = this.iModuloRepositoty.save(modulo);
 
         LOGGER.info("Modulo salvado com sucesso!");
+        return moduloDTO.of(modulo);
     }
 
     public void saveAndImports(MultipartFile multipartFile) throws IOException {

@@ -97,6 +97,7 @@ export class ChamadoComponent implements OnInit {
   selectClickProdutos(produtos) {
 
     const index = this.chamado.produtoList.indexOf(produtos, 0);
+
     if (index > -1) {
       this.chamado.produtoList.splice(index, 1);
       this.chamado.produtoList.push(produtos);

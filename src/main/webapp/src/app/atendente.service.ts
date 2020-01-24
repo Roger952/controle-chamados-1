@@ -42,4 +42,5 @@ export class AtendenteService {
   getAtendenteList(): Observable<Atendente[]> {
     return this.http.get(`${this.baseUrl+'/atendente/findAll'}`);
   }
+  
 }

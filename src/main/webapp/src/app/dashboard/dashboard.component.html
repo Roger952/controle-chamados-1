@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="fluid">
   <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand"><img src="../../assets/hbsis-png.png" height="30"></a>
 
@@ -11,8 +11,14 @@
 
       <ul class="navbar-nav">
 
+        <li class="nav-item">
+          <a class="nav-link" (click)="tokenInicio()">Início</a>
+        </li>
+
+
         <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Cadastrar</a>
+          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" 
+               id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Cadastrar</a>
            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
@@ -27,7 +33,8 @@
          </div>
 
          <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Listar</a>
+          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" 
+             id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Listar</a>
            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
             <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
@@ -45,9 +52,7 @@
           </div>
          </div>
 
-
       </ul>
-
 
       <ul class="nav navbar-nav ml-auto mr-5">
       </ul>
@@ -64,3 +69,6 @@
     </div>
   </nav>
 </div>
+
+
+

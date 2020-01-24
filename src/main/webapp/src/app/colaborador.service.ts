@@ -37,22 +37,8 @@ export class ColaboradorService {
         return this.http.delete(`${this.baseUrl+'/colaborador/delete'}/${id}`, { responseType: 'text' });
    }
    getColaboradorFindBy(nome: string): Observable<Colaborador[]> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-    return this.http.get(`${this.baseUrl + '/findByNome'}/${nome}`, {headers});
+    return this.http.get(`${this.baseUrl + '/findByNome'}/${nome}`);
   }
-
-
-  /* FILE-UPLOAD */
-//   uploadImg(file: File): Observable<any>{
-
-//     console.log("Arquivo (file) dentro do método uploadimg: "+file.name);
-
-//     let url = this.baseUrl + '/colaborador/saveImagem';
-//     let formData: FormData = new FormData();
-//     formData.append('file', file);
-//     const headers = new HttpHeaders().append('Authorization', 'Bearer' + localStorage.getItem('token'));
-//     return this.http.post(url, formData, { headers });
-//   }
 
   getColaboradorList(): Observable<Colaborador[]> {
     return this.http.get(`${this.baseUrl+'/colaborador/findAll'}`);

@@ -5,6 +5,7 @@ import br.com.hbsis.controlechamados.admin.AdminService;
 import br.com.hbsis.controlechamados.empresa.Empresa;
 import br.com.hbsis.controlechamados.empresa.EmpresaService;
 import br.com.hbsis.controlechamados.permissao.Permissao;
+import br.com.hbsis.controlechamados.produtos.Produto;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

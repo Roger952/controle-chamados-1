@@ -110,7 +110,7 @@
                             <mat-select [(ngModel)]="atendente.produtoList" name="produtoList" [formControl]="produtos"
                                 multiple>
 
-                                <mat-option (click)="selectClick(produtos)" id="optionEscolha"
+                                <mat-option (click)="selectClickProduto(produtos)" id="optionEscolha"
                                     *ngFor="let produtos of produtoList" [value]="produtos">
                                     {{produtos.nome}}
                                 </mat-option>
