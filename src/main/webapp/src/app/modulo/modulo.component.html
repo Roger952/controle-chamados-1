@@ -2,7 +2,7 @@
 
 <div class="container rounded">
 
-  <div class="row titulo"><!--LINHA DO TÍTULO-->
+  <div class="row titulo">
     <div class="col-12">
       <h1>Cadastro de Módulo</h1>
     </div>
@@ -11,12 +11,12 @@
 
   <div class="row">
     <div class="col-12">
-      <form (ngSubmit)="onSubmit()"><!-- FORMULÁRIO -->
+      <form (ngSubmit)="onSubmit()">
 
         <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
         <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
 
-        <div class="alert alert-success" *ngIf='modelo'>
+        <div class="alert alert-primary" *ngIf='modelo'>
 
           <div class="row">
             <div class="col-8">
@@ -56,7 +56,7 @@
 
           </div>
         </div>
-      </form><!-- FORMULÁRIO -->
+      </form>
     </div>
   </div>
 </div>

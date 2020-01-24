@@ -5,6 +5,7 @@ import br.com.hbsis.controlechamados.admin.AdminService;
 import br.com.hbsis.controlechamados.empresa.Empresa;
 import br.com.hbsis.controlechamados.empresa.EmpresaService;
 import br.com.hbsis.controlechamados.permissao.Permissao;
+import br.com.hbsis.controlechamados.usuario.atendente.AtendenteDTO;
 import br.com.hbsis.controlechamados.utils.email.ValidatorEmail;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class ColaboradorService {
 
         validarEmail(colaboradorDTO.getEmail());
 
-        validarSenha(colaboradorDTO.getSenha());
+        validarSenha(colaboradorDTO);
 
         if (colaboradorDTO.getProdutoList() == null) {
             throw new IllegalArgumentException("Favor selecionar no mínimo um produto!");
@@ -57,7 +58,6 @@ public class ColaboradorService {
         if (colaboradorDTO.getEmpresa() == 0) {
             throw new IllegalArgumentException("Favor selecionar no mínimo uma empresa!");
         }
-
     }
 
     private void validarNome(String nome) {
@@ -81,6 +81,10 @@ public class ColaboradorService {
             throw new IllegalArgumentException("Padrão de e-mail inválido!");
         }
 
+        if(adminService.validateLogin(email)){
+            throw new IllegalArgumentException("E-mail já cadastrado!");
+        }
+
         if (email.length() > 100) {
             throw new IllegalArgumentException("E-mail deve conter no máximo 100 digitos!");
         }
@@ -93,18 +97,40 @@ public class ColaboradorService {
         }
     }
 
-    private void validarSenha(String senha) {
+    private void validarSenha(ColaboradorDTO colaboradorDTO) {
 
-        if (StringUtils.isBlank(senha)) {
+        if (StringUtils.isBlank(colaboradorDTO.getSenha())) {
             throw new IllegalArgumentException("Senha" + msgVazio);
         }
 
-        if (senha.length() < 8) {
-            throw new IllegalArgumentException("Senha deve ter no mínimo 8 digitos.");
+        if(colaboradorDTO.getSenha().length() > 30){
+            throw new IllegalArgumentException("Senha deve conter no máximo 30 digitos!");
+        }
+        if(colaboradorDTO.getSenha().length() < 8){
+            throw new IllegalArgumentException("Senha fraca: Possui menos de 8 digitos.");
         }
 
-        if (senha.length() > 100) {
-            throw new IllegalArgumentException("Senha deve conter no máximo 100 digitos!");
+        if(StringUtils.containsOnly(colaboradorDTO.getSenha().toLowerCase(), "qwertyuiopasdfghjklzxcvbnm")){
+            throw new IllegalArgumentException("Senha fraca: Possui apenas letras");
+        }
+
+        if(StringUtils.containsOnly(colaboradorDTO.getSenha(), "0123456789")){
+            throw new IllegalArgumentException("Senha fraca: Possui apenas numeros.");
+        }
+        if(!StringUtils.containsAny(colaboradorDTO.getSenha().toLowerCase(), "qwertyuiopasdfghjklzxcvbnm0123456789")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter letras e numeros.");
+        }
+        if(!StringUtils.containsAny(colaboradorDTO.getSenha(), "qwertyuiopasdfghjklzxcvbnm")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter letras minusculas e maiusculas.");
+        }
+        if(!StringUtils.containsAny(colaboradorDTO.getSenha(), "QWERTYUIOPASDFGHJKLZXCVBNM")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter letras maiusculas.");
+        }
+        if(!StringUtils.containsAny(colaboradorDTO.getSenha(), "0123456789")){
+            throw new IllegalArgumentException("Senha fraca: Precisa conter numeros.");
+        }
+        if(!StringUtils.containsAny(colaboradorDTO.getSenha(), "$&+,:;=?@#|'<>.^*()%!-")){
+            throw new IllegalArgumentException("Senha fraca: Senha precisa de caracteres especiais");
         }
     }
 
@@ -147,16 +173,22 @@ public class ColaboradorService {
     }
 
     public ColaboradorDTO update(ColaboradorDTO colaboradorDTO) {
-        validate(colaboradorDTO);
+
+        this.validate(colaboradorDTO);
 
         Colaborador colaboradorAtualizado = this.findColaboradorExistente(colaboradorDTO.getId());
 
+        String email = colaboradorAtualizado.getEmail();
+
+        colaboradorAtualizado.setNome(colaboradorDTO.getNome());
         colaboradorAtualizado.setEmail(colaboradorDTO.getEmail());
-        colaboradorAtualizado.setSenha(colaboradorDTO.getSenha());
+        colaboradorAtualizado.setSenha(passwordEncoder.encode(colaboradorDTO.getSenha()));
         colaboradorAtualizado.setEmpresa(this.findEmpresa(colaboradorDTO.getEmpresa()));
         colaboradorAtualizado.setProdutoList(colaboradorDTO.getProdutoList());
 
         colaboradorAtualizado = this.iColaboradorRepository.save(colaboradorAtualizado);
+
+        adminService.update(email, colaboradorAtualizado);
 
         return ColaboradorDTO.of(colaboradorAtualizado);
     }

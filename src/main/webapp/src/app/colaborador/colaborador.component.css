@@ -1,40 +1,39 @@
 /* CSS GERAL */
-
-.container {
+.container{
     margin-top: 30px;
     background-color: rgba(255, 255, 255, .8);
     padding: 20px 20px 20px 20px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-.container:nth-child(2) {
+.container:nth-child(2){
     margin-top: 80px;
 }
 
-.container:nth-child(3) {
+.container:nth-child(3){
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.titulo {
+.titulo{
     font-weight: bold;
     margin-bottom: 10px;
     color: rgb(26, 55, 68);
     text-align: center;
 }
 
-.alert {
+.alert{
     margin: 10px 0px 25px;
 }
 
-.underDiv {
+.underDiv{
     width: 100%;
     height: 2px;
     background-color: rgba(17, 17, 17, 0.5);
     margin-bottom: 30px;
 }
 
-.underDiv .underDivLeft {
+.underDiv .underDivLeft{
     position: absolute;
     right: 50%;
     width: 0px;
@@ -42,7 +41,7 @@
     background-color: #1D285A;
 }
 
-.underDiv .underDivRight {
+.underDiv .underDivRight{
     position: absolute;
     left: 50%;
     width: 0px;
@@ -50,18 +49,20 @@
     background-color: #1D285A;
 }
 
-.cadastrar {
+.cadastrar{
     width: 100%;
 }
 
-.input:valid+.label, .input:focus+.label {
+.input:valid + .label,
+.input:focus + .label {
     color: #1D285A;
     font-size: .8rem;
     top: -30px;
     pointer-events: none;
 }
 
-.input:focus~.underDiv .underDivLeft, .input:focus~.underDiv .underDivRight {
+.input:focus ~ .underDiv .underDivLeft,
+.input:focus ~ .underDiv .underDivRight{
     width: 47.5%;
     transition: .5s;
 }
@@ -80,8 +81,7 @@
 
 .label {
     top: 0;
-    left: 0;
-    right: 0;
+    left: 0; right: 0;
     color: rgba(17, 17, 17, 0.7);
     display: flex;
     align-items: center;
@@ -94,40 +94,29 @@
     font-weight: bold;
 }
 
-.input, .label {
-    width: 100%;
+.input,
+.label {
+    width: 88%;
     height: 3rem;
     font-size: 1rem;
 }
 
-/* PARTE DO FILE UPLOAD */
-
-#fileUpload {
+#fileUpload{
     background-color: #0069d9;
     color: white;
     padding-bottom: 35px !important;
 }
 
-#fileUpload:hover {
-    cursor: pointer;
+#labelEscolha{
+    color:grey;
 }
 
-.row-foto-h {
-    text-align: left;
-}
-
-/*SELECT PRODUTO*/
-
-#labelEscolha {
-    color: grey;
-}
-
-#optionEscolha {
+#optionEscolha{
     background-color: #3d3d3d;
     color: white;
 }
 
-.labelFotoEspec {
+.labelFotoEspec{
     color: rgb(86, 86, 86, 0.8);
     font-size: 16px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -136,12 +125,12 @@
     margin-bottom: 0px;
 }
 
-#checkEscolha {
-    margin-top: 20px;
+#checkEscolha{
+    margin-top: -10px !important;
     width: 100%;
 }
 
-::ng-deep .mat-select-value-text {
+::ng-deep .mat-select-value-text{
     color: #3d3d3d;
 }
 
@@ -149,27 +138,27 @@
     background-color: grey;
     height: 2px !important;
 }
-
-::ng-deep .mat-select-arrow {
+::ng-deep .mat-select-arrow{
     color: #3d3d3d;
 }
 
-table {
+table{
     text-align: center;
 }
 
-.info {
+.info{
     float: right;
-    margin-bottom: 0;
     cursor: help;
+    margin-top: 5px;
 }
 
-#searchBar {
+#searchBar{
     border-radius: 10px;
     outline: none;
 }
 
-#txt_consulta {
+#txt_consulta{
     outline: none;
     box-shadow: none;
+
 }

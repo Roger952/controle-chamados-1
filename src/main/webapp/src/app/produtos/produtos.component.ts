@@ -18,9 +18,12 @@ export class ProdutosComponent implements OnInit {
   erro = false;
   sucesso = false;
 
+  produtos: Produtos[];
+
   constructor(private produtoService: ProdutosService) { }
 
   ngOnInit() {
+    this.produtoService.getProdutosList().subscribe(data => { this.produtos = data}, error => { console.log("VAI TOMA NO CU") });
   }
 
   newProduto(): void {
@@ -35,6 +38,7 @@ export class ProdutosComponent implements OnInit {
         this.erro = false;
         this.sucesso = true;
         this.limpar();
+        this.produtoService.getProdutosList().subscribe(data => { this.produtos = data}, error => { console.log("VAI TOMA NO CU") });
     },
       (error) => {
         this.msgErro = error.error[0].mensagemDesenvolvedor;

@@ -6,6 +6,11 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
+.container:nth-child(3){
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .titulo{
     font-weight: bold;
     margin-bottom: 10px;
@@ -46,8 +51,12 @@
 
 .info{
     float: right;
-    margin-bottom: 0;
     cursor: help;
+    margin-top: 5px;
+}
+
+.info:nth-child(1){
+    margin-top: 0px;
 }
 
 .input:valid + .label,
@@ -93,27 +102,11 @@
 
 .input,
 .label {
-    width: 100%;
+    width: 88%;
     height: 3rem;
     font-size: 1rem;
 }
 
-/* PARTE DO FILE UPLOAD */
-#fileUpload{
-    background-color: #0069d9;
-    color: white;
-    padding-bottom: 35px !important;
-}
-
-#fileUpload:hover{
-    cursor: pointer;
-}
-
-.row-foto-h{
-    text-align: left;
-}
-
-/*SELECT PRODUTO*/
 #labelEscolha{
     color:grey;
 }
@@ -121,21 +114,6 @@
 #optionEscolha{
     background-color: #3d3d3d;
     color: white;
-}
-
-.labelFotoEspec{
-    color: rgb(86, 86, 86, 0.8);
-    font-size: 16px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-left: 5px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-#h3Foto{
-    text-align: center;
-    color: rgba(44, 44, 44, 0.8);
-    font-size: 1.2rem;
 }
 
 #checkEscolha{
@@ -155,4 +133,21 @@
     color: #3d3d3d;
 }
 
+::ng-deep .mat-form-field-infix{
+    margin-top: 10px !important;
+}
+
+table{
+    text-align: center;
+}
+
+.foto-opc{
+    margin: 0px;
+    color: rgba(17, 17, 17, 0.7);
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-weight: bold;
+}
 

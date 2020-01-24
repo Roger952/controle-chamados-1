@@ -13,6 +13,8 @@ import { Produtos } from '../produtos';
 })
 export class AtendenteComponent implements OnInit {
 
+  atendentes: Atendente[];
+
   atendente: Atendente = new Atendente();
   submitted = false;
 
@@ -41,12 +43,8 @@ export class AtendenteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.produtoService.getProdutosList().subscribe(
-      data => {
-        this.produtoList = data;
-      }, error => {
-        console.log(error);
-      });
+    this.produtoService.getProdutosList().subscribe(data => { this.produtoList = data; }, error => { console.log(error); });
+    this.atendenteService.getAtendenteList().subscribe(data => { this.atendentes = data; }, error => { console.log(error); });
   }
 
   verificarFile() {
@@ -105,7 +103,7 @@ export class AtendenteComponent implements OnInit {
           this.erro = false;
           this.sucesso = true;
           this.limpar();
-
+          this.atendenteService.getAtendenteList().subscribe(data => { this.atendentes = data; }, error => { console.log(error); });
         },
         (error) => {
           this.msgErro = error.error[0].mensagemDesenvolvedor;

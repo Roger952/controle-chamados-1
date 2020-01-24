@@ -8,59 +8,41 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
-
       <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" (click)="tokenInicio()">Início</a>
+        </li>
 
-        <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Cadastrar</a>
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_ATENDENTE')"
-               (click)="tokenAtendente()">Atendentes</a>
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_COLABORADOR')"
-               (click)="tokenColaborador()">Colaboradores</a>
+        <li class="nav-item">
+          <a class="nav-link"  *ngIf="auth.temPermissao('ROLE_CADASTRAR_ATENDENTE')" (click)="tokenAtendente()">Atendentes</a>
+        </li>
 
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_MODULO')" (click)="tokenModulo()">Módulos</a>
-            <a class="nav-link" routerLink="/chamado">Chamados</a>
-          </div>
-         </div>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_COLABORADOR')" (click)="tokenColaborador()">Colaboradores</a>
+        </li>
 
-         <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Listar</a>
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
+        </li>
 
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_PRODUTO')" (click)="tokenProduto()">Produtos</a>
+        </li>
 
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_lISTAR_EMPRESA')" (click)="tokenEmpresa()">Empresas</a>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_MODULO')" (click)="tokenModulo()">Módulos</a>
+        </li>
 
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_lISTAR_ATENDENTE')"
-               (click)="tokenAtendente()">Atendentes</a>
-
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_COLABORADOR')"
-               (click)="tokenColaborador()">Colaboradores</a>
-            <a class="nav-link" *ngIf="auth.temPermissao('ROLE_LISTAR_MODULO')" (click)="tokenModulo()">Módulos</a>
-            <a class="nav-link" routerLink="/chamado">Chamados</a>
-
-          </div>
-         </div>
-
-
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="auth.temPermissao('ROLE_CADASTRAR_CHAMADOS')" (click)="tokenChamado()">Chamados</a>
+        </li>
       </ul>
-
 
       <ul class="nav navbar-nav ml-auto mr-5">
+        <li class="nav-item">
+          <a class="nav-link sair" (click)="logout();">Sair</a>
+        </li>
       </ul>
-
-      <div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink"  aria-expanded="false" aria-haspopup="true" >Usuário: {{usuarioAutenticado}}</a>
-
-
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item"(click)="logout();">Sair</a>
-
-        </div>
-      </div>
     </div>
   </nav>
 </div>

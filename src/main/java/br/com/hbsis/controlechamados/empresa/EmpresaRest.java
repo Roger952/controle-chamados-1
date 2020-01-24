@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -37,6 +38,12 @@ public class EmpresaRest {
     @PreAuthorize("hasRole('ROLE_DELETAR_EMPRESA')")
     public void delete(@PathVariable("id") Long id) {
         this.empresaService.delete(id);
+    }
+
+    @GetMapping("/findById/{id}")
+    @PreAuthorize("hasRole('ROLE_LISTAR_EMPRESA')")
+    public Optional<Empresa> findById(@PathVariable("id") Long id){
+        return this.iEmpresaRepository.findById(id);
     }
 }
 

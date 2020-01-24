@@ -9,7 +9,6 @@ import { Atendente } from '../atendente';
 import { AuthService } from '../seguranca/auth.service';
 import { Chamado } from '../chamado';
 import { ChamadoService } from '../chamado.service';
-import { AuthService } from '../seguranca/auth.service';
 
 @Component({
   selector: 'app-inicio',

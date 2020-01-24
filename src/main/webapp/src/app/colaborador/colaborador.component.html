@@ -4,15 +4,21 @@
     <div class="row">
 
         <div class="col-12">
-            <div class="row titulo">
+            <div class="row titulo" *ngIf="cadastro">
                 <div class="col-12">
                     <h1>Cadastro de Colaboradores</h1>
                 </div>
             </div>
 
+            <div class="row titulo" *ngIf="alteracao">
+                <div class="col-12">
+                    <h1>Editar Colaboradores</h1>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-12">
-                    <form #colaboradorForm="ngForm" (ngSubmit)="onSubmit()">
+                    <form *ngIf="cadastro" #colaboradorForm="ngForm" (ngSubmit)="onSubmit()">
 
                         <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
                         <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
@@ -94,7 +100,7 @@
                             <div class="col-6">
                                 <mat-form-field id="checkEscolha" color="accent">
                                     <mat-label id="labelEscolha">Selecione Empresa</mat-label>
-                                    <mat-select [(ngModel)]="colaborador.empresaId" name="empresaId"
+                                    <mat-select [(ngModel)]="colaborador.empresa" name="empresaId"
                                         [formControl]="empresas">
                                         <mat-option title="{{empresas.razaoSocial}}" (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
                                             [value]="empresas.id" id='empresasId'>
@@ -106,9 +112,113 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-12">
                                 <button class="btn cadastrar btn-dark">Cadastrar Colaborador</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form *ngIf="alteracao" #colaboradorForm="ngForm" (ngSubmit)="update()">
+
+                        <div class="alert alert-danger" *ngIf='erro'>{{msgErro}}</div>
+                        <div class="alert alert-success" *ngIf='sucesso'>{{msgSucesso}}</div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input autocomplete="off" [value]="nome" id="nome" class="input" type="text"
+                                    pattern=".+" required [(ngModel)]="colaborador2.nome" name="nome" maxlength="100">
+                                <label class="label" for="nome">Nome</label>
+
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input autocomplete="off" [value]="email" id="email" class="input" type="text"
+                                    pattern=".+" required [(ngModel)]="colaborador2.email" name="email" maxlength="50" />
+                                <label class="label" for="email">Email</label>
+
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input autocomplete="off" [value]="senha" id="senha" class="input" type="password"
+                                    pattern=".+" required [(ngModel)]="colaborador2.senha" name="senha" maxlength="30" />
+                                <label class="label" for="senha">Senha</label>
+
+                                <span class="btn info text-center"
+                                    ngbPopover="A senha deve conter no mínimo 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
+                                    triggers="mouseenter:mouseleave" popoverTitle="O que sua senha precisa ter?">
+                                    <img src="../../assets/info-icon.png" width="20" height="20">
+                                </span>
+
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input autocomplete="off" id="senhaConfirmacaoAlter" class="input" type="password"
+                                    pattern=".+" required name="senhaConfirmacaoAlter" maxlength="30" />
+                                <label class="label" for="senhaConfirmacaoAlter">Confirmação Senha</label>
+
+                                <div class="underDiv">
+                                    <div class="underDivLeft"></div>
+                                    <div class="underDivRight"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+
+                                <mat-form-field id="checkEscolha" color="accent">
+                                    <mat-label id="labelEscolha">Selecione Produtos</mat-label>
+                                    <mat-select [(ngModel)]="colaborador2.produtoList" name="produtoList"
+                                        [formControl]="produtos" multiple [compareWith]="compararProdutos">
+
+                                        <mat-option (click)="selectClickProduto(produtos)" id="optionEscolha"
+                                            *ngFor="let produtos of produtoList" [value]="produtos">
+                                            {{produtos.nome}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-6">
+                                <mat-form-field id="checkEscolha" color="accent">
+                                    <mat-label id="labelEscolha">Selecione Empresa</mat-label>
+                                    <mat-select [(ngModel)]="colaborador2.empresa" name="empresaId"
+                                        [formControl]="empresas">
+                                        <mat-option title="{{empresas.razaoSocial}}" (click)="selectEmpresa()" *ngFor="let empresas of empresasList"
+                                            [value]="empresas.id" id='empresasId'>
+                                            {{empresas.razaoSocial}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="row" >
+                            <div class="col-6">
+                                <button class="btn cadastrar btn-dark">Alterar Colaborador</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn cadastrar btn-danger" (click)="cancelar()">Cancelar</button>
                             </div>
                         </div>
 
@@ -157,7 +267,7 @@
                         <tr *ngFor="let colaborador of colaboradores">
                             <td>{{colaborador.id}}</td>
                             <td>{{colaborador.nome}}</td>
-                            <td><button class="btn btn-success">Editar</button></td>
+                            <td><button class="btn btn-success" (click)="preencherCampos(colaborador)">Editar</button></td>
                         </tr>
                     </tbody>
                 </table>
